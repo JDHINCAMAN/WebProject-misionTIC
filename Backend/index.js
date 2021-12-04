@@ -41,5 +41,5 @@ const server = new ApolloServer({
 
 // arrancar el servidor
 server.listen({
-  port: 3001
+  port: 4000,
 })

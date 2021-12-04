@@ -81,7 +81,6 @@ const typeDefs = gql`
     crearUsuario(input: UsuarioInput): Usuario
     autenticarUsuario(input: AutenticarInput): Token
     CrearProyecto(input: ProyectoInput): Proyecto
-
   }
 `;
 
