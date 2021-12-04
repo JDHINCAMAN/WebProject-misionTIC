@@ -1,4 +1,5 @@
 const Usuario = require("../models/Usuario");
+const Proyecto = require("../models/Proyecto");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "variables.env" });
@@ -18,7 +19,24 @@ const resolvers = {
     },
   },
 
+  Query: {
+    obtenerProyecto: async (_, { nombreProyecto }) => {
+     return Proyecto.find(proyect => proyect.nombreProyecto == nombreProyecto)
+    },
+  },
+
   Mutation: {
+    CrearProyecto: async (_, { input }) => {
+      try {
+        // Guardarlo en la base de datos
+        const proyect = new Proyecto(input);
+        proyect.save(); // guardarlo
+        return proyect;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     crearUsuario: async (_, { input }) => {
       const { email, password } = input;
 

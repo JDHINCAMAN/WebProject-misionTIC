@@ -11,8 +11,6 @@ const jwt = require('jsonwebtoken')
 // conectar a la base de datos
 conectarDB();
 
-
-
 // servidor
 const server = new ApolloServer({
   typeDefs,
@@ -42,6 +40,6 @@ const server = new ApolloServer({
 });
 
 // arrancar el servidor
-server.listen().then(({ url }) => {
-  console.log(`servidor corriendo en ${url}`);
-});
+server.listen({
+  port: 3001
+})
