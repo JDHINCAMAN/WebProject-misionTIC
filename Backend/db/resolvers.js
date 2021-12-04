@@ -20,11 +20,12 @@ const resolvers = {
 
   Mutation: {
     crearUsuario: async (_, { input }) => {
-      const { email, password } = input;
+      const { email, password, identificacion } = input;
 
       // Revisar si el usuario ya esta registrado
       const existeUsuario = await Usuario.findOne({ email });
-      if (existeUsuario) {
+      const existeUsuarioIdentificacion =  await Usuario.findOne({ identificacion});
+      if (existeUsuario || existeUsuarioIdentificacion) {
         throw new Error("El usuario ya esta registrado");
       }
 
