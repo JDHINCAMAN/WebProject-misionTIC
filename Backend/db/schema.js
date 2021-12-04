@@ -2,12 +2,6 @@ const { gql } = require("apollo-server");
 
 // schema
 const typeDefs = gql`
-  enum faseProyecto{
-    Iniciado
-    en desarrollo
-    Terminado
-  }
-
   type Usuario {
     id: ID
     nombre: String
@@ -24,7 +18,7 @@ const typeDefs = gql`
     nombreProyecto: String
     objetivoGeneral: String
     objetivosEspecificos: [String]
-    presupuesto: Int
+    presupuesto: Float
     fechaInicio: String
     fechaFin: String
     estadoProyecto: Boolean
@@ -35,9 +29,15 @@ const typeDefs = gql`
     nombreProyecto: String!
     objetivoGeneral: String!
     objetivosEspecificos: [String!]
-    presupuesto: Int!
+    presupuesto: Float!
     estadoProyecto: Boolean!
     faseProyecto: faseProyecto!
+  }
+
+  enum faseProyecto{
+    INICIADO
+    EN DESARROLLO
+    TERMINADO
   }
 
   type Token {

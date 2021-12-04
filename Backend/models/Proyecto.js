@@ -12,7 +12,7 @@ const ProyectoSchema = mongoose.Schema({
         trim: true,
     },
     objetivosEspecificos: {
-        type: [String],
+        type: Array,
         required: true,
         trim: true,
     },
