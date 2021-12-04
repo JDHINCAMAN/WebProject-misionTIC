@@ -11,6 +11,11 @@ const UsuariosSchema = mongoose.Schema({
         required: true,
         trim: true,
     },
+    identificacion: {
+        type: String,
+        required: true,
+        trim: true,
+    },
     email: {
         type: String,
         required: true,
@@ -21,6 +26,17 @@ const UsuariosSchema = mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+    },
+    rol: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    estado: {
+        type: String,
+        required: true,
+        trim: true,
+        default: 'PENDIENTE'
     },
     creado: {
         type: Date,
