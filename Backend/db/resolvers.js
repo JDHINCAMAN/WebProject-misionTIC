@@ -2,6 +2,7 @@ const Usuario = require("../models/Usuario");
 const Proyecto = require("../models/Proyecto");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Inscripcion = require("../models/Inscripcion");
 require("dotenv").config({ path: "variables.env" });
 
 const crearToken = (usuario, secret, expiresIn) => {
@@ -21,11 +22,30 @@ const resolvers = {
 
   Query: {
     obtenerProyecto: async (_, { nombreProyecto }) => {
-     return Proyecto.find(proyect => proyect.nombreProyecto == nombreProyecto)
+      return Proyecto.find(
+        (proyect) => proyect.nombreProyecto == nombreProyecto
+      );
+    },
+  },
+
+  Query: {
+    obtenerInscripcion: async (_, { id }) => {
+      const insProyect = await Inscripcion.findById(id);
+      return insProyect;
     },
   },
 
   Mutation: {
+    crearInscripcion: async (_, { input }) => {
+      try {
+        const newInscription = new Inscripcion(input);
+        newInscription.save();
+        return newInscription;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
     CrearProyecto: async (_, { input }) => {
       try {
         // Guardarlo en la base de datos
@@ -42,7 +62,9 @@ const resolvers = {
 
       // Revisar si el usuario ya esta registrado
       const existeUsuario = await Usuario.findOne({ email });
-      const existeUsuarioIdentificacion =  await Usuario.findOne({ identificacion});
+      const existeUsuarioIdentificacion = await Usuario.findOne({
+        identificacion,
+      });
       if (existeUsuario || existeUsuarioIdentificacion) {
         throw new Error("El usuario ya esta registrado");
       }

@@ -25,6 +25,23 @@ const typeDefs = gql`
     faseProyecto: faseProyecto
   }
 
+  type Inscripcion {
+    id: ID
+    proyecto: ID
+    estudiante: ID
+    estado: Boolean
+    fechaIngreso: String
+    fechaEgreso: String
+  }
+
+  input InscripcionInput {
+    proyecto: ID!
+    estudiante: ID!
+    estado: Boolean
+    fechaIngreso: String
+    fechaEgreso: String
+  }
+
   input ProyectoInput {
     nombreProyecto: String!
     objetivoGeneral: String!
@@ -34,9 +51,10 @@ const typeDefs = gql`
     faseProyecto: faseProyecto!
   }
 
-  enum faseProyecto{
+  enum faseProyecto {
     INICIADO
-    EN DESARROLLO
+    EN
+    DESARROLLO
     TERMINADO
   }
 
@@ -74,13 +92,14 @@ const typeDefs = gql`
     #Usuarios
     obtenerUsuario(token: String!): Usuario
     obtenerProyecto(nombreProyecto: String!): Proyecto
-
+    obtenerInscripcion(id: String!): Inscripcion
   }
 
   type Mutation {
     crearUsuario(input: UsuarioInput): Usuario
     autenticarUsuario(input: AutenticarInput): Token
     CrearProyecto(input: ProyectoInput): Proyecto
+    crearInscripcion(input: InscripcionInput): Inscripcion
   }
 `;
 
