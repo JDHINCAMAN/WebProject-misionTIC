@@ -6,7 +6,10 @@ const typeDefs = gql`
     id: ID
     nombre: String
     apellido: String
+    identificacion: String
     email: String
+    rol: String
+    estado: String
     creado: String
   }
 
@@ -15,10 +18,24 @@ const typeDefs = gql`
   }
 
   input UsuarioInput {
+    identificacion: String!
+    rol: RolUsuario!
     nombre: String!
     apellido: String!
     email: String!
     password: String!
+  }
+
+  enum RolUsuario {
+    ADMINISTRADOR
+    LIDER
+    ESTUDIANTE
+  }
+
+  enum EstadoUsuario {
+    AUTORIZADO
+    NO_AUTORIZADO
+    PENDIENTE
   }
 
   input AutenticarInput {
