@@ -2,6 +2,7 @@ const Usuario = require("../models/Usuario");
 const Proyecto = require("../models/Proyecto");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Inscripcion = require("../models/Inscripcion");
 require("dotenv").config({ path: "variables.env" });
 
 const crearToken = (usuario, secret, expiresIn) => {
@@ -53,9 +54,24 @@ const resolvers = {
       });
       return proyectos;
     },
+    // Inscripciones
+    obtenerInscripcion: async (_, { id }) => {
+      const insProyect = await Inscripcion.findById(id);
+      return insProyect;
+    },
   },
 
   Mutation: {
+    crearInscripcion: async (_, { input }) => {
+      try {
+        const newInscription = new Inscripcion(input);
+        newInscription.save();
+        return newInscription;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
     CrearProyecto: async (_, { input }) => {
       const { lider } = input;
       // revisar que el lider exista
@@ -106,7 +122,6 @@ const resolvers = {
     },
 
     actualizarUsuario: async (_, { id, input }, ctx) => {
-
       const { password } = input;
 
       // verificar si el usuario existe
@@ -184,15 +199,11 @@ const resolvers = {
         throw new Error("El proyecto no existe");
       }
       // actualizar el estado
-      const nuevoProyecto = await Proyecto.findByIdAndUpdate(
-        id,
-        input,
-        {
-          new: true,
-        }
-      );
+      const nuevoProyecto = await Proyecto.findByIdAndUpdate(id, input, {
+        new: true,
+      });
       return nuevoProyecto;
-    }
+    },
   },
 };
 

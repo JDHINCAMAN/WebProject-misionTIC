@@ -26,6 +26,23 @@ const typeDefs = gql`
     lider: ID
   }
 
+  type Inscripcion {
+    id: ID
+    proyecto: ID
+    estudiante: ID
+    estado: Boolean
+    fechaIngreso: String
+    fechaEgreso: String
+  }
+
+  input InscripcionInput {
+    proyecto: ID!
+    estudiante: ID!
+    estado: Boolean
+    fechaIngreso: String
+    fechaEgreso: String
+  }
+
   input ProyectoInput {
     nombreProyecto: String!
     objetivoGeneral: String!
@@ -46,9 +63,10 @@ const typeDefs = gql`
     lider: ID
   }
 
-  enum faseProyecto{
+  enum faseProyecto {
     INICIADO
-    EN DESARROLLO
+    EN
+    DESARROLLO
     TERMINADO
   }
 
@@ -91,6 +109,8 @@ const typeDefs = gql`
     obtenerProyecto(nombreProyecto: String!): Proyecto
     obtenerProyectos: [Proyecto]
     obternerProyectosPorLider(id: ID!): [Proyecto]
+    obtenerProyecto(nombreProyecto: String!): Proyecto
+    obtenerInscripcion(id: String!): Inscripcion
   }
 
   type Mutation {
@@ -104,6 +124,8 @@ const typeDefs = gql`
     CrearProyecto(input: ProyectoInput!): Proyecto
     actualizarProyectoEstado(id: ID!, input: ActualizarProyectoInput!): Proyecto
 
+    CrearProyecto(input: ProyectoInput): Proyecto
+    crearInscripcion(input: InscripcionInput): Inscripcion
   }
 `;
 
