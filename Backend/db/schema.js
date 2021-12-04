@@ -23,6 +23,7 @@ const typeDefs = gql`
     fechaFin: String
     estadoProyecto: Boolean
     faseProyecto: faseProyecto
+    lider: ID
   }
 
   input ProyectoInput {
@@ -32,6 +33,17 @@ const typeDefs = gql`
     presupuesto: Float!
     estadoProyecto: Boolean!
     faseProyecto: faseProyecto!
+    lider: ID!
+  }
+
+  input ActualizarProyectoInput {
+    nombreProyecto: String
+    objetivoGeneral: String
+    objetivosEspecificos: [String]
+    presupuesto: Float
+    estadoProyecto: Boolean
+    faseProyecto: faseProyecto
+    lider: ID
   }
 
   enum faseProyecto{
@@ -73,14 +85,25 @@ const typeDefs = gql`
   type Query {
     #Usuarios
     obtenerUsuario(token: String!): Usuario
-    obtenerProyecto(nombreProyecto: String!): Proyecto
+    obtenerUsuarios: [Usuario]
 
+    #Proyectos
+    obtenerProyecto(nombreProyecto: String!): Proyecto
+    obtenerProyectos: [Proyecto]
+    obternerProyectosPorLider(id: ID!): [Proyecto]
   }
 
   type Mutation {
+    #Usuarios
     crearUsuario(input: UsuarioInput): Usuario
     autenticarUsuario(input: AutenticarInput): Token
-    CrearProyecto(input: ProyectoInput): Proyecto
+    actualizarUsuario(id: ID!, input: UsuarioInput): Usuario
+    actualizarUsuarioEstado(id: ID!, estado: EstadoUsuario!): Usuario
+
+    #Proyectos
+    CrearProyecto(input: ProyectoInput!): Proyecto
+    actualizarProyectoEstado(id: ID!, input: ActualizarProyectoInput!): Proyecto
+
   }
 `;
 

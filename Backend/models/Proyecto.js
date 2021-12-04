@@ -36,6 +36,11 @@ const ProyectoSchema = mongoose.Schema({
     faseProyecto: {
         type: String,
         required: true,
+    },
+    lider: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        trim: true,
     }
 });
 
