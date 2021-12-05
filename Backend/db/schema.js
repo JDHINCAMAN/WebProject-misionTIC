@@ -106,7 +106,9 @@ const typeDefs = gql`
     obtenerProyecto(nombreProyecto: String!): Proyecto
     obtenerProyectos: [Proyecto]
     obternerProyectosPorLider: [Proyecto]
+
     obtenerInscripcion(id: String!): Inscripcion
+    obtenerInscripcionesLider: [Inscripcion]
   }
 
   type Mutation {
@@ -119,6 +121,7 @@ const typeDefs = gql`
     #Proyectos
     CrearProyecto(input: ProyectoInput!): Proyecto
     actualizarProyectoEstado(id: ID!, input: ActualizarProyectoInput!): Proyecto
+    actualizarProyectoLider(id: ID!, input: ProyectoInput!): Proyecto
     crearInscripcion(input: InscripcionInput!): Inscripcion
   }
 `;

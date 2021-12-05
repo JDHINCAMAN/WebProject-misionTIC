@@ -33,7 +33,7 @@ const resolvers = {
       const usuarios = await Usuario.find({});
       return usuarios;
     },
-    
+
     obtenerUsuariosPorRol: async (_, { rol }, ctx) => {
       //validar que el usuario logeado sea lider
       if (ctx.usuario.rol !== "LIDER") {
@@ -43,7 +43,6 @@ const resolvers = {
       const usuarios = await Usuario.find({ rol });
       return usuarios;
     },
-
 
     // Proyectos
 
@@ -74,13 +73,31 @@ const resolvers = {
       const insProyect = await Inscripcion.findById(id);
       return insProyect;
     },
+
+    obtenerInscripcionesLider: async (_, {}, ctx) => {
+      // verificar que el usuario logeado sea lider
+      if (ctx.usuario.rol !== "LIDER") {
+        throw new Error("No estas autorizado");
+      }
+
+      // obtener las inscripcionnes a proyectos que lidera el usario logeado
+      const proyectos = await Proyecto.find({
+        lider: ctx.usuario.id,
+      });
+      const inscripciones = await Inscripcion.find({
+        proyecto: { $in: proyectos },
+      });
+      return inscripciones;
+    },
   },
 
   Mutation: {
     crearInscripcion: async (_, { input }, ctx) => {
       // validar que el usuario logeado sea estudiante
       if (ctx.usuario.rol !== "ESTUDIANTE") {
-        throw new Error("No estas autorizado como estudiante para hacer la inscripcion");
+        throw new Error(
+          "No estas autorizado como estudiante para hacer la inscripcion"
+        );
       }
 
       //validar que el estudiante este en estado autorizado
@@ -106,7 +123,7 @@ const resolvers = {
       try {
         // Guardarlo en la base de datos
         const proyect = new Proyecto(input);
-        
+
         // Asignar el lider al proyecto
         proyect.lider = ctx.usuario.id;
         proyect.save();
@@ -220,6 +237,28 @@ const resolvers = {
         throw new Error("El proyecto no existe");
       }
       // actualizar el estado
+      const nuevoProyecto = await Proyecto.findByIdAndUpdate(id, input, {
+        new: true,
+      });
+      return nuevoProyecto;
+    },
+
+    actualizarProyectoLider: async (_, { id, input }, ctx) => {
+      // validar que el usuario logeado sea lider
+      if (ctx.usuario.rol !== "LIDER") {
+        throw new Error("No estas autorizado");
+      }
+      // validar que el proyecto exista
+      const proyecto = await Proyecto.findById(id);
+      if (!proyecto) {
+        throw new Error("El proyecto no existe");
+      }
+
+      //verificar que el proyectto lo lidere el usuario logeado
+      if (proyecto.lider.toString() !== ctx.usuario.id.toString()) {
+        throw new Error("No estas autorizado para editar este proyecto");
+      }
+      // actulizar el proyecto
       const nuevoProyecto = await Proyecto.findByIdAndUpdate(id, input, {
         new: true,
       });
