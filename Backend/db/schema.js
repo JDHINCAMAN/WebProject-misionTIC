@@ -105,7 +105,7 @@ const typeDefs = gql`
     #Proyectos
     obtenerProyecto(nombreProyecto: String!): Proyecto
     obtenerProyectos: [Proyecto]
-    obternerProyectosPorLider(id: ID!): [Proyecto]
+    obternerProyectosPorLider: [Proyecto]
     obtenerInscripcion(id: String!): Inscripcion
   }
 
