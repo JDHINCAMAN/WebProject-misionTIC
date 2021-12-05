@@ -18,10 +18,12 @@ const crearToken = (usuario, secret, expiresIn) => {
 // resolvers
 const resolvers = {
   Query: {
+    // Usuarios
     obtenerUsuario: async (_, { token }, ctx) => {
       const usuarioId = await jwt.verify(token, process.env.JWT_SECRET);
       return usuarioId;
     },
+
     obtenerUsuarios: async (_, {}, ctx) => {
       // validar que el usuario logeado sea administrador
       if (ctx.usuario.rol !== "ADMINISTRADOR") {
@@ -31,6 +33,19 @@ const resolvers = {
       const usuarios = await Usuario.find({});
       return usuarios;
     },
+    
+    obtenerUsuariosPorRol: async (_, { rol }, ctx) => {
+      //validar que el usuario logeado sea lider
+      if (ctx.usuario.rol !== "LIDER") {
+        throw new Error("No estas autorizado");
+      }
+      // obtener los usuarios
+      const usuarios = await Usuario.find({ rol });
+      return usuarios;
+    },
+
+
+    // Proyectos
 
     obtenerProyecto: async (_, { nombreProyecto }) => {
       return Proyecto.find(
