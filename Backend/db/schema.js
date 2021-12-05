@@ -107,6 +107,7 @@ const typeDefs = gql`
     obtenerProyectos: [Proyecto]
     obternerProyectosPorLider: [Proyecto]
 
+    #Inscripciones
     obtenerInscripcion(id: String!): Inscripcion
     obtenerInscripcionesLider: [Inscripcion]
   }
@@ -122,7 +123,10 @@ const typeDefs = gql`
     CrearProyecto(input: ProyectoInput!): Proyecto
     actualizarProyectoEstado(id: ID!, input: ActualizarProyectoInput!): Proyecto
     actualizarProyectoLider(id: ID!, input: ProyectoInput!): Proyecto
+
+    #Inscripciones
     crearInscripcion(input: InscripcionInput!): Inscripcion
+    actualizarInscripcionEstado(id: ID!, estado: Boolean!): Inscripcion
   }
 `;
 

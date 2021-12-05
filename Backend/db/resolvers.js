@@ -92,29 +92,6 @@ const resolvers = {
   },
 
   Mutation: {
-    crearInscripcion: async (_, { input }, ctx) => {
-      // validar que el usuario logeado sea estudiante
-      if (ctx.usuario.rol !== "ESTUDIANTE") {
-        throw new Error(
-          "No estas autorizado como estudiante para hacer la inscripcion"
-        );
-      }
-
-      //validar que el estudiante este en estado autorizado
-      if (ctx.usuario.estado !== "AUTORIZADO") {
-        throw new Error("No estas autorizado para hacer la inscripcion");
-      }
-
-      // guardar en base de datos
-      try {
-        const newInscription = new Inscripcion(input);
-        newInscription.save();
-        return newInscription;
-      } catch (e) {
-        console.log(e);
-      }
-    },
-
     CrearProyecto: async (_, { input }, ctx) => {
       // validar que el usuario logeado sea lider
       if (ctx.usuario.rol !== "LIDER") {
@@ -263,6 +240,67 @@ const resolvers = {
         new: true,
       });
       return nuevoProyecto;
+    },
+
+    //Inscripciones
+    crearInscripcion: async (_, { input }, ctx) => {
+      // validar que el usuario logeado sea estudiante
+      if (ctx.usuario.rol !== "ESTUDIANTE") {
+        throw new Error(
+          "No estas autorizado como estudiante para hacer la inscripcion"
+        );
+      }
+
+      //validar que el estudiante este en estado autorizado
+      if (ctx.usuario.estado !== "AUTORIZADO") {
+        throw new Error("No estas autorizado para hacer la inscripcion");
+      }
+
+      // guardar en base de datos
+      try {
+        const newInscription = new Inscripcion(input);
+        newInscription.save();
+        return newInscription;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    
+    actualizarInscripcionEstado: async (_, { id, estado }, ctx) => {
+      //validar que el usuario logueado sea el lider 
+      if (ctx.usuario.rol !== "LIDER") {
+        throw new Error("No estas autorizado");
+      }
+
+      // obtenerInscripcion
+      const inscripcion = await Inscripcion.findById(id);
+      if (!inscripcion) {
+        throw new Error("La inscripcion no existe");
+      }
+
+      // validar que el estudiante de la incripcion este autorizado
+      const estudiante = await Usuario.findById(inscripcion.estudiante);
+      if (estudiante.estado !== "AUTORIZADO") {
+        throw new Error("El estudiante no esta autorizado");
+      }
+
+
+
+      // validar que el usuario logeado sea el lider del proyecto
+      const proyecto = await Proyecto.findById(inscripcion.proyecto);
+
+      if (proyecto.lider.toString() !== ctx.usuario.id.toString()) {
+        throw new Error("No estas autorizado para editar esta inscripcion");
+      }
+
+      // actualizar el estado
+      const nuevaInscripcion = await Inscripcion.findByIdAndUpdate(id, {
+        estado,
+      }
+      , {
+        new: true,
+        });
+      return nuevaInscripcion;
     },
   },
 };
