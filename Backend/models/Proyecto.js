@@ -31,11 +31,12 @@ const ProyectoSchema = mongoose.Schema({
     },
     estadoProyecto: {
         type: Boolean,
+        default: false,
         required: true,
     },
     faseProyecto: {
         type: String,
-        required: true,
+        default: null,
     },
     lider: {
         type: mongoose.Schema.Types.ObjectId,

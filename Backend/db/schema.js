@@ -48,9 +48,6 @@ const typeDefs = gql`
     objetivoGeneral: String!
     objetivosEspecificos: [String!]
     presupuesto: Float!
-    estadoProyecto: Boolean!
-    faseProyecto: faseProyecto!
-    lider: ID!
   }
 
   input ActualizarProyectoInput {
@@ -65,8 +62,7 @@ const typeDefs = gql`
 
   enum faseProyecto {
     INICIADO
-    EN
-    DESARROLLO
+    EN_DESARROLLO
     TERMINADO
   }
 

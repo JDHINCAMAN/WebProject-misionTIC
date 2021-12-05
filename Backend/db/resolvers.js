@@ -98,23 +98,18 @@ const resolvers = {
       }
     },
 
-    CrearProyecto: async (_, { input }) => {
-      const { lider } = input;
-      // revisar que el lider exista
-      const liderExiste = await Usuario.findById(lider);
-      if (!liderExiste) {
-        throw new Error("El lider no esta reistrado");
+    CrearProyecto: async (_, { input }, ctx) => {
+      // validar que el usuario logeado sea lider
+      if (ctx.usuario.rol !== "LIDER") {
+        throw new Error("No estas autorizado");
       }
-
-      // revisar que el usuario tenga el rol de lider
-      if (liderExiste.rol !== "LIDER") {
-        throw new Error("El usuario no es lider");
-      }
-
       try {
         // Guardarlo en la base de datos
         const proyect = new Proyecto(input);
-        proyect.save(); // guardarlo
+        
+        // Asignar el lider al proyecto
+        proyect.lider = ctx.usuario.id;
+        proyect.save();
         return proyect;
       } catch (error) {
         console.log(error);
