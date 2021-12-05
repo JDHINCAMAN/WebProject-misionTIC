@@ -294,12 +294,7 @@ const resolvers = {
       }
 
       // actualizar el estado
-      const nuevaInscripcion = await Inscripcion.findByIdAndUpdate(id, {
-        estado,
-      }
-      , {
-        new: true,
-        });
+      const nuevaInscripcion = await Inscripcion.findByIdAndUpdate(id, {estado}, {new: true,});
       return nuevaInscripcion;
     },
   },
