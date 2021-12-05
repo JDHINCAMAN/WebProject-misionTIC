@@ -6,6 +6,17 @@ const InscripcionSchema = mongoose.Schema({
     required: true,
   },
 
+  proyecto: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Proyecto",
+    required: true,
+  },
+  estudiante: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Usuarios",
+    required: true,
+  },
+
   fechaIngreso: {
     type: Date,
     default: Date.now(),
@@ -13,7 +24,7 @@ const InscripcionSchema = mongoose.Schema({
 
   fechaEgreso: {
     type: Date,
-    default: Date.now(),
+    default: null
   },
 });
 

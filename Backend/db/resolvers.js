@@ -62,7 +62,18 @@ const resolvers = {
   },
 
   Mutation: {
-    crearInscripcion: async (_, { input }) => {
+    crearInscripcion: async (_, { input }, ctx) => {
+      // validar que el usuario logeado sea estudiante
+      if (ctx.usuario.rol !== "ESTUDIANTE") {
+        throw new Error("No estas autorizado como estudiante para hacer la inscripcion");
+      }
+
+      //validar que el estudiante este en estado autorizado
+      if (ctx.usuario.estado !== "AUTORIZADO") {
+        throw new Error("No estas autorizado para hacer la inscripcion");
+      }
+
+      // guardar en base de datos
       try {
         const newInscription = new Inscripcion(input);
         newInscription.save();
