@@ -2,6 +2,16 @@ const { gql } = require("apollo-server");
 
 // schema
 const typeDefs = gql`
+
+  type Avance{
+    id: ID
+    proyecto: ID
+    fechaAvance: Date  
+    descripcion: String
+    observaciones: String
+    creadoPor: ID
+  }
+
   type Usuario {
     id: ID
     nombre: String
@@ -33,6 +43,14 @@ const typeDefs = gql`
     estado: Boolean
     fechaIngreso: String
     fechaEgreso: String
+  }
+
+  input AvanceInput{
+    proyecto: ID!
+    fechaAvance: Date!
+    descripcion: String!
+    observaciones: String!
+    creadoPor: ID!
   }
 
   input InscripcionInput {
@@ -110,6 +128,7 @@ const typeDefs = gql`
     #Inscripciones
     obtenerInscripcion(id: String!): Inscripcion
     obtenerInscripcionesLider: [Inscripcion]
+
   }
 
   type Mutation {
