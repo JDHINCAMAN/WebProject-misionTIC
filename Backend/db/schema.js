@@ -35,6 +35,30 @@ const typeDefs = gql`
     fechaEgreso: String
   }
 
+  type Avance {
+    id: ID
+    proyecto: ID
+    creadoPor: ID
+    fechaAvance: String
+    descripcion: String
+    observaciones: String
+  }
+
+  type ProyectoDetalle {
+    id: ID
+    nombreProyecto: String
+    objetivoGeneral: String
+    objetivosEspecificos: [String]
+    presupuesto: Float
+    fechaInicio: String
+    fechaFin: String
+    estadoProyecto: Boolean
+    faseProyecto: faseProyecto
+    lider: ID
+    inscripciones: [Inscripcion]
+    avances: [Avance]
+  }
+
   input InscripcionInput {
     proyecto: ID!
     estudiante: ID!
@@ -96,6 +120,11 @@ const typeDefs = gql`
     password: String!
   }
 
+  input AvanceInput {
+    descripcion: String!
+    observaciones: String
+  }
+
   type Query {
     #Usuarios
     obtenerUsuario(token: String!): Usuario
@@ -106,10 +135,16 @@ const typeDefs = gql`
     obtenerProyecto(nombreProyecto: String!): Proyecto
     obtenerProyectos: [Proyecto]
     obternerProyectosPorLider: [Proyecto]
+    obtenerProyectosPorEstudiante: [Proyecto]
+    obtenerDetallesProyecto(id: ID!): Proyecto
+    detallesProyecto(id: ID!): ProyectoDetalle
 
     #Inscripciones
     obtenerInscripcion(id: String!): Inscripcion
     obtenerInscripcionesLider: [Inscripcion]
+
+    #Avances
+    obtenerAvancesProyecto(proyecto: ID!): [Avance]
   }
 
   type Mutation {
@@ -124,9 +159,14 @@ const typeDefs = gql`
     actualizarProyectoEstado(id: ID!, input: ActualizarProyectoInput!): Proyecto
     actualizarProyectoLider(id: ID!, input: ProyectoInput!): Proyecto
 
+
     #Inscripciones
     crearInscripcion(input: InscripcionInput!): Inscripcion
     actualizarInscripcionEstado(id: ID!, estado: Boolean!): Inscripcion
+
+    #Avances
+    crearAvance(input: AvanceInput!, proyecto: ID!) : Avance
+    actualizarAvance(id: ID!, input: AvanceInput!): Avance
   }
 `;
 

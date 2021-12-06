@@ -1,8 +1,10 @@
 const Usuario = require("../models/Usuario");
 const Proyecto = require("../models/Proyecto");
+const Avance = require("../models/Avance");
+const Inscripcion = require("../models/Inscripcion");
+
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Inscripcion = require("../models/Inscripcion");
 require("dotenv").config({ path: "variables.env" });
 
 const crearToken = (usuario, secret, expiresIn) => {
@@ -68,6 +70,30 @@ const resolvers = {
       });
       return proyectos;
     },
+
+
+    detallesProyecto: async (_, { id }, ctx) => {
+      console.log(id);
+
+      const stringId = id.toString();
+
+      // obtener los proyectos del usuario logeado
+      let proyecto = await Proyecto.findById(id);
+      // validar que el usuario logeado sea lider del proyecto
+      if (proyecto.lider.toString() !== ctx.usuario.id) {
+        throw new Error("No eres el lider de este proyecto");
+      }
+
+      console.log(typeof proyecto);
+
+      proyecto.avances = await Avance.find({ proyecto: id });
+      proyecto.inscripciones = await Inscripcion.find({ proyecto: id });
+      // mostrar informacion del lider
+
+
+      return proyecto;
+    },
+
     // Inscripciones
     obtenerInscripcion: async (_, { id }) => {
       const insProyect = await Inscripcion.findById(id);
@@ -88,6 +114,13 @@ const resolvers = {
         proyecto: { $in: proyectos },
       });
       return inscripciones;
+    },
+
+    // avances
+    obtenerAvancesProyecto: async (_, { proyecto }) => {
+      console.log(proyecto);
+      const avances = await Avance.find({ proyecto: proyecto });
+      return avances;
     },
   },
 
@@ -259,15 +292,16 @@ const resolvers = {
       // guardar en base de datos
       try {
         const newInscription = new Inscripcion(input);
+        newInscription.estudiante = ctx.usuario.id;
         newInscription.save();
         return newInscription;
       } catch (e) {
         console.log(e);
       }
     },
-    
+
     actualizarInscripcionEstado: async (_, { id, estado }, ctx) => {
-      //validar que el usuario logueado sea el lider 
+      //validar que el usuario logueado sea el lider
       if (ctx.usuario.rol !== "LIDER") {
         throw new Error("No estas autorizado");
       }
@@ -284,8 +318,6 @@ const resolvers = {
         throw new Error("El estudiante no esta autorizado");
       }
 
-
-
       // validar que el usuario logeado sea el lider del proyecto
       const proyecto = await Proyecto.findById(inscripcion.proyecto);
 
@@ -294,8 +326,70 @@ const resolvers = {
       }
 
       // actualizar el estado
-      const nuevaInscripcion = await Inscripcion.findByIdAndUpdate(id, {estado}, {new: true,});
+      const nuevaInscripcion = await Inscripcion.findByIdAndUpdate(
+        id,
+        { estado },
+        { new: true }
+      );
       return nuevaInscripcion;
+    },
+
+    //Avances
+    crearAvance: async (_, { input, proyecto}, ctx) => {
+      // validar que el usuario logeado sea estudiante
+      if (ctx.usuario.rol !== "ESTUDIANTE") {
+        throw new Error(
+          "No estas autorizado como estudiante para hacer el avance"
+        );
+      }
+
+      //validar que el estudiante este en estado autorizado
+      if (ctx.usuario.estado !== "AUTORIZADO") {
+        throw new Error("No estas autorizado para hacer el avance");
+      }
+
+      // validar que el proyecto exista
+      const proyectoExist = await Proyecto.findById(proyecto);
+      if (!proyectoExist) {
+        throw new Error("El proyecto no existe");
+      }
+
+      // // validar que el proyecto este en estado en curso
+      // if (proyectoExist.estado !== "EN_CURSO") {
+      //   throw new Error("El proyecto no esta en curso");
+      // }
+
+      // // validar que el usuario logeado sea el lider del proyecto
+      // if (proyectoExist.lider.toString() !== ctx.usuario.id.toString()) {
+      //   throw new Error("No estas autorizado para editar este avance");
+      // }
+
+      // guardar en base de datos
+      try {
+        const newAvance = new Avance(input);
+        newAvance.creadoPor = ctx.usuario.id
+        newAvance.proyecto = proyecto
+
+        newAvance.save();
+        return newAvance;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    actualizarAvance: async (_, { id, input }, ctx) => {
+      // validar que el usuario logeado sea estudiante
+      if (ctx.usuario.rol !== "LIDER") {
+        throw new Error(
+          "No estas autorizado para agregar observaciones"
+        );
+      }
+
+      // actualizar el avance
+      const nuevoAvance = await Avance.findByIdAndUpdate(id, input, {
+        new: true,
+      });
+      return nuevoAvance;
     },
   },
 };
