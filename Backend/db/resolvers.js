@@ -1,5 +1,6 @@
 const Usuario = require("../models/Usuario");
 const Proyecto = require("../models/Proyecto");
+const Avance = require("../models/Avance");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Inscripcion = require("../models/Inscripcion");
@@ -296,6 +297,30 @@ const resolvers = {
       // actualizar el estado
       const nuevaInscripcion = await Inscripcion.findByIdAndUpdate(id, {estado}, {new: true,});
       return nuevaInscripcion;
+    },
+
+    //avances
+    crearAvance: async (_,{input, proyecto}, ctx) => {
+      //validar el proyecto exista
+      const proyectoExiste = await Proyecto.findById(proyecto)
+
+      if (!proyectoExiste) {
+        throw new Error("El proyecto no existe");
+      }
+
+      if(proyectoExiste.estadoProyecto !== true){
+        throw new Error("El proyecto no esta aprobado");
+      }
+
+      try {
+        const newAvance = new Avance(input);
+        newAvance.proyecto = proyecto;
+        newAvance.creadoPor= ctx.usuario.id
+        newAvance.save();
+        return newAvance;
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };
