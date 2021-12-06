@@ -7,10 +7,12 @@ const AvnaceSchema = mongoose.Schema({
         ref: 'Proyecto',
         required: true
     },
+
     fechaAvance: {
         type: Date,
         default: Date.now()
     },
+    
     descripcion: {
         type: String,
         required: true
