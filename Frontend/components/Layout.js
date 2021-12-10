@@ -17,8 +17,8 @@ const Layout = ({ children }) => {
           integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
           crossorigin="anonymous"
           referrerpolicy="no-referrer"
-          rel="icon"
-          href="/media/logo_small_icon_only.png"
+          // rel="icon"
+          // href="/media/logo_small_icon_only.png"
         />
       </Head>
       {router.pathname === "/login" || router.pathname === "/registro" ? (
