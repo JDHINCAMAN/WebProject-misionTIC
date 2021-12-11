@@ -8,7 +8,7 @@ const Sidebar = () => {
     const router = useRouter()
     console.log(router.pathname)
   return (
-    <aside className="bg-yellow-300 sm:w-1/3 xl:w-1/5 sm:min-h-screen p-5">
+    <aside className="w-64 bg-gray-500 rounded-md">
       <div>
         <p className="text-white text-2xl font-black"> WP - Menu</p>
       </div>
