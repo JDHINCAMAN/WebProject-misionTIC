@@ -8,14 +8,14 @@ const Sidebar = () => {
   console.log(router.pathname);
   return (
     <aside className="w-64 bg-gray-100 rounded-md">
-      <div class="px-6 pt-8">
-        <div class="flex items-center justify-between">
+      <div className="px-6 pt-8">
+        <div className="flex items-center justify-between">
           <a
             href="#"
-            class="bg-yellow-400 p-1.5 rounded flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+            className="bg-yellow-400 p-1.5 rounded flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
           >
             <svg
-              class="w-5 h-5 text-white stroke-current"
+              className="w-5 h-5 text-white stroke-current"
               viewBox="0 0 24 24"
               fill="none"
             >
@@ -35,9 +35,9 @@ const Sidebar = () => {
               ></path>
             </svg>
           </a>
-          <button class="flex items-center justify-center p-0.5 rounded bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500">
+          <button className="flex items-center justify-center p-0.5 rounded bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500">
             <svg
-              class="w-3 h-3 text-gray-300 stroke-current"
+              className="w-3 h-3 text-gray-300 stroke-current"
               fill="none"
               viewBox="0 0 24 24"
             >
@@ -59,11 +59,11 @@ const Sidebar = () => {
           </button>
         </div>
       </div>
-      <div class="px-6 pt-4">
-        <div class="relative">
-          <div class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+      <div className="px-6 pt-4">
+        <div className="relative">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
             <svg
-              class="w-4 h-4 text-gray-500 stroke-current"
+              className="w-4 h-4 text-gray-500 stroke-current"
               fill="none"
               viewBox="0 0 24 24"
             >
@@ -78,20 +78,20 @@ const Sidebar = () => {
           </div>
           <input
             type="text"
-            class="w-full rounded pl-8 pr-4 py-2.5 text-xs font-light bg-gray-800 text-gray-400 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+            className="w-full rounded pl-8 pr-4 py-2.5 text-xs font-light bg-gray-800 text-gray-400 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
             placeholder="search"
           />
         </div>
       </div>
-      <div class="px-6 pt-4">
-        <hr class="border-gray-700" />
+      <div className="px-6 pt-4">
+        <hr className="border-gray-700" />
       </div>
-      <div class="px-6 pt-4">
+      <div className="px-6 pt-4">
         <ul className="flex flex-col space-y-2">
-          <li class="relative text-gray-500 hover:text-white focus-within:text-white">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+          <li className="relative text-gray-500 hover:text-white focus-within:text-white">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
               <svg
-                class="w-5 h-5 stroke-current"
+                className="w-5 h-5 stroke-current"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -120,7 +120,7 @@ const Sidebar = () => {
             </div>
             <a
               href="#"
-              class="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-yellow-300 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+              className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-yellow-300 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
             >
               Tablero de Proyectos
             </a>
@@ -128,9 +128,9 @@ const Sidebar = () => {
           <li className="">
             <div className="relative flex justify-between text-gray-500 hover:text-white focus-within:text-white">
               <div className="flex items-center w-full">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
                   <svg
-                    class="w-5 h-5 stroke-current"
+                    className="w-5 h-5 stroke-current"
                     fill="none"
                     viewBox="0 0 24 24"
                   >
@@ -166,17 +166,17 @@ const Sidebar = () => {
                 </div>
                 <a
                   href="#"
-                  class="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-yellow-300 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+                  className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-yellow-300 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
                 >
                   Inscripciones
                 </a>
               </div>
               <button
-                class="absolute right-0 flex items-center p-1"
+                className="absolute right-0 flex items-center p-1"
                 tabindex="-1"
               >
                 <svg
-                  class="w-5 h-5 stroke-current"
+                  className="w-5 h-5 stroke-current"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -195,7 +195,7 @@ const Sidebar = () => {
                 <li>
                   <a
                     href="#"
-                    class="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
+                    className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
                   >
                     Pendientes
                   </a>
@@ -203,7 +203,7 @@ const Sidebar = () => {
                 <li>
                   <a
                     href="#"
-                    class="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
+                    className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
                   >
                     Rechazadas
                   </a>
@@ -211,7 +211,7 @@ const Sidebar = () => {
                 <li>
                   <a
                     href="#"
-                    class="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
+                    className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
                   >
                     Aprobadas
                   </a>
@@ -227,10 +227,10 @@ const Sidebar = () => {
               </ul>
             </div>
           </li>
-          <li class="relative text-gray-500 hover:text-white focus-within:text-white">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+          <li className="relative text-gray-500 hover:text-white focus-within:text-white">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
               <svg
-                class="w-5 h-5 stroke-current"
+                className="w-5 h-5 stroke-current"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -252,7 +252,7 @@ const Sidebar = () => {
             </div>
             <a
               href="#"
-              class="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+              className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
             >
               Usuarios
             </a>
@@ -281,10 +281,10 @@ const Sidebar = () => {
               Market & sell
             </a>
           </li> */}
-          <li class="relative text-gray-500 hover:text-white focus-within:text-white">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+          <li className="relative text-gray-500 hover:text-white focus-within:text-white">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
               <svg
-                class="w-5 h-5 stroke-current"
+                className="w-5 h-5 stroke-current"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -313,15 +313,15 @@ const Sidebar = () => {
             </div>
             <a
               href="#"
-              class="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+              className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
             >
               Reporting
             </a>
           </li>
-          <li class="relative text-gray-500 hover:text-white focus-within:text-white">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+          <li className="relative text-gray-500 hover:text-white focus-within:text-white">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
               <svg
-                class="w-5 h-5 stroke-current"
+                className="w-5 h-5 stroke-current"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -375,22 +375,22 @@ const Sidebar = () => {
             </div>
             <a
               href="#"
-              class="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+              className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
             >
               Support
             </a>
           </li>
         </ul>
       </div>
-      <div class="px-6 pt-8">
-        <hr class="border-gray-700" />
+      <div className="px-6 pt-8">
+        <hr className="border-gray-700" />
       </div>
-      <div class="px-6 pt-4 pb-8">
+      <div className="px-6 pt-4 pb-8">
         <ul>
           <li className="relative text-gray-500 hover:text-white focus-within:text-white">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
               <svg
-                class="w-5 h-5 stroke-current"
+                className="w-5 h-5 stroke-current"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -412,15 +412,15 @@ const Sidebar = () => {
             </div>
             <a
               href="#"
-              class="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+              className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
             >
               Settings
             </a>
           </li>
-          <li class="relative text-gray-500 hover:text-white focus-within:text-white">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+          <li className="relative text-gray-500 hover:text-white focus-within:text-white">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
               <svg
-                class="w-5 h-5 stroke-current"
+                className="w-5 h-5 stroke-current"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -442,7 +442,7 @@ const Sidebar = () => {
             </div>
             <a
               href="#"
-              class="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+              className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
             >
               Notifications
             </a>
@@ -493,28 +493,28 @@ const Sidebar = () => {
           </li> */}
         </ul>
       </div>
-      <div class="pl-6 pr-4 py-4 bg-[#232529] flex items-center justify-between">
-        <div class="flex items-center">
-          <div
-            class="relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white"
-          >
+      <div className="pl-6 pr-4 py-4 bg-[#232529] flex items-center justify-between">
+        <div className="flex items-center">
+          <div className="relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white">
             <img
-              class="rounded-full"
+              className="rounded-full"
               src="https://avatars.githubusercontent.com/u/69741658?v=4"
               alt=""
             />
           </div>
-          <div class="flex flex-col pl-3">
-            <div class="text-sm text-gray-50">Robin Romero</div>
-            <span class="text-xs text-[#acacb0] font-light tracking-tight">
+          <div className="flex flex-col pl-3">
+            <div className="text-sm text-gray-50">Robin Romero</div>
+            <span className="text-xs text-[#acacb0] font-light tracking-tight">
               ingrobinromero@gmail.com
             </span>
           </div>
         </div>
-        <button
-          class="text-gray-400 bg-gray-700 rounded focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
-        >
-          <svg class="w-4 h-4 stroke-current" fill="none" viewBox="0 0 24 24">
+        <button className="text-gray-400 bg-gray-700 rounded focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white">
+          <svg
+            className="w-4 h-4 stroke-current"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
             <path
               stroke="currentColor"
               stroke-linecap="round"
