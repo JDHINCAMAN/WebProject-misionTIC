@@ -1,9 +1,10 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React from "react";
+import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation, gql } from "@apollo/client";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const NUEVA_CUENTA = gql`
   mutation CrearUsuario($input: UsuarioInput) {
@@ -67,13 +68,17 @@ export default function Registro() {
         console.log(data);
         toast.success("Usuario Registrado Correctamente", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
         });
+
+        setTimeout(() => {
+          Router.push("/login");
+        }, 3000);
       } catch (error) {
         toast.error(error.message, {
           position: "top-right",
@@ -267,7 +272,7 @@ export default function Registro() {
 
           <div className="flex items-center justify-between">
             <span>¿Ya tienes cuenta?</span>
-            <a href="/">
+            <a href="/login">
               <span className="font-medium text-gray-900 hover:text-black">
                 Inicia Sesión
               </span>
