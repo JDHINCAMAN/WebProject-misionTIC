@@ -6,7 +6,7 @@ const typeDefs = gql`
   type Avance{
     id: ID
     proyecto: ID
-    fechaAvance: Date  
+    fechaAvance: String
     descripcion: String
     observaciones: String
     creadoPor: ID
@@ -47,7 +47,6 @@ const typeDefs = gql`
 
   input AvanceInput{
     proyecto: ID!
-    fechaAvance: Date!
     descripcion: String!
     observaciones: String!
     creadoPor: ID!

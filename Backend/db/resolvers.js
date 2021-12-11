@@ -51,6 +51,7 @@ const resolvers = {
         (proyect) => proyect.nombreProyecto == nombreProyecto
       );
     },
+    
     obtenerProyectos: async (_, {}, ctx) => {
       // validar que el usuario logeado sea administrador
       if (ctx.usuario.rol !== "ADMINISTRADOR") {
