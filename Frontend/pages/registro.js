@@ -26,6 +26,9 @@ export default function Registro() {
   // state pra el mensaje
   const [crearUsuario] = useMutation(NUEVA_CUENTA);
 
+  // Routin
+  const router = useRouter();
+
   // validacion del formulario
   const formik = useFormik({
     initialValues: {
@@ -77,7 +80,7 @@ export default function Registro() {
         });
 
         setTimeout(() => {
-          Router.push("/login");
+          router.push("/login");
         }, 3000);
       } catch (error) {
         toast.error(error.message, {
