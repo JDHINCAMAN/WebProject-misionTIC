@@ -1,9 +1,9 @@
 import Head from "next/head";
-
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation, gql } from "@apollo/client";
+import { ToastContainer, toast } from "react-toastify";
 
 const NUEVA_CUENTA = gql`
   mutation CrearUsuario($input: UsuarioInput) {
@@ -20,18 +20,20 @@ const NUEVA_CUENTA = gql`
   }
 `;
 
+toast.configure();
 export default function Registro() {
+  // state pra el mensaje
   const [crearUsuario] = useMutation(NUEVA_CUENTA);
 
   // validacion del formulario
   const formik = useFormik({
     initialValues: {
-    identificacion: '',
-    rol: '',
-    nombre: '',
-    apellido: '',
-    email: '',
-    password: ''
+      identificacion: "",
+      rol: "",
+      nombre: "",
+      apellido: "",
+      email: "",
+      password: "",
     },
     validationSchema: Yup.object({
       nombre: Yup.string().required("El nombre es obligatorio"),
@@ -43,12 +45,11 @@ export default function Registro() {
         .min(6, "La contraseña debe tener al menos 6 caracteres")
         .required("La contraseña es obligatoria"),
       identificacion: Yup.string().required("La identificacion es obligatoria"),
-      rol: Yup.string().required("El rol es obligatorio")
+      rol: Yup.string().required("El rol es obligatorio"),
     }),
     onSubmit: async (valores) => {
-      const { nombre, apellido, email, password, identificacion, rol } = valores;
-
-      console.log(typeof identificacion)
+      const { nombre, apellido, email, password, identificacion, rol } =
+        valores;
 
       try {
         const { data } = await crearUsuario({
@@ -59,13 +60,30 @@ export default function Registro() {
               nombre,
               apellido,
               email,
-              password
-            }
+              password,
+            },
           },
         });
         console.log(data);
+        toast.success("Usuario Registrado Correctamente", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       } catch (error) {
-        console.log(error);
+        toast.error(error.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     },
   });
@@ -174,11 +192,9 @@ export default function Registro() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               >
-                <option value=''>
-                  ...
-                </option>
+                <option value="">...</option>
                 <option value="ADMINISTRADOR">Administrador</option>
-                <option value='LIDER'>Lider</option>
+                <option value="LIDER">Lider</option>
                 <option value="ESTUDIANTE">Estudiante</option>
               </select>
             </label>
