@@ -115,12 +115,22 @@ export default function Registro() {
                 name="nombre"
                 id="nombre"
                 type="text"
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm"
+                // className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm"
+                className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${
+                  formik.errors.nombre ? "border-red-500" : ""
+                } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
                 placeholder="ej. Juan David"
                 value={formik.values.nombre}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
+              <span>
+                {formik.errors.nombre ? (
+                  <div className="text-red-500 text-xs italic">
+                    {formik.errors.nombre}
+                  </div>
+                ) : null}
+              </span>
             </label>
             <label htmlFor="apellido">
               Apellido
@@ -128,12 +138,21 @@ export default function Registro() {
                 name="apellido"
                 id="apellido"
                 type="text"
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm"
+                className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${
+                  formik.errors.apellido ? "border-red-500" : ""
+                } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
                 placeholder="ej. Hincapie Manrique"
                 value={formik.values.apellido}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
+              <span>
+                {formik.touched.apellido && formik.errors.apellido ? (
+                  <div className="text-red-500 text-xs italic">
+                    {formik.errors.apellido}
+                  </div>
+                ) : null}
+              </span>
             </label>
             {/* <label htmlFor="nacimiento">
               Fecha de Nacimiento
@@ -150,12 +169,21 @@ export default function Registro() {
                 name="email"
                 id="email"
                 type="email"
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm"
+                className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${
+                  formik.errors.email ? "border-red-500" : ""
+                } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
                 placeholder="ejemplo@gmail.com"
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
+              <span>
+                {formik.touched.email && formik.errors.email ? (
+                  <div className="text-red-500 text-xs italic">
+                    {formik.errors.email}
+                  </div>
+                ) : null}
+              </span>
             </label>
             <label htmlFor="password">
               Contraseña
@@ -166,8 +194,17 @@ export default function Registro() {
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm"
+                className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${
+                  formik.errors.password ? "border-red-500" : ""
+                } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
               />
+              <span>
+                {formik.touched.password && formik.errors.password ? (
+                  <div className="text-red-500 text-xs italic">
+                    {formik.errors.password}
+                  </div>
+                ) : null}
+              </span>
             </label>
             <label htmlFor="identificacion">
               Identificación
@@ -175,19 +212,30 @@ export default function Registro() {
                 name="identificacion"
                 id="identificacion"
                 type="text"
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm"
+                className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${
+                  formik.errors.identificacion ? "border-red-500" : ""
+                } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
                 placeholder="ej. 10123456"
                 value={formik.values.identificacion}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
+              <span>
+                {formik.touched.identificacion && formik.errors.identificacion ? (
+                  <div className="text-red-500 text-xs italic">
+                    {formik.errors.identificacion}
+                  </div>
+                ) : null}
+              </span>
             </label>
             <label htmlFor="rol">
               Rol
               <select
                 name="rol"
                 id="rol"
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm"
+                className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${
+                  formik.errors.rol ? "border-red-500" : ""
+                } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
                 value={formik.values.rol}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -197,6 +245,14 @@ export default function Registro() {
                 <option value="LIDER">Lider</option>
                 <option value="ESTUDIANTE">Estudiante</option>
               </select>
+
+              <span>
+                {formik.touched.rol && formik.errors.rol ? (
+                  <div className="text-red-500 text-xs italic">
+                    {formik.errors.rol}
+                  </div>
+                ) : null}
+              </span>
             </label>
           </div>
 
