@@ -26,12 +26,12 @@ export default function Registro() {
   // validacion del formulario
   const formik = useFormik({
     initialValues: {
-    identificacion: '',
-    rol: '',
-    nombre: '',
-    apellido: '',
-    email: '',
-    password: ''
+      identificacion: "",
+      rol: "",
+      nombre: "",
+      apellido: "",
+      email: "",
+      password: "",
     },
     validationSchema: Yup.object({
       nombre: Yup.string().required("El nombre es obligatorio"),
@@ -43,12 +43,13 @@ export default function Registro() {
         .min(6, "La contraseña debe tener al menos 6 caracteres")
         .required("La contraseña es obligatoria"),
       identificacion: Yup.string().required("La identificacion es obligatoria"),
-      rol: Yup.string().required("El rol es obligatorio")
+      rol: Yup.string().required("El rol es obligatorio"),
     }),
     onSubmit: async (valores) => {
-      const { nombre, apellido, email, password, identificacion, rol } = valores;
+      const { nombre, apellido, email, password, identificacion, rol } =
+        valores;
 
-      console.log(typeof identificacion)
+      console.log(typeof identificacion);
 
       try {
         const { data } = await crearUsuario({
@@ -59,8 +60,8 @@ export default function Registro() {
               nombre,
               apellido,
               email,
-              password
-            }
+              password,
+            },
           },
         });
         console.log(data);
@@ -173,11 +174,9 @@ export default function Registro() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               >
-                <option value=''>
-                  ...
-                </option>
+                <option value="">...</option>
                 <option value="ADMINISTRADOR">Administrador</option>
-                <option value='LIDER'>Lider</option>
+                <option value="LIDER">Lider</option>
                 <option value="ESTUDIANTE">Estudiante</option>
               </select>
             </label>
@@ -194,7 +193,7 @@ export default function Registro() {
 
           <div className="flex items-center justify-between">
             <span>¿Ya tienes cuenta?</span>
-            <a href="/">
+            <a href="/login">
               <span className="font-medium text-gray-900 hover:text-black">
                 Inicia Sesión
               </span>
