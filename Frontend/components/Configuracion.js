@@ -24,7 +24,7 @@ const Configuracion = () => {
             Editar Perfil
           </div>
           <div class="mt-4 self-center text-xl sm:text-sm text-gray-800">
-            Enter your credentials to get access account
+            Actualiza tus datos
           </div>
   
           <div class="mt-10">
