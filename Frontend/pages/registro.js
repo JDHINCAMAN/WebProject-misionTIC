@@ -68,7 +68,6 @@ export default function Registro() {
             },
           },
         });
-        console.log(data);
         toast.success("Usuario Registrado Correctamente", {
           position: "top-right",
           autoClose: 3000,
@@ -96,7 +95,6 @@ export default function Registro() {
     },
   });
 
-  console.log(formik.errors);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-400">
       <Head>
@@ -250,9 +248,7 @@ export default function Registro() {
               <select
                 name="rol"
                 id="rol"
-                className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${
-                  formik.errors.rol ? "border-red-500" : ""
-                } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
+                className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${formik.errors.rol ? "border-red-500" : ""} placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
                 value={formik.values.rol}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
