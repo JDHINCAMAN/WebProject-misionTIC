@@ -89,14 +89,25 @@ const Inscripciones = () => {
               ¿Inscribirse a este Proyecto?
             </h2>
           </div>
-          <div className="p-3  mt-2 text-center space-x-4 md:block">
-            <button className="mb-2 md:mb-0 bg-yellow-300 border border-yellow-300 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-black rounded-full hover:shadow-lg hover:bg-yellow-400">
+          <form
+            className="p-3  mt-2 text-center space-x-4 md:block"
+            onSubmit={formik.handleSubmit}
+          >
+            <button
+              name="si"
+              id="si"
+              type="submit"
+              className="mb-2 md:mb-0 bg-yellow-300 border border-yellow-300 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-black rounded-full hover:shadow-lg hover:bg-yellow-400"
+              value={formik.values.si}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            >
               Si
             </button>
             <button className="mb-2 md:mb-0 bg-black px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900">
               Cancelar
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

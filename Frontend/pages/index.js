@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   // validar la seccion de usuarios
-  const [seccion, setSeccion] = useState("inscripciones");
+  const [seccion, setSeccion] = useState("usuarios");
 
   return (
     <div>
