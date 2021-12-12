@@ -416,8 +416,9 @@ const Sidebar = ({setSeccion}) => {
             <a
               href="#"
               className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+              onClick={() => setSeccion("configuracion")}
             >
-              Settings
+              Configuraciones
             </a>
           </li>
           <li className="relative text-gray-500 hover:text-white focus-within:text-white">
@@ -446,6 +447,7 @@ const Sidebar = ({setSeccion}) => {
             <a
               href="#"
               className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+            
             >
               Notifications
             </a>
