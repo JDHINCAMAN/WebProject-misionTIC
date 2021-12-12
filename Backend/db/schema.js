@@ -2,6 +2,16 @@ const { gql } = require("apollo-server");
 
 // schema
 const typeDefs = gql`
+
+  type Avance{
+    id: ID
+    proyecto: ID
+    fechaAvance: String  
+    descripcion: String
+    observaciones: String
+    creadoPor: ID
+  }
+
   type Usuario {
     id: ID
     nombre: String
@@ -35,15 +45,11 @@ const typeDefs = gql`
     fechaEgreso: String
   }
 
-  type Avance {
-    id: ID
-    proyecto: ID
-    creadoPor: ID
-    fechaAvance: String
-    descripcion: String
+  input AvanceInput{
+    descripcion: String!
     observaciones: String
   }
-
+  
   type ProyectoDetalle {
     id: ID
     nombreProyecto: String

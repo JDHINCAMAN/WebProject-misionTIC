@@ -1,7 +1,4 @@
 const { ApolloServer } = require("apollo-server");
-const {
-  ApolloServerPluginLandingPageGraphQLPlayground,
-} = require("apollo-server-core");
 const typeDefs = require("./db/schema");
 const resolvers = require("./db/resolvers");
 
@@ -16,11 +13,11 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => {
-    // console.log(req.headers['authorization'])
     const token = req.headers["authorization"] || "";
     if (token) {
       try {
-        const usuario = jwt.verify(token, process.env.JWT_SECRET);
+        const usuario = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET);
+        console.log(usuario);
         return {
           usuario,
         };
@@ -30,13 +27,6 @@ const server = new ApolloServer({
       }
     }
   },
-
-  // el siguiente plugin es para cambiar el landing page a graphql playground
-  plugins: [
-    ApolloServerPluginLandingPageGraphQLPlayground({
-      // options
-    }),
-  ],
 });
 
 // arrancar el servidor
