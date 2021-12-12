@@ -168,7 +168,7 @@ const Sidebar = ({setSeccion}) => {
                   href="#"
                   className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-yellow-300 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
                   name="inscripciones"
-                  onClick={e=> setSeccion(e.target.name)}
+                  onClick={() => setSeccion("inscripciones")}
                 >
                   Inscripciones
                 </a>
