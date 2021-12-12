@@ -98,25 +98,34 @@ export default function Registro() {
 
   console.log(formik.errors);
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-400">
       <Head>
         <title>WebProject</title>
         <link rel="icon" href="/media/logo_small_icon_only.png" />
       </Head>
 
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
+      <main className="flex items-center justify-center bg-gray-100 px-5 py-5 text-center rounded-xl">
+      <div className="flex items-center bg-gray-100 w-auto h-[32rem]">
+      <img
+            src="/media/icono-login.png"
+            alt="Logo Google"
+            className="mx-auto h-80 w-auto"
+          />
+      </div>
+
+      <div className="flex flex-col items-center justify-center bg-gray-200 text-center px-5 py-3 rounded-xl">
         <a href="/">
           <img
             src="/media/logo_large.png"
             alt="Logo Google"
-            className="mx-auto h-40 w-auto"
+            className="mx-auto h-20 w-auto"
           />
         </a>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Crea tu cuenta
         </h2>
         <form className="mt-8 space-y-6" onSubmit={formik.handleSubmit}>
-          <div className="rounded-md shadow-sm grid grid-cols-2 gap-2">
+          <div className="rounded-md shadow-sm grid grid-cols-2 gap-2" >
             <label htmlFor="nombre">
               Nombre
               <input
@@ -273,15 +282,16 @@ export default function Registro() {
             </button>
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-center">
             <span>¿Ya tienes cuenta?</span>
             <a href="/login">
-              <span className="font-medium text-gray-900 hover:text-black">
+              <span className="font-medium text-gray-900 hover:text-black px-1">
                 Inicia Sesión
               </span>
             </a>
           </div>
         </form>
+        </div>
       </main>
     </div>
   );

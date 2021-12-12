@@ -78,19 +78,28 @@ const Login = () => {
   });
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <Head>
-        <title>WebProject</title>
-        <link rel="icon" href="/media/logo_small_icon_only.png" />
-      </Head>
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-400">
+    <Head>
+      <title>WebProject</title>
+      <link rel="icon" href="/media/logo_small_icon_only.png" />
+    </Head>
 
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
+    <main className="flex items-center justify-center bg-gray-100 px-5 py-5 text-center rounded-xl">
+    <div className="flex items-center bg-gray-100 w-auto h-[32rem]">
+    <img
+          src="/media/icono-login.png"
+          alt="Logo Google"
+          className="mx-auto h-80 w-auto"
+        />
+    </div>
+
+    <div className="flex flex-col items-center justify-center bg-gray-200 text-center px-5 py-3 rounded-xl">
         <div>
           <a href="/">
             <img
               src="/media/logo_large.png"
               alt="Logo"
-              className="mx-auto h-40 w-auto"
+              className="mx-auto h-20 w-auto"
             />
           </a>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -154,33 +163,7 @@ const Login = () => {
                 </a>
               </div>
             </div>
-            <div>
-              <button
-                type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
-              >
-                Inicia sesión
-              </button>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <span>¿No tienes cuenta?</span>
-              <a href="/registro">
-                <span className="font-medium text-gray-700 hover:text-gray-900">
-                  Regístrate
-                </span>
-              </a>
-            </div>
-          </form>
-        </div>
-        <div className="flex items-center justify-center">
-          <span className="mx-4">------------------------</span>
-          <h2 className="my-4 text-center text-sm font-extrabold text-gray-900">
-            O
-          </h2>
-          <span className="mx-4">------------------------</span>
-        </div>
-        <div className="max-w-md w-full">
+            <div className="max-w-md w-full py-2">
           <div>
             <button
               type="submit"
@@ -196,6 +179,26 @@ const Login = () => {
               </div>
             </button>
           </div>
+        </div>
+            <div>
+              <button
+                type="submit"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
+              >
+                Inicia sesión
+              </button>
+            </div>
+
+            <div className="flex items-center justify-center">
+              <span>¿No tienes cuenta?</span>
+              <a href="/registro">
+                <span className="font-medium text-gray-700 hover:text-gray-900 px-1">
+                  Regístrate
+                </span>
+              </a>
+            </div>
+          </form>
+        </div>
         </div>
       </main>
     </div>
