@@ -3,7 +3,7 @@ import Head from "next/head";
 import Sidebar from "./Sidebar";
 import { useRouter } from "next/router";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, setSeccion }) => {
   // hook de router
   const router = useRouter();
 
@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
       ) : (
         <div className="bg-gray-200 min-h-screen">
           <div className="flex xl:flex-row sm:flex-col min-h-screen">
-            <Sidebar />
+            <Sidebar setSeccion={setSeccion}/>
             <main className="sm:w-2/3 xl:w-4/5 sm:min-h-sreen p-5">
               {children}
             </main>

@@ -1,8 +1,10 @@
 import Head from "next/head";
 import React from "react";
+import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation, gql } from "@apollo/client";
+import { toast } from "react-toastify";
 
 const AUTENTICACION = gql`
   mutation autenticarUsuario($input: AutenticarInput) {
@@ -12,8 +14,11 @@ const AUTENTICACION = gql`
   }
 `;
 
+toast.configure();
 const Login = () => {
+  // Mutation para autenticar usuario
   const [autenticarUsuario] = useMutation(AUTENTICACION);
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -43,13 +48,34 @@ const Login = () => {
           },
         });
         console.log(data);
+        toast.success("Autenticado correctamente", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        // Guardar token en localStorage
+        const { token } = data.autenticarUsuario;
+        localStorage.setItem("token", token);
+
+        // Redireccionar al usuario a la pagina principal
+        setTimeout(() =>{
+          router.push("/");
+        }, 3000)
       } catch (error) {
-        console.log(error);
+        toast.error(error.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       }
     },
   });
-  console.log(formik.errors);
-  console.log();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-400">
