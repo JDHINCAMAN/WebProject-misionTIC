@@ -285,7 +285,7 @@ export default function Registro() {
           <div className="flex items-center justify-center">
             <span>¿Ya tienes cuenta?</span>
             <a href="/login">
-              <span className="font-medium text-gray-900 hover:text-black">
+              <span className="font-medium text-gray-900 hover:text-black px-1">
                 Inicia Sesión
               </span>
             </a>
