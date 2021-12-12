@@ -5,6 +5,7 @@ import Proyectos from "../components/Proyectos";
 import Configuracion from "../components/Configuracion";
 import Inscripciones from "../components/Inscripciones";
 import { useState, useEffect } from "react";
+import CrearProyectos from "../components/Proyectos";
 
 export default function Home() {
   // validar la seccion de usuarios

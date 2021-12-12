@@ -23,6 +23,7 @@ toast.configure();
 const Inscripciones = () => {
   // state pra el mensaje
   const [crearInscripcion] = useMutation(NUEVA_INSCRIPCION);
+  const [modal, setModal] = React.useState(false);
 
   // Routin
   const router = useRouter();
@@ -77,7 +78,9 @@ const Inscripciones = () => {
     },
   });
   return (
-    <div
+    <>
+    {modal && (
+      <div
       className="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
       id="modal-id"
     >
@@ -111,6 +114,12 @@ const Inscripciones = () => {
         </div>
       </div>
     </div>
+    )}
+    
+    {!modal && (
+      <h1>Inscripciones</h1>
+    )}
+    </>
   );
 };
 
