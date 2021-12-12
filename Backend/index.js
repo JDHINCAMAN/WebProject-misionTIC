@@ -30,6 +30,6 @@ const server = new ApolloServer({
 });
 
 // arrancar el servidor
-server.listen({port: 3001,}).then(({ url }) => {
+server.listen({port: 4000,}).then(({ url }) => {
     console.log(`🚀 Server ready at ${url}`);
   });
