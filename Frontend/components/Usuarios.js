@@ -55,7 +55,7 @@ const Usuarios = () => {
                 <tr >
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-medium hover:bg-yellow-500 text-gray-500 uppercase tracking-wider"
                   >
                     Nombre
                   </th>
@@ -67,13 +67,13 @@ const Usuarios = () => {
                   </th> */}
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-medium hover:bg-yellow-500 text-gray-500 uppercase tracking-wider"
                   >
                     Estado
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-medium hover:bg-yellow-500 text-gray-500 uppercase tracking-wider"
                   >
                     Rol
                   </th>

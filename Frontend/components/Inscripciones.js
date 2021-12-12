@@ -59,7 +59,7 @@ const Inscripciones = () => {
             <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
               <table class="min-w-full leading-normal">
                 <thead>
-                  <tr>
+                  <tr >
                     <th
                       class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Nombre
@@ -84,7 +84,7 @@ const Inscripciones = () => {
                 </thead>
                 <tbody>
                 {data.obtenerUsuarios.map((person) => (
-                  <><tr key={person.id}>
+                  <><tr key={person.id} class="hover:bg-gray-500">
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <div class="flex items-center">
                         <div class="flex-shrink-0 w-10 h-10">
@@ -121,7 +121,7 @@ const Inscripciones = () => {
                         <span class="relative">{person.estado}</span>
                       </span>
                     </td>
-                  </tr><tr>
+                  </tr><tr class="hover:bg-gray-500">
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div class="flex items-center">
                           <div class="flex-shrink-0 w-10 h-10">
@@ -158,7 +158,7 @@ const Inscripciones = () => {
                           <span class="relative">{person.estado}</span>
                         </span>
                       </td>
-                    </tr><tr>
+                    </tr><tr class="hover:bg-gray-500">
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div class="flex items-center">
                           <div class="flex-shrink-0 w-10 h-10">
@@ -195,7 +195,7 @@ const Inscripciones = () => {
                           <span class="relative">{person.estado}</span>
                         </span>
                       </td>
-                    </tr><tr>
+                    </tr><tr class="hover:bg-gray-500">
                       <td class="px-5 py-5 bg-white text-sm">
                         <div class="flex items-center">
                           <div class="flex-shrink-0 w-10 h-10">
