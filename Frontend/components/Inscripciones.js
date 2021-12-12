@@ -61,23 +61,23 @@ const Inscripciones = () => {
                 <thead>
                   <tr>
                     <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Nombre
                     </th>
                     <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Rol
                     </th>
                     <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Fecha Ingreso
                     </th>
                     <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      Proyecto
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Proyecto 
                     </th>
                     <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Estado
                     </th>
                   </tr>
