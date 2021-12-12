@@ -4,6 +4,7 @@ import Usuarios from "../components/Usuarios";
 import Proyectos from "../components/Proyectos";
 import Inscripciones from "../components/Inscripciones";
 import { useState, useEffect } from "react";
+import CrearProyectos from "../components/Proyectos";
 
 export default function Home() {
 
