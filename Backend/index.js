@@ -16,10 +16,7 @@ const server = new ApolloServer({
     const token = req.headers["authorization"] || "";
     if (token) {
       try {
-        const usuario = jwt.verify(
-          token.replace("Bearer ", ""),
-          process.env.JWT_SECRET
-        );
+        const usuario = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET);
         console.log(usuario);
         return {
           usuario,
@@ -33,12 +30,6 @@ const server = new ApolloServer({
 });
 
 // arrancar el servidor
-<<<<<<< HEAD
 server.listen({port: 4000,}).then(({ url }) => {
     console.log(`🚀 Server ready at ${url}`);
   });
-=======
-server.listen({ port: 4000 }).then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
->>>>>>> 11eb13347c4949dd623eedd725ee37c3fdbd8bd6
