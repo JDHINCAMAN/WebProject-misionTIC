@@ -57,7 +57,7 @@ const Usuarios = () => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Name
+                    Nombre
                   </th>
                   {/* <th
                     scope="col"
@@ -69,13 +69,13 @@ const Usuarios = () => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Status
+                    Estado
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Role
+                    Rol
                   </th>
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Edit</span>
@@ -117,7 +117,7 @@ const Usuarios = () => {
                         href="#"
                         className="text-indigo-600 hover:text-indigo-900"
                       >
-                        Edit
+                        Editar
                       </a>
                     </td>
                   </tr>

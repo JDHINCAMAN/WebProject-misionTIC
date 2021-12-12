@@ -1,125 +1,211 @@
 import React from "react";
-import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useMutation, gql } from "@apollo/client";
-import { toast } from "react-toastify";
-
-const NUEVA_INSCRIPCION = gql`
-  mutation crearInscripcion($input: InscripcionInput) {
-    crearInscripcion(input: $input) {
-      id
-      proyecto
-      estudiante
-      estado
-      fechaIngreso
-      fechaEgreso
-    }
-  }
-`;
-
-toast.configure();
 
 const Inscripciones = () => {
   // state pra el mensaje
-  const [crearInscripcion] = useMutation(NUEVA_INSCRIPCION);
-  const [modal, setModal] = React.useState(false);
-
-  // Routin
-  const router = useRouter();
-
-  // validacion del formulario
-  const formik = useFormik({
-    initialValues: {
-      proyecto: "",
-      estudiante: "",
-    },
-    validationSchema: Yup.object({
-      proyecto: Yup.string().required("El Proyecto es obligatorio"),
-      estudiante: Yup.string().required("Usted debe ser un estudiante"),
-    }),
-    onSubmit: async (valores) => {
-      const { proyecto, estudiante } = valores;
-
-      try {
-        const { data } = await crearUsuario({
-          variables: {
-            input: {
-              proyecto,
-              estudiante,
-            },
-          },
-        });
-        console.log(data);
-        toast.success("Inscripción realizada exitosamente", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-
-        setTimeout(() => {
-          router.push("/");
-        }, 3000);
-      } catch (error) {
-        toast.error(error.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
-    },
-  });
+  
   return (
-    <>
-    {modal && (
-      <div
-      className="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
-      id="modal-id"
-    >
-      <div className="absolute bg-black opacity-80 inset-0 z-0"></div>
-      <div className="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
-        <div className="">
-          <div className="text-center p-5 flex-auto justify-center">
-            <h2 className="text-xl font-bold py-4 ">
-              ¿Inscribirse a este Proyecto?
-            </h2>
+   
+    <div class="bg-white p-8 rounded-md w-full">
+        <div>
+          <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+              <table class="min-w-full leading-normal">
+                <thead>
+                  <tr>
+                    <th
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Nombre
+                    </th>
+                    <th
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Rol
+                    </th>
+                    <th
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Fecha Ingreso
+                    </th>
+                    <th
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Proyecto
+                    </th>
+                    <th
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Estado
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <div class="flex items-center">
+                        <div class="flex-shrink-0 w-10 h-10">
+                          <img class="w-full h-full rounded-full"
+                                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                                    alt="" />
+                                            </div>
+                          <div class="ml-3">
+                            <p class="text-gray-900 whitespace-no-wrap">
+                              Vera Carpenter
+                            </p>
+                            <div class="text-sm text-gray-500">correo@correo22.com</div>
+                          </div>
+                        </div>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">Admin</p>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                        Jan 21, 2020
+                      </p>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                        Proyecto1
+                      </p>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <span
+                                            class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                            <span aria-hidden
+                                                class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                      <span class="relative">Aprobado</span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <div class="flex items-center">
+                        <div class="flex-shrink-0 w-10 h-10">
+                          <img class="w-full h-full rounded-full"
+                                                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                                    alt="" />
+                                            </div>
+                          <div class="ml-3">
+                            <p class="text-gray-900 whitespace-no-wrap">
+                              Blake Bowman
+                            </p>
+                            <div class="text-sm text-gray-500">correo@correo22.com</div>
+                          </div>
+                        </div>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">Editor</p>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                        Jan 01, 2020
+                      </p>
+                    </td>  
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                      Proyecto2
+                      </p>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <span
+                                            class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                            <span aria-hidden
+                                                class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                      <span class="relative">Aprobado</span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <div class="flex items-center">
+                        <div class="flex-shrink-0 w-10 h-10">
+                          <img class="w-full h-full rounded-full"
+                                                    src="https://images.unsplash.com/photo-1540845511934-7721dd7adec3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                                    alt="" />
+                                            </div>
+                          <div class="ml-3">
+                            <p class="text-gray-900 whitespace-no-wrap">
+                              Dana Moore
+                            </p>
+                            <div class="text-sm text-gray-500">correo@correo22.com</div>
+                          </div>
+                        </div>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">Editor</p>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                        Jan 10, 2020
+                      </p>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                      Proyecto3
+                      </p>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <span
+                                            class="relative inline-block px-3 py-1 font-semibold text-orange-900 leading-tight">
+                                            <span aria-hidden
+                                                class="absolute inset-0 bg-orange-200 opacity-50 rounded-full"></span>
+                      <span class="relative">Rechazada</span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-5 bg-white text-sm">
+                      <div class="flex items-center">
+                        <div class="flex-shrink-0 w-10 h-10">
+                          <img class="w-full h-full rounded-full"
+                                                    src="https://images.unsplash.com/photo-1522609925277-66fea332c575?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&h=160&w=160&q=80"
+                                                    alt="" />
+                                            </div>
+                          <div class="ml-3">
+                            <p class="text-gray-900 whitespace-no-wrap">
+                              Alonzo Cox
+                            </p>
+                            <div class="text-sm text-gray-500">correo@correo22.com</div>
+                          </div>
+                        </div>
+                    </td>
+                    <td class="px-5 py-5 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">Admin</p>
+                    </td>
+                    <td class="px-5 py-5 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">Jan 18, 2020</p>
+                    </td>
+                    <td class="px-5 py-5 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">Proyecto1</p>
+                    </td>
+                    <td class="px-5 py-5 bg-white text-sm">
+                      <span
+                                            class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                                            <span aria-hidden
+                                                class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+                      <span class="relative">Pendiente</span>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div
+                class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
+                <span class="text-xs xs:text-sm text-gray-900">
+                                Mostrando 1 - 4 de 50 entradas
+                            </span>
+                <div class="inline-flex mt-2 xs:mt-0">
+                  <button
+                                    class="group relative w-full flex justify-center ml-2  py-2 px-6 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400">
+                                    Anterior
+                                </button>
+                  &nbsp; &nbsp;
+                  <button
+                                    class="group relative w-full flex justify-center ml-2  py-2 px-6 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400">
+                                    Siguiente
+                                </button>
+                </div>
+              </div>
+            </div>
           </div>
-          <form
-            className="p-3  mt-2 text-center space-x-4 md:block"
-            onSubmit={formik.handleSubmit}
-          >
-            <button
-              name="si"
-              id="si"
-              type="submit"
-              className="mb-2 md:mb-0 bg-yellow-300 border border-yellow-300 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-black rounded-full hover:shadow-lg hover:bg-yellow-400"
-              value={formik.values.si}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            >
-              Si
-            </button>
-            <button className="mb-2 md:mb-0 bg-black px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900">
-              Cancelar
-            </button>
-          </form>
         </div>
       </div>
-    </div>
-    )}
-    
-    {!modal && (
-      <h1>Inscripciones</h1>
-    )}
-    </>
   );
 };
 
