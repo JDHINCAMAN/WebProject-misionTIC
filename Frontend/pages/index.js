@@ -2,6 +2,7 @@ import Head from "next/head";
 import Layout from "../components/Layout";
 import Usuarios from "../components/Usuarios";
 import Proyectos from "../components/Proyectos";
+import Configuracion from "../components/Configuracion";
 import Inscripciones from "../components/Inscripciones";
 import { useState, useEffect } from "react";
 
@@ -20,6 +21,7 @@ export default function Home() {
           {seccion === "usuarios" && <Usuarios />}
           {seccion === "proyectos" && <Proyectos />}
           {seccion === "inscripciones" && <Inscripciones />}
+          {seccion === "configuracion" && <Configuracion />}
         </main>
       </Layout>
     </div>
