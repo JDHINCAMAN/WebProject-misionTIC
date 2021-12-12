@@ -77,50 +77,25 @@ const Inscripciones = () => {
     },
   });
   return (
-    <div class="font-sans">
-      <div class="relative flex flex-col p-28 sm:justify-center items-center">
-        <div class="relative sm:max-w-sm w-full">
-          <div class="card bg-yellow-400 shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6"></div>
-          <div class="card bg-black shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6"></div>
-          <div class="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md">
-            <label
-              for=""
-              class="block mt-3 text-sm text-gray-700 text-center font-semibold"
-            >
-              Inscribete
-            </label>
-            <form method="#" action="#" class="mt-10">
-              <label htmlFor="rol">
-                Selecciona un Proyecto
-                <select
-                  name="proyecto"
-                  id="proyecto"
-                  className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${
-                    formik.errors.rol ? "border-red-500" : ""
-                  } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
-                  value={formik.values.proyecto}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                >
-                  <option value="">...</option>
-                  <option value="1">Proyecto 1</option>
-                  <option value="2">Proyecto 2</option>
-                  <option value="3">Proyecto 3</option>
-                </select>
-                <span>
-                  {formik.touched.proyecto && formik.errors.proyecto ? (
-                    <div className="text-red-500 text-xs italic">
-                      {formik.errors.proyecto}
-                    </div>
-                  ) : null}
-                </span>
-              </label>
-              <div class="mt-7">
-                <button class="bg-yellow-400 w-full py-3 rounded-xl text-black shadow-xl font-medium hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
-                  Hacer Inscripción
-                </button>
-              </div>
-            </form>
+    <div
+      className="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
+      id="modal-id"
+    >
+      <div className="absolute bg-black opacity-80 inset-0 z-0"></div>
+      <div className="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
+        <div className="">
+          <div className="text-center p-5 flex-auto justify-center">
+            <h2 className="text-xl font-bold py-4 ">
+              ¿Inscribirse a este Proyecto?
+            </h2>
+          </div>
+          <div className="p-3  mt-2 text-center space-x-4 md:block">
+            <button className="mb-2 md:mb-0 bg-yellow-300 border border-yellow-300 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-black rounded-full hover:shadow-lg hover:bg-yellow-400">
+              Si
+            </button>
+            <button className="mb-2 md:mb-0 bg-black px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900">
+              Cancelar
+            </button>
           </div>
         </div>
       </div>
