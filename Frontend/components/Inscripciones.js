@@ -59,37 +59,37 @@ const Inscripciones = () => {
             <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
               <table class="min-w-full leading-normal">
                 <thead>
-                  <tr>
+                  <tr >
                     <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Nombre
                     </th>
                     <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Rol
                     </th>
                     <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Fecha Ingreso
                     </th>
                     <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      Proyecto
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Proyecto 
                     </th>
                     <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Estado
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                 {data.obtenerUsuarios.map((person) => (
-                  <><tr key={person.id}>
+                  <><tr key={person.id} class="hover:bg-gray-500">
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <div class="flex items-center">
                         <div class="flex-shrink-0 w-10 h-10">
                           <img class="w-full h-full rounded-full"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                            src="https://cdn5.vectorstock.com/i/thumb-large/82/59/anonymous-user-flat-icon-vector-18958259.jpg"
                             alt="" />
                         </div>
                         <div class="ml-3">
@@ -121,114 +121,8 @@ const Inscripciones = () => {
                         <span class="relative">{person.estado}</span>
                       </span>
                     </td>
-                  </tr><tr>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 w-10 h-10">
-                            <img class="w-full h-full rounded-full"
-                              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                              alt="" />
-                          </div>
-                          <div class="ml-3">
-                            <p class="text-gray-900 whitespace-no-wrap">
-                              {person.nombre} {person.apellido}
-                            </p>
-                            <div class="text-sm text-gray-500">{person.email}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">{person.rol}</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Jan 01, 2020
-                        </p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Proyecto2
-                        </p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <span
-                          class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                          <span aria-hidden
-                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                          <span class="relative">{person.estado}</span>
-                        </span>
-                      </td>
-                    </tr><tr>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 w-10 h-10">
-                            <img class="w-full h-full rounded-full"
-                              src="https://images.unsplash.com/photo-1540845511934-7721dd7adec3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                              alt="" />
-                          </div>
-                          <div class="ml-3">
-                            <p class="text-gray-900 whitespace-no-wrap">
-                              {person.nombre} {person.apellido}
-                            </p>
-                            <div class="text-sm text-gray-500">{person.email}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">{person.rol}</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Jan 10, 2020
-                        </p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Proyecto3
-                        </p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <span
-                          class="relative inline-block px-3 py-1 font-semibold text-orange-900 leading-tight">
-                          <span aria-hidden
-                            class="absolute inset-0 bg-orange-200 opacity-50 rounded-full"></span>
-                          <span class="relative">{person.estado}</span>
-                        </span>
-                      </td>
-                    </tr><tr>
-                      <td class="px-5 py-5 bg-white text-sm">
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 w-10 h-10">
-                            <img class="w-full h-full rounded-full"
-                              src="https://images.unsplash.com/photo-1522609925277-66fea332c575?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&h=160&w=160&q=80"
-                              alt="" />
-                          </div>
-                          <div class="ml-3">
-                            <p class="text-gray-900 whitespace-no-wrap">
-                              {person.nombre} {person.apellido}
-                            </p>
-                            <div class="text-sm text-gray-500">{person.email}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-5 py-5 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">{person.rol}</p>
-                      </td>
-                      <td class="px-5 py-5 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">Jan 18, 2020</p>
-                      </td>
-                      <td class="px-5 py-5 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">Proyecto1</p>
-                      </td>
-                      <td class="px-5 py-5 bg-white text-sm">
-                        <span
-                          class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-                          <span aria-hidden
-                            class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
-                          <span class="relative">{person.estado}</span>
-                        </span>
-                      </td>
-                    </tr></>
+                  </tr>
+  </>
                 ))}
                 </tbody>
               </table>
