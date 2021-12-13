@@ -17,6 +17,12 @@ const OBTENER_USUARIO = gql`
 const Sidebar = ({ setSeccion }) => {
   // routing de nextjs
   const router = useRouter();
+  
+  // cerrar sesion
+  const cerrarSesion = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
 
   // query de apollo
 
@@ -28,7 +34,7 @@ const Sidebar = ({ setSeccion }) => {
   // proteger que no accedamos a data antes de obtener resultados
   if (loading) return "Cargando...";
 
-  const {nombre, apellido, email} = data.obtenerUsuario;
+  const { nombre, apellido, email } = data.obtenerUsuario;
   return (
     <aside className="w-64 bg-gray-100 rounded-md">
       <div className="px-6 pt-8">
@@ -531,7 +537,9 @@ const Sidebar = ({ setSeccion }) => {
             />
           </div>
           <div className="flex flex-col pl-3">
-            <div className="text-sm text-gray-50">{nombre} {apellido}</div>
+            <div className="text-sm text-gray-50">
+              {nombre} {apellido}
+            </div>
             <span className="text-xs text-[#acacb0] font-light tracking-tight">
               {email}
             </span>
@@ -552,7 +560,16 @@ const Sidebar = ({ setSeccion }) => {
             ></path>
           </svg>
         </button>
+
+
       </div>
+      <button
+          type=""
+          className="group relative flex justify-center ml-2 mt-2 py-2 px-2 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
+          onClick={cerrarSesion}
+        >
+          Cerrar Sesión
+        </button>
     </aside>
   );
 };
