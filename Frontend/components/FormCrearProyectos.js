@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useFormik } from "formik";
+import { Field, FieldArray, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation, gql } from "@apollo/client";
 import { toast } from "react-toastify";
+import FriendList from "./FriendList";
+import { array } from "yup/lib/locale";
 
 const NUEVO_PROYECTO = gql`
   mutation CrearProyecto($input: ProyectoInput) {
@@ -33,15 +35,15 @@ const FormCrearProyectos = ({ handleClose }) => {
     initialValues: {
       nombreProyecto: "",
       objetivoGeneral: "",
-      objetivosEspecificos: "",
+      objetivosEspecificos: [],
       presupuesto: "",
     },
     validationSchema: Yup.object({
       nombreProyecto: Yup.string().required("El nombre es obligatorio"),
       objetivoGeneral: Yup.string().required("El objetivo es obligatorio"),
-      objetivosEspecificos: Yup.string().required(
-        "Los objetivos especificos son obligatorios"
-      ),
+      //   objetivosEspecificos: Yup.array()
+      //     .required("agregue objetivos especificos")
+      //     .min(1, "agregue al menos un especifico"),
       presupuesto: Yup.string().required("El presupuesto es obligatoria"),
     }),
     onSubmit: async (valores) => {
@@ -92,19 +94,19 @@ const FormCrearProyectos = ({ handleClose }) => {
   });
   return (
     <>
-      
-        <div
-          className=" min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
-          id="modal-id"
-        >
-          <div className="absolute bg-black opacity-80 inset-0 z-0"></div>
-          <div className="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
-            <div className="flex flex-col justify-center">
-              <div className="text-center p-5 flex-auto justify-center">
-                <h2 className="text-xl font-bold py-4 ">
-                  Crear un Nuevo Proyecto
-                </h2>
-              </div>
+      <div
+        className=" min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
+        id="modal-id"
+      >
+        <div className="absolute bg-black opacity-80 inset-0 z-0"></div>
+        <div className="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
+          <div className="flex flex-col justify-center">
+            <div className="text-center p-5 flex-auto justify-center">
+              <h2 className="text-xl font-bold py-4 ">
+                Crear un Nuevo Proyecto
+              </h2>
+            </div>
+            <FormikProvider values={formik}>
               <form className="mt-8" onSubmit={formik.handleSubmit}>
                 <label htmlFor="nombreProyecto">
                   Nombre de Proyecto
@@ -141,7 +143,7 @@ const FormCrearProyectos = ({ handleClose }) => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <span >
+                  <span>
                     {formik.touched.objetivoGeneral &&
                     formik.errors.apellido ? (
                       <div className="text-red-500 text-xs italic">
@@ -150,10 +152,8 @@ const FormCrearProyectos = ({ handleClose }) => {
                     ) : null}
                   </span>
                 </label>
-                <label >
-                  Objetivos Especificos
-                </label>
-                <input
+                <label>Objetivos Especificos</label>
+                {/* <input
                   name="objetivosEspecificos"
                   id="objetivosEspecificos"
                   type="text"
@@ -163,15 +163,54 @@ const FormCrearProyectos = ({ handleClose }) => {
                   value={formik.values.objetivosEspecificos}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                />
-                <span>
+                /> */}
+                {/* <span>
                   {formik.touched.objetivosEspecificos &&
-                  formik.errors.email ? (
+                  formik.errors.objetivosEspecificos ? (
                     <div className="text-red-500 text-xs italic">
                       {formik.errors.objetivosEspecificos}
                     </div>
                   ) : null}
-                </span>
+                </span> */}
+                <FieldArray
+                  name="objetivosEspecificos"
+                  render={(arrayHelpers) => (
+                    <div>
+                      {formik.values.objetivosEspecificos.map(
+                        (objetivo, index) => (
+                          <div key={index}>
+                            <input
+                              name="objetivosEspecificos"
+                              id="objetivosEspecificos"
+                              type="text"
+                              className={`appearance-none rounded-none relative block mt-2 w-full px-3 py-2 border border-gray-300 ${
+                                formik.errors.objetivosEspecificos
+                                  ? "border-red-500"
+                                  : ""
+                              } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
+                              value={formik.values.objetivosEspecificos[index]}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => arrayHelpers.remove(index)}
+                            >
+                              -
+                            </button>
+                          </div>
+                        )
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => arrayHelpers.push({objetivo: ""})}
+                      >
+                        +
+                      </button>
+                    </div>
+                  )}
+                ></FieldArray>
+
                 <label htmlFor="presupuesto">
                   Presupuesto
                   <input
@@ -211,9 +250,10 @@ const FormCrearProyectos = ({ handleClose }) => {
                   </button>
                 </div>
               </form>
-            </div>
+            </FormikProvider>
           </div>
         </div>
+      </div>
     </>
   );
 };
