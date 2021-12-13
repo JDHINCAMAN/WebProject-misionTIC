@@ -7,9 +7,21 @@ import Inscripciones from "../components/Inscripciones";
 import { useState, useEffect } from "react";
 
 export default function Home() {
+
+  const router = useRouter();
+
+
   // validar la seccion de usuarios
   const [seccion, setSeccion] = useState("usuarios");
 
+  const { data, loading, error } = useQuery(OBTENER_USUARIO);
+
+  if (loading) return "Cargando...";
+
+  if (!data){
+    return router.push("/login");
+  }
+  
   return (
     <div>
       <Layout setSeccion={setSeccion}>
