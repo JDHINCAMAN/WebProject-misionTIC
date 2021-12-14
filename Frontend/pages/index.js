@@ -35,20 +35,21 @@ export default function Home() {
     router.push("/login")
     return <p>nada</p>
   }
-  
+
+
   return (
     <div>
-      <Layout setSeccion={setSeccion}>
-        <h1 className="text-3xl text-grey-800 font-light">
-          {seccion.toUpperCase()}
-        </h1>
-        <main className="p-8">
-          {seccion === "usuarios" && <Usuarios />}
-          {seccion === "proyectos" && <Proyectos />}
-          {seccion === "inscripciones" && <Inscripciones />}
-          {seccion === "configuracion" && <Configuracion />}
-        </main>
-      </Layout>
+        <Layout setSeccion={setSeccion}>
+          <h1 className="text-3xl text-grey-800 font-light">
+            {seccion.toUpperCase()}
+          </h1>
+          <main className="p-8">
+            {seccion === "usuarios" && <Usuarios />}
+            {seccion === "proyectos" && <Proyectos />}
+            {seccion === "inscripciones" && <Inscripciones />}
+            {seccion === "configuracion" && <Configuracion />}
+          </main>
+        </Layout>
     </div>
   );
 }

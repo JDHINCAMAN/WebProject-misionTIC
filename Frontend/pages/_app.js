@@ -1,4 +1,5 @@
 import 'tailwindcss/tailwind.css'
+import '../main.css'
 import { ApolloProvider } from "@apollo/client";
 import client from "../config/apollo";
 import 'react-toastify/dist/ReactToastify.css';

@@ -12,11 +12,12 @@ module.exports = {
           800 : '#262626',
           900 : '#171818',
         }
-      }
+      },
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+  ],
 }

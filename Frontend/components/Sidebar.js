@@ -34,7 +34,14 @@ const Sidebar = ({ setSeccion }) => {
   // proteger que no accedamos a data antes de obtener resultados
   if (loading) return "Cargando...";
 
+  // si no hay informacion de usuario
+  console.log(data.obtenerUsuario);
+  if (!data.obtenerUsuario) {
+    router.push("/login")
+  }
+
   const { nombre, apellido, email } = data.obtenerUsuario;
+
   return (
     <aside className="w-64 bg-gray-100 rounded-md">
       <div className="px-6 pt-8">
