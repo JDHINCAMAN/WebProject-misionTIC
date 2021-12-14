@@ -19,7 +19,7 @@ const OBTENER_PROYECTOS = gql`
 `;
 
 toast.configure();
-const MostrarProyecto = ({ handleClose }) => {
+const MostrarProyecto = ({ handleClose, nombreProyecto }) => {
   // estate para mostrar modal
   const [show, setShow] = useState(false);
 

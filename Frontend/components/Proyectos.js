@@ -50,7 +50,7 @@ const Proyectos = () => {
               Más Información
             </button>
             {showModal && (
-              <MostrarProyecto handleClose={() => setShow(false)} />
+              <MostrarProyecto handleClose={() => setShow(false)} nombreProyecto={person.nombreProyecto}/>
             )}
           </div>
         ))}

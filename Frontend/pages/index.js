@@ -4,22 +4,36 @@ import Usuarios from "../components/Usuarios";
 import Proyectos from "../components/Proyectos";
 import Configuracion from "../components/Configuracion";
 import Inscripciones from "../components/Inscripciones";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { useQuery, gql } from "@apollo/client";
+
+const OBTENER_USUARIO = gql`
+  query ObtenerUsuario {
+    obtenerUsuario {
+      id
+      nombre
+      apellido
+      email
+    }
+  }
+`;
 
 export default function Home() {
-
   const router = useRouter();
+  const [seccion, setSeccion] = useState("usuarios");
 
 
   // validar la seccion de usuarios
-  const [seccion, setSeccion] = useState("usuarios");
 
   const { data, loading, error } = useQuery(OBTENER_USUARIO);
 
   if (loading) return "Cargando...";
 
-  if (!data){
-    return router.push("/login");
+
+  if (!data.obtenerUsuario) {
+    router.push("/login")
+    return <p>nada</p>
   }
   
   return (
