@@ -4,26 +4,52 @@ import Usuarios from "../components/Usuarios";
 import Proyectos from "../components/Proyectos";
 import Configuracion from "../components/Configuracion";
 import Inscripciones from "../components/Inscripciones";
-import { useState, useEffect } from "react";
-import CrearProyectos from "../components/Proyectos";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { useQuery, gql } from "@apollo/client";
+
+const OBTENER_USUARIO = gql`
+  query ObtenerUsuario {
+    obtenerUsuario {
+      id
+      nombre
+      apellido
+      email
+    }
+  }
+`;
 
 export default function Home() {
-  // validar la seccion de usuarios
+  const router = useRouter();
   const [seccion, setSeccion] = useState("usuarios");
+
+
+  // validar la seccion de usuarios
+
+  const { data, loading, error } = useQuery(OBTENER_USUARIO);
+
+  if (loading) return "Cargando...";
+
+
+  if (!data.obtenerUsuario) {
+    router.push("/login")
+    return <p>nada</p>
+  }
+
 
   return (
     <div>
-      <Layout setSeccion={setSeccion}>
-        <h1 className="text-3xl text-grey-800 font-light">
-          {seccion.toUpperCase()}
-        </h1>
-        <main className="p-8">
-          {seccion === "usuarios" && <Usuarios />}
-          {seccion === "proyectos" && <Proyectos />}
-          {seccion === "inscripciones" && <Inscripciones />}
-          {seccion === "configuracion" && <Configuracion />}
-        </main>
-      </Layout>
+        <Layout setSeccion={setSeccion}>
+          <h1 className="text-3xl text-grey-800 font-light">
+            {seccion.toUpperCase()}
+          </h1>
+          <main className="p-8">
+            {seccion === "usuarios" && <Usuarios />}
+            {seccion === "proyectos" && <Proyectos />}
+            {seccion === "inscripciones" && <Inscripciones />}
+            {seccion === "configuracion" && <Configuracion />}
+          </main>
+        </Layout>
     </div>
   );
 }

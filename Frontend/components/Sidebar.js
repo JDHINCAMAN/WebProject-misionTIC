@@ -18,6 +18,12 @@ const Sidebar = ({ setSeccion }) => {
   // routing de nextjs
   const router = useRouter();
 
+  // cerrar sesion
+  const cerrarSesion = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
+
   // query de apollo
 
   const { data, loading, error } = useQuery(OBTENER_USUARIO);
@@ -28,7 +34,14 @@ const Sidebar = ({ setSeccion }) => {
   // proteger que no accedamos a data antes de obtener resultados
   if (loading) return "Cargando...";
 
-  const {nombre, apellido, email} = data.obtenerUsuario;
+  // si no hay informacion de usuario
+  console.log(data.obtenerUsuario);
+  if (!data.obtenerUsuario) {
+    router.push("/login");
+  }
+
+  const { nombre, apellido, email } = data.obtenerUsuario;
+
   return (
     <aside className="w-64 bg-gray-100 rounded-md">
       <div className="px-6 pt-8">
@@ -342,7 +355,7 @@ const Sidebar = ({ setSeccion }) => {
               href="#"
               className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
             >
-              Reporting
+              Reportes
             </a>
           </li>
           <li className="relative text-gray-500 hover:text-white focus-within:text-white">
@@ -404,7 +417,7 @@ const Sidebar = ({ setSeccion }) => {
               href="#"
               className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
             >
-              Support
+              Soporte
             </a>
           </li>
         </ul>
@@ -472,7 +485,7 @@ const Sidebar = ({ setSeccion }) => {
               href="#"
               className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
             >
-              Notifications
+              Notificaciones
             </a>
           </li>
           {/* <li class="relative text-gray-500 hover:text-white focus-within:text-white">
@@ -523,15 +536,10 @@ const Sidebar = ({ setSeccion }) => {
       </div>
       <div className="pl-6 pr-4 py-4 bg-[#232529] flex items-center justify-between">
         <div className="flex items-center">
-          <div className="relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white">
-            <img
-              className="rounded-full"
-              src="https://avatars.githubusercontent.com/u/69741658?v=4"
-              alt=""
-            />
-          </div>
           <div className="flex flex-col pl-3">
-            <div className="text-sm text-gray-50">{nombre} {apellido}</div>
+            <div className="text-sm text-gray-50">
+              {nombre} {apellido}
+            </div>
             <span className="text-xs text-[#acacb0] font-light tracking-tight">
               {email}
             </span>
@@ -553,6 +561,13 @@ const Sidebar = ({ setSeccion }) => {
           </svg>
         </button>
       </div>
+      <button
+        type=""
+        className="group relative flex justify-center ml-2 mt-2 py-2 px-2 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
+        onClick={cerrarSesion}
+      >
+        Cerrar Sesión
+      </button>
     </aside>
   );
 };

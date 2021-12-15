@@ -20,7 +20,7 @@ const NUEVA_INSCRIPCION = gql`
 
 toast.configure();
 
-const ConfirmarInscripcion = () => {
+const ConfirmarInscripcion = (handleClose) => {
   const [crearInscripcion] = useMutation(NUEVA_INSCRIPCION);
   const [modal, setModal] = React.useState(false);
 
@@ -105,7 +105,10 @@ const ConfirmarInscripcion = () => {
               >
                 Si
               </button>
-              <button className="mb-2 md:mb-0 bg-black px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900">
+              <button
+                onClick={handleClose}
+                className="mb-2 md:mb-0 bg-black px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900"
+              >
                 Cancelar
               </button>
             </form>
@@ -117,7 +120,8 @@ const ConfirmarInscripcion = () => {
 };
 
 export default ConfirmarInscripcion;
-<div
+{
+  /* <div
   className="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
   id="modal-id"
 >
@@ -151,3 +155,5 @@ export default ConfirmarInscripcion;
     </div>
   </div>
 </div>;
+ */
+}
