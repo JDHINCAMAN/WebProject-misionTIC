@@ -22,7 +22,7 @@ const OBTENER_USUARIO = gql`
 
 export default function Home() {
   const router = useRouter();
-  const [seccion, setSeccion] = useState("usuarios");
+  const [seccion, setSeccion] = useState("");
 
 
   // validar la seccion de usuarios
