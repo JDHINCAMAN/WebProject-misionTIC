@@ -329,7 +329,7 @@ const Sidebar = ({ setSeccion }) => {
               href="#"
               className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
             >
-              Reporting
+              Reportes
             </a>
           </li>
           <li className="relative text-gray-500 hover:text-white focus-within:text-white">
@@ -391,7 +391,7 @@ const Sidebar = ({ setSeccion }) => {
               href="#"
               className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
             >
-              Support
+              Soporte
             </a>
           </li>
         </ul>
@@ -459,20 +459,13 @@ const Sidebar = ({ setSeccion }) => {
               href="#"
               className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
             >
-              Notifications
+              Notificaciones
             </a>
           </li>
         </ul>
       </div>
       <div className="pl-6 pr-4 py-4 bg-[#232529] flex items-center justify-between">
         <div className="flex items-center">
-          <div className="relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white">
-            <img
-              className="rounded-full"
-              src="https://avatars.githubusercontent.com/u/69741658?v=4"
-              alt=""
-            />
-          </div>
           <div className="flex flex-col pl-3">
             <div className="text-sm text-gray-50">
               {nombre} {apellido}
