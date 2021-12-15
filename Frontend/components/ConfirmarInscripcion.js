@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { useFormik } from "formik";
+import { useFormik, Formik } from "formik";
 import * as Yup from "yup";
 import { useMutation, gql } from "@apollo/client";
 import { toast } from "react-toastify";
@@ -20,7 +20,7 @@ const NUEVA_INSCRIPCION = gql`
 
 toast.configure();
 
-const ConfirmarInscripcion = (handleClose) => {
+const ConfirmarInscripcion = ({ handleClose }) => {
   const [crearInscripcion] = useMutation(NUEVA_INSCRIPCION);
   const [modal, setModal] = React.useState(false);
 
@@ -41,7 +41,7 @@ const ConfirmarInscripcion = (handleClose) => {
       const { proyecto, estudiante } = valores;
 
       try {
-        const { data } = await crearUsuario({
+        const { data } = await crearInscripcion({
           variables: {
             input: {
               proyecto,
@@ -106,11 +106,15 @@ const ConfirmarInscripcion = (handleClose) => {
                 Si
               </button>
               <button
-                onClick={handleClose}
+                type="button"
                 className="mb-2 md:mb-0 bg-black px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900"
+                onClick={handleClose}
               >
                 Cancelar
               </button>
+              {modal && (
+                <ConfirmarInscripcion handleClose={() => setModal(false)} />
+              )}
             </form>
           </div>
         </div>

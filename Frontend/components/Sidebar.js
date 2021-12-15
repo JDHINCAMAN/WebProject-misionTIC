@@ -28,7 +28,6 @@ const Sidebar = ({ setSeccion }) => {
 
   const { data, loading, error } = useQuery(OBTENER_USUARIO);
 
-
   // proteger que no accedamos a data antes de obtener resultados
   if (loading) return "Cargando...";
 
@@ -159,11 +158,60 @@ const Sidebar = ({ setSeccion }) => {
               Tablero de Proyectos
             </a>
           </li>
-          {(rol === "ADMINISTRADOR") || (rol === "LIDER") && (
-            <li className="">
-              <div className="relative flex justify-between text-gray-500 hover:text-white focus-within:text-white">
-                <div className="flex items-center w-full">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+          {rol === "ADMINISTRADOR" ||
+            (rol === "LIDER" && (
+              <li className="">
+                <div className="relative flex justify-between text-gray-500 hover:text-white focus-within:text-white">
+                  <div className="flex items-center w-full">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+                      <svg
+                        className="w-5 h-5 stroke-current"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V9L14 4.75H7.75C6.64543 4.75 5.75 5.64543 5.75 6.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25Z"
+                        ></path>
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M18 9.25H13.75V5"
+                        ></path>
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M9.75 15.25H14.25"
+                        ></path>
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M9.75 12.25H14.25"
+                        ></path>
+                      </svg>
+                    </div>
+                    <a
+                      href="#"
+                      className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-yellow-300 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+                      name="inscripciones"
+                      onClick={() => setSeccion("inscripciones")}
+                    >
+                      Inscripciones
+                    </a>
+                  </div>
+                  <button
+                    className="absolute right-0 flex items-center p-1"
+                    tabIndex="-1"
+                  >
                     <svg
                       className="w-5 h-5 stroke-current"
                       fill="none"
@@ -174,90 +222,41 @@ const Sidebar = ({ setSeccion }) => {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="1.5"
-                        d="M7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V9L14 4.75H7.75C6.64543 4.75 5.75 5.64543 5.75 6.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25Z"
-                      ></path>
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                        d="M18 9.25H13.75V5"
-                      ></path>
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                        d="M9.75 15.25H14.25"
-                      ></path>
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                        d="M9.75 12.25H14.25"
+                        d="M15.25 10.75L12 14.25L8.75 10.75"
                       ></path>
                     </svg>
-                  </div>
-                  <a
-                    href="#"
-                    className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-yellow-300 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
-                    name="inscripciones"
-                    onClick={() => setSeccion("inscripciones")}
-                  >
-                    Inscripciones
-                  </a>
+                  </button>
                 </div>
-                <button
-                  className="absolute right-0 flex items-center p-1"
-                  tabIndex="-1"
-                >
-                  <svg
-                    className="w-5 h-5 stroke-current"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                      d="M15.25 10.75L12 14.25L8.75 10.75"
-                    ></path>
-                  </svg>
-                </button>
-              </div>
-              <div className="pt-2 pl-4">
-                <ul className="flex flex-col pl-2 text-gray-500 border-l border-gray-700">
-                  <li>
-                    <a
-                      href="#"
-                      className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
-                    >
-                      Pendientes
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
-                    >
-                      Rechazadas
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
-                    >
-                      Aprobadas
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          )}
-          
+                <div className="pt-2 pl-4">
+                  <ul className="flex flex-col pl-2 text-gray-500 border-l border-gray-700">
+                    <li>
+                      <a
+                        href="#"
+                        className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
+                      >
+                        Pendientes
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
+                      >
+                        Rechazadas
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
+                      >
+                        Aprobadas
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            ))}
 
           {rol === "ADMINISTRADOR" && (
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
@@ -284,7 +283,7 @@ const Sidebar = ({ setSeccion }) => {
                 </svg>
               </div>
               <a
-                href="#"
+                href="/"
                 className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
                 onClick={() => setSeccion("usuarios")}
               >

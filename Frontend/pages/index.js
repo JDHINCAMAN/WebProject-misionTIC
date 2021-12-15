@@ -24,29 +24,28 @@ export default function Home() {
   const router = useRouter();
   const [seccion, setSeccion] = useState("");
 
-
   // validar la seccion de usuarios
 
   const { data, loading, error } = useQuery(OBTENER_USUARIO);
 
   if (loading) return "Cargando...";
 
-
   if (!data.obtenerUsuario) {
-    router.push("/login")
-    return <p>nada</p>
+    router.push("/login");
+    return <p>nada</p>;
   }
 
   return (
     <div>
-        <Layout setSeccion={setSeccion} >
-          <main className="p-8">
-            {(seccion === "usuarios" && data.obtenerUsuario.rol!=='ESTUDIANTE') && <Usuarios />}
-            {seccion === "proyectos" && <Proyectos />}
-            {seccion === "inscripciones" && <Inscripciones />}
-            {seccion === "configuracion" && <Configuracion />}
-          </main>
-        </Layout>
+      <Layout setSeccion={setSeccion}>
+        <main className="p-8">
+          {seccion === "usuarios" &&
+            data.obtenerUsuario.rol !== "ESTUDIANTE" && <Usuarios />}
+          {seccion === "proyectos" && <Proyectos />}
+          {seccion === "inscripciones" && <Inscripciones />}
+          {seccion === "configuracion" && <Configuracion />}
+        </main>
+      </Layout>
     </div>
   );
 }
