@@ -27,15 +27,12 @@ const Sidebar = ({ setSeccion }) => {
   // query de apollo
 
   const { data, loading, error } = useQuery(OBTENER_USUARIO);
-  console.log(data);
-  console.log(loading);
-  console.log(error);
+
 
   // proteger que no accedamos a data antes de obtener resultados
   if (loading) return "Cargando...";
 
   // si no hay informacion de usuario
-  console.log(data.obtenerUsuario);
   if (!data.obtenerUsuario) {
     router.push("/login");
   }
