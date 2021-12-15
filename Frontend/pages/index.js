@@ -37,7 +37,6 @@ export default function Home() {
     return <p>nada</p>
   }
 
-console.log(data.obtenerUsuario)
   return (
     <div>
         <Layout setSeccion={setSeccion} >
