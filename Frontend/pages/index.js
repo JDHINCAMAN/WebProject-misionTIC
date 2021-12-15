@@ -15,6 +15,7 @@ const OBTENER_USUARIO = gql`
       nombre
       apellido
       email
+      rol
     }
   }
 `;
@@ -36,15 +37,12 @@ export default function Home() {
     return <p>nada</p>
   }
 
-
+console.log(data.obtenerUsuario)
   return (
     <div>
-        <Layout setSeccion={setSeccion}>
-          <h1 className="text-3xl text-grey-800 font-light">
-            {seccion.toUpperCase()}
-          </h1>
+        <Layout setSeccion={setSeccion} >
           <main className="p-8">
-            {seccion === "usuarios" && <Usuarios />}
+            {(seccion === "usuarios" && data.obtenerUsuario.rol!=='ESTUDIANTE') && <Usuarios />}
             {seccion === "proyectos" && <Proyectos />}
             {seccion === "inscripciones" && <Inscripciones />}
             {seccion === "configuracion" && <Configuracion />}
