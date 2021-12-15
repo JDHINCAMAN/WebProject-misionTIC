@@ -39,9 +39,7 @@ const people = [
 const Usuarios = () => {
   // consulta de apollo
   const { data, loading, error } = useQuery(OBTENER_USUARIOS);
-  console.log(data);
-  console.log(loading);
-  console.log(error);
+
 
   if (loading) return "Cargando...";
 
