@@ -18,26 +18,24 @@ const NUEVA_INSCRIPCION = gql`
   }
 `;
 
-const OBTENER_USUARIOS = gql`
-  query ObtenerUsuarios {
-    obtenerUsuarios {
+const OBTENER_USUARIO = gql`
+  query ObtenerUsuario {
+    obtenerUsuario {
       id
       nombre
       apellido
-      identificacion
       email
       rol
-      estado
-      creado
     }
   }
 `;
 
-const OBTENER_PROYECTOS = gql`
-  query ObtenerProyectos {
-    obtenerProyectos {
+const OBTENER_PROYECTO = gql`
+  query ObtenerProyecto {
+    obtenerProyecto {
       id
       nombreProyecto
+      objetivoGeneral
       objetivosEspecificos
       presupuesto
       fechaInicio
@@ -55,70 +53,65 @@ const ConfirmarInscripcion = ({ handleClose }) => {
   const [crearInscripcion] = useMutation(NUEVA_INSCRIPCION);
   const [modal, setModal] = React.useState(false);
 
-  const { data } = useQuery(OBTENER_PROYECTOS);
+  const { data } = useQuery(OBTENER_PROYECTO);
 
-  const { dataU } = useQuery(OBTENER_USUARIOS);
+  const { dataU } = useQuery(OBTENER_USUARIO);
+
+  console.log(data);
+  console.log(dataU);
 
   // Routin
   const router = useRouter();
 
   // validacion del formulario
-  {
-    data.OBTENER_PROYECTOS.map((proyecto) => {
-      {
-        dataU.OBTENER_USUARIOS.map((estudiante) => {
-          const formik = useFormik({
-            initialValues: {
-              proyecto: proyecto.id,
-              estudiante: estudiante.id,
-            },
-            validationSchema: Yup.object({
-              proyecto: Yup.string().required("El Proyecto es obligatorio"),
-              estudiante: Yup.string().required("Usted debe ser un estudiante"),
-            }),
-            onSubmit: async (valores) => {
-              const { proyecto, estudiante } = valores;
+  const formik = useFormik({
+    initialValues: {
+      proyecto: "",
+      estudiante: "",
+    },
+    validationSchema: Yup.object({
+      proyecto: Yup.string().required("El Proyecto es obligatorio"),
+      estudiante: Yup.string().required("Usted debe ser un estudiante"),
+    }),
+    onSubmit: async (valores) => {
+      const { proyecto, estudiante } = valores;
 
-              try {
-                const { data } = await crearInscripcion({
-                  variables: {
-                    input: {
-                      proyecto,
-                      estudiante,
-                    },
-                  },
-                });
-                console.log(data);
-                toast.success("Inscripción realizada exitosamente", {
-                  position: "top-right",
-                  autoClose: 3000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-
-                setTimeout(() => {
-                  router.push("/");
-                }, 3000);
-              } catch (error) {
-                toast.error(error.message, {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-              }
+      try {
+        const { data } = await crearInscripcion({
+          variables: {
+            input: {
+              proyecto: obtenerProyecto,
+              estudiante: obtenerUsuario.id,
             },
-          });
+          },
+        });
+        console.log(data);
+        toast.success("Inscripción realizada exitosamente", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+        setTimeout(() => {
+          router.push("/");
+        }, 3000);
+      } catch (error) {
+        toast.error(error.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
       }
-    });
-  }
+    },
+  });
   return (
     <>
       <div>
@@ -139,18 +132,14 @@ const ConfirmarInscripcion = ({ handleClose }) => {
                 onSubmit={formik.handleSubmit}
               >
                 <button
-                  name="si"
-                  id="si"
                   type="submit"
                   className="mb-2 md:mb-0 bg-yellow-300 border border-yellow-300 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-black rounded-full hover:shadow-lg hover:bg-yellow-400"
                   value={formik.values.si}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  onSubmit={(formik.proyecto.id, formik.estudiante.id)}
                 >
                   Si
                 </button>
-                ;
                 <button
                   type="button"
                   className="mb-2 md:mb-0 bg-black px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900"
