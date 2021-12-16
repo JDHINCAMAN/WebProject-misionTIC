@@ -229,8 +229,8 @@ const resolvers = {
       }
 
       // validar que el usuario este activo
-      if (existeUsuario.estado !== "ACTIVO") {
-        throw new Error("El usuario no esta activo");
+      if (existeUsuario.estado !== "AUTORIZADO") {
+        throw new Error("El usuario no esta Autorizado");
       }
 
       // Crear y firmar el JWT
