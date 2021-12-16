@@ -26,9 +26,6 @@ const Proyectos = () => {
   const [proyecto, setProyecto] = useState([]);
 
   const { data, loading, error } = useQuery(OBTENER_PROYECTOS);
-  console.log(data);
-  console.log(loading);
-  console.log(error);
 
   if (loading) return "Cargando...";
 

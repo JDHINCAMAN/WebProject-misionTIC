@@ -14,10 +14,27 @@ const AUTENTICACION = gql`
   }
 `;
 
+const OBTENER_USUARIO = gql`
+  query ObtenerUsuario {
+    obtenerUsuario {
+      id
+      nombre
+      apellido
+      email
+      rol
+    }
+  }
+`;
+
 toast.configure();
 const Login = () => {
   // Mutation para autenticar usuario
-  const [autenticarUsuario] = useMutation(AUTENTICACION);
+  const [autenticarUsuario] = useMutation(AUTENTICACION,
+    // reiniciar cache con el nuevo usuario
+    {
+      fetchPolicy: "no-cache",
+    }
+    );
   const router = useRouter();
 
   const formik = useFormik({

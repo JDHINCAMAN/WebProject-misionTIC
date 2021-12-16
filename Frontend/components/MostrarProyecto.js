@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { toast } from "react-toastify";
+import ConfirmarInscripcion from "./ConfirmarInscripcion";
 
 const OBTENER_PROYECTOS = gql`
   query ObtenerProyectos {
@@ -23,7 +24,8 @@ const MostrarProyecto = ({ handleClose, proyect }) => {
   const proyecto = proyect[0]
   console.log(proyecto)
   // estate para mostrar modal
-  const [show, setShow] = useState(false);
+  const [modal, setModal] = React.useState(false);
+  const [showModal, setShow] = React.useState(false);
 
 
   return (
@@ -108,17 +110,20 @@ const MostrarProyecto = ({ handleClose, proyect }) => {
                 <button
                   type="submit"
                   className="group relative w-full flex justify-center mr-2 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
+                  onClick={() => setModal(true)}
                 >
                   Inscribirse
                 </button>
-
                 <button
-                  type=""
+                  type="button"
                   className="group relative w-full flex justify-center ml-2 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
                   onClick={handleClose}
                 >
                   Cancelar
                 </button>
+                {modal && (
+                  <ConfirmarInscripcion handleClose={() => setModal(false)} />
+                )}
               </div>
             </div>
           </div>

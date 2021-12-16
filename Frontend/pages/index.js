@@ -16,27 +16,27 @@ const OBTENER_USUARIO = gql`
       nombre
       apellido
       email
+      rol
     }
   }
 `;
 
 export default function Home() {
   const router = useRouter();
-  const [seccion, setSeccion] = useState("usuarios");
-
+  const [seccion, setSeccion] = useState("");
 
   // validar la seccion de usuarios
 
-  const { data, loading, error } = useQuery(OBTENER_USUARIO);
+  const { data, loading, error } = useQuery(OBTENER_USUARIO,{
+    fetchPolicy: "no-cache",
+  });
 
   if (loading) return "Cargando...";
 
-
   if (!data.obtenerUsuario) {
-    router.push("/login")
-    return <p>nada</p>
+    router.push("/login");
+    return <p>nada</p>;
   }
-
 
   return (
     <div>

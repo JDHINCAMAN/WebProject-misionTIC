@@ -73,7 +73,6 @@ const FormCrearProyectos = ({ handleClose }) => {
                   objetivosEspecificos,
                   presupuesto,
                 } = values;
-                console.log(values);
                 try {
                   const { data } = await crearProyecto({
                     variables: {
@@ -85,7 +84,6 @@ const FormCrearProyectos = ({ handleClose }) => {
                       },
                     },
                   });
-                  console.log(data);
                   toast.success("Proyecto Creado Correctamente", {
                     position: "top-right",
                     autoClose: 3000,
