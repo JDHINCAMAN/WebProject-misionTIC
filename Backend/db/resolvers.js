@@ -55,7 +55,7 @@ const resolvers = {
     
     obtenerProyectos: async (_, {}, ctx) => {
       // validar que el usuario logeado sea administrador
-      if (ctx.usuario.estado !== "ACTIVO") {
+      if (ctx.usuario.estado !== "AUTORIZADO") {
         throw new Error("No estas autorizado para usar esta secccion, el estado de su cuenta es '" + ctx.usuario.estado+"'");
       }
       // obtener los proyectos

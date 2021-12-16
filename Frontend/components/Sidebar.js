@@ -10,6 +10,7 @@ const OBTENER_USUARIO = gql`
       nombre
       apellido
       email
+      rol
     }
   }
 `;
@@ -26,7 +27,9 @@ const Sidebar = ({ setSeccion }) => {
 
   // query de apollo
 
-  const { data, loading, error } = useQuery(OBTENER_USUARIO);
+  const { data, loading, error } = useQuery(OBTENER_USUARIO, {
+    fetchPolicy: "no-cache",
+  });
 
 
   // proteger que no accedamos a data antes de obtener resultados
@@ -257,8 +260,7 @@ const Sidebar = ({ setSeccion }) => {
               </div>
             </li>
           )}
-          
-
+          {console.obtenerUsuario}
           {rol === "ADMINISTRADOR" && (
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
               <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
