@@ -20,28 +20,23 @@ const OBTENER_PROYECTOS = gql`
 `;
 
 toast.configure();
-const MostrarProyecto = ({ handleClose }) => {
+const MostrarProyecto = ({ handleClose, proyect }) => {
+  const proyecto = proyect[0]
   // estate para mostrar modal
   const [modal, setModal] = React.useState(false);
   const [showModal, setShow] = React.useState(false);
 
-  const { data, loading, error } = useQuery(OBTENER_PROYECTOS);
-  console.log(data);
-  console.log(loading);
-  console.log(error);
-
-  if (loading) return "Cargando...";
 
   return (
     <>
-      {data.obtenerProyectos.map((proyecto) => (
         <div>
-          <div
-            className="min-w-screen h-screen animated fadeIn faster  fixed flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
-            id="modal-id"
-          >
-            <div className="absolute bg-black opacity-80 inset-0 z-0"></div>
-            <div className="w-full  max-w-2xl p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
+         <div
+        className="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
+        id="modal-id"
+      >
+        <div className="absolute bg-black opacity-80 inset-0 z-0"></div>
+        <div className="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
+        <div className="">
               <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6">
                   <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -112,7 +107,6 @@ const MostrarProyecto = ({ handleClose }) => {
               </div>
               <div className="flex justify-center items-center">
                 <button
-                  type="submit"
                   className="group relative w-full flex justify-center mr-2 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
                   onClick={() => setModal(true)}
                 >
@@ -126,13 +120,13 @@ const MostrarProyecto = ({ handleClose }) => {
                   Cancelar
                 </button>
                 {modal && (
-                  <ConfirmarInscripcion handleClose={() => setModal(false)} />
+                  <ConfirmarInscripcion handleClose={() => setModal(false)} proyecto={proyecto}/>
                 )}
               </div>
             </div>
           </div>
+          </div>
         </div>
-      ))}
     </>
   );
 };

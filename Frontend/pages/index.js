@@ -7,6 +7,7 @@ import Inscripciones from "../components/Inscripciones";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
+import Avances from "../components/Avances";
 
 const OBTENER_USUARIO = gql`
   query ObtenerUsuario {
@@ -15,27 +16,27 @@ const OBTENER_USUARIO = gql`
       nombre
       apellido
       email
+      rol
     }
   }
 `;
 
 export default function Home() {
   const router = useRouter();
-  const [seccion, setSeccion] = useState("usuarios");
-
+  const [seccion, setSeccion] = useState("");
 
   // validar la seccion de usuarios
 
-  const { data, loading, error } = useQuery(OBTENER_USUARIO);
+  const { data, loading, error } = useQuery(OBTENER_USUARIO,{
+    fetchPolicy: "no-cache",
+  });
 
   if (loading) return "Cargando...";
 
-
   if (!data.obtenerUsuario) {
-    router.push("/login")
-    return <p>nada</p>
+    router.push("/login");
+    return <p>nada</p>;
   }
-
 
   return (
     <div>
@@ -48,6 +49,7 @@ export default function Home() {
             {seccion === "proyectos" && <Proyectos />}
             {seccion === "inscripciones" && <Inscripciones />}
             {seccion === "configuracion" && <Configuracion />}
+            {seccion === "avances" && <Avances />}
           </main>
         </Layout>
     </div>

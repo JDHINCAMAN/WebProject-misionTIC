@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import FriendList from "./FriendList";
 import { array } from "yup/lib/locale";
 
-const NUEVO_PROYECTO = gql`
+const NUEVO_AVANCE = gql`
 mutation CrearProyecto($input: ProyectoInput!) {
   CrearProyecto(input: $input) {
     id
@@ -21,11 +21,11 @@ mutation CrearProyecto($input: ProyectoInput!) {
 `;
 
 toast.configure();
-const FormCrearProyectos = ({ handleClose }) => {
+const FormCrearAvances = ({ handleClose }) => {
   // estate para mostrar modal
   const [show, setShow] = useState(false);
 
-  const [crearProyecto] = useMutation(NUEVO_PROYECTO);
+  const [crearProyecto] = useMutation(NUEVO_AVANCE);
 
   // Routin
   const router = useRouter();
@@ -73,6 +73,7 @@ const FormCrearProyectos = ({ handleClose }) => {
                   objetivosEspecificos,
                   presupuesto,
                 } = values;
+                console.log(values);
                 try {
                   const { data } = await crearProyecto({
                     variables: {
@@ -84,6 +85,7 @@ const FormCrearProyectos = ({ handleClose }) => {
                       },
                     },
                   });
+                  console.log(data);
                   toast.success("Proyecto Creado Correctamente", {
                     position: "top-right",
                     autoClose: 3000,
@@ -212,4 +214,4 @@ const FormCrearProyectos = ({ handleClose }) => {
   );
 };
 
-export default FormCrearProyectos;
+export default FormCrearAvances;

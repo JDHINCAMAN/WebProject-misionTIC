@@ -47,16 +47,14 @@ const resolvers = {
 
     // Proyectos
 
-    obtenerProyecto: async (_, { nombreProyecto }) => {
-      return Proyecto.find(
-        (proyect) => proyect.nombreProyecto == nombreProyecto
-      );
+    obtenerProyecto: async (_, { id }) => {
+      return await Proyecto.findById(id);
     },
     
     obtenerProyectos: async (_, {}, ctx) => {
       // validar que el usuario logeado sea administrador
-      if (ctx.usuario.rol !== "ADMINISTRADOR") {
-        throw new Error("No estas autorizado");
+      if (ctx.usuario.estado !== "AUTORIZADO") {
+        throw new Error("No estas autorizado para usar esta secccion, el estado de su cuenta es '" + ctx.usuario.estado+"'");
       }
       // obtener los proyectos
       const proyectos = await Proyecto.find({});
@@ -288,6 +286,16 @@ const resolvers = {
       if (ctx.usuario.estado !== "AUTORIZADO") {
         throw new Error("No estas autorizado para hacer la inscripcion");
       }
+
+      // validad que el estudiante no este incrito en este proyecto
+      const inscripcion = await Inscripcion.findOne({
+        estudiante: ctx.usuario.id,
+        proyecto: input.proyecto,
+      });
+      if (inscripcion) {
+        throw new Error("Ya estas inscrito en este proyecto");
+      }
+      
 
       // guardar en base de datos
       try {
