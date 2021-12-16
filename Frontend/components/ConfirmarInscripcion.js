@@ -75,12 +75,14 @@ const ConfirmarInscripcion = ({ handleClose }) => {
     }),
     onSubmit: async (valores) => {
       const { proyecto, estudiante } = valores;
+      console.log(proyecto);
+      console.log(estudiante);
 
       try {
         const { data } = await crearInscripcion({
           variables: {
             input: {
-              proyecto: obtenerProyecto,
+              proyecto: obtenerProyecto.id,
               estudiante: obtenerUsuario.id,
             },
           },
