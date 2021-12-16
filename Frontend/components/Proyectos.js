@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import MostrarProyecto from "./MostrarProyecto";
 import FormCrearProyectos from "./FormCrearProyectos";
@@ -9,6 +9,13 @@ const OBTENER_PROYECTOS = gql`
       id
       nombreProyecto
       objetivoGeneral
+      objetivosEspecificos
+      presupuesto
+      fechaInicio
+      fechaFin
+      estadoProyecto
+      faseProyecto
+      lider
     }
   }
 `;
@@ -16,6 +23,7 @@ const OBTENER_PROYECTOS = gql`
 const Proyectos = () => {
   const [modal, setModal] = React.useState(false);
   const [showModal, setShow] = React.useState(false);
+  const [proyecto, setProyecto] = useState([]);
 
   const { data, loading, error } = useQuery(OBTENER_PROYECTOS);
   console.log(data);
@@ -23,6 +31,14 @@ const Proyectos = () => {
   console.log(error);
 
   if (loading) return "Cargando...";
+
+  const functionClick = e => {
+    setShow(true)
+    const proyect = data.obtenerProyectos.filter(
+      proyect => proyect.id === e.target.id
+    );
+    setProyecto(proyect)
+  }
 
   return (
     <>
@@ -35,25 +51,27 @@ const Proyectos = () => {
       </button>
       {modal && <FormCrearProyectos handleClose={() => setModal(false)} />}
       <div className="grid grid-cols-4 py-5">
-        {data.obtenerProyectos.map((person) => (
+        {data.obtenerProyectos.map((proyect) => (
           <div className="flex flex-col gap-x-5 bg-gray-300 mx-3 my-3 hover:bg-gray-100 w-56 h-auto items-center px-5 rounded-xl">
-            <h1 className="mt-3">{person.nombreProyecto}</h1>
+            <h1 className="mt-3">{proyect.nombreProyecto}</h1>
             <div className="px-1 pt-2">
               <hr className="border border-gray-400 w-48" />
             </div>
-            <h2>{person.objetivoGeneral}</h2>
+            <h2>{proyect.objetivoGeneral}</h2>
             <button
+              id={proyect.id}
               type="submit"
               className="bg-black my-3 px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900"
-              onClick={() => setShow(true)}
+              onClick={e => functionClick(e)
+              }
             >
               Más Información
             </button>
-            {showModal && (
-              <MostrarProyecto handleClose={() => setShow(false)} nombreProyecto={person.nombreProyecto}/>
-            )}
           </div>
         ))}
+         {showModal && (
+              <MostrarProyecto handleClose={() => setShow(false)} proyect={proyecto}/>
+            )}
       </div>
     </>
   );

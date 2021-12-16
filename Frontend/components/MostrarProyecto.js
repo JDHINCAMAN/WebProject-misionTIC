@@ -19,27 +19,23 @@ const OBTENER_PROYECTOS = gql`
 `;
 
 toast.configure();
-const MostrarProyecto = ({ handleClose, nombreProyecto }) => {
+const MostrarProyecto = ({ handleClose, proyect }) => {
+  const proyecto = proyect[0]
+  console.log(proyecto)
   // estate para mostrar modal
   const [show, setShow] = useState(false);
 
-  const { data, loading, error } = useQuery(OBTENER_PROYECTOS);
-  console.log(data);
-  console.log(loading);
-  console.log(error);
-
-  if (loading) return "Cargando...";
 
   return (
     <>
-      {data.obtenerProyectos.map((proyecto) => (
         <div>
-          <div
-            className="min-w-screen h-screen animated fadeIn faster  fixed flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
-            id="modal-id"
-          >
-            <div className="absolute bg-black opacity-80 inset-0 z-0"></div>
-            <div className="w-full  max-w-2xl p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
+         <div
+        className="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
+        id="modal-id"
+      >
+        <div className="absolute bg-black opacity-80 inset-0 z-0"></div>
+        <div className="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
+        <div className="">
               <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6">
                   <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -126,8 +122,8 @@ const MostrarProyecto = ({ handleClose, nombreProyecto }) => {
               </div>
             </div>
           </div>
+          </div>
         </div>
-      ))}
     </>
   );
 };
