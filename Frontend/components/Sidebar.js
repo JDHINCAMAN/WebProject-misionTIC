@@ -10,6 +10,7 @@ const OBTENER_USUARIO = gql`
       nombre
       apellido
       email
+      rol
     }
   }
 `;
@@ -26,7 +27,9 @@ const Sidebar = ({ setSeccion }) => {
 
   // query de apollo
 
-  const { data, loading, error } = useQuery(OBTENER_USUARIO);
+  const { data, loading, error } = useQuery(OBTENER_USUARIO, {
+    fetchPolicy: "no-cache",
+  });
 
   // proteger que no accedamos a data antes de obtener resultados
   if (loading) return "Cargando...";
