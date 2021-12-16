@@ -228,6 +228,11 @@ const resolvers = {
         throw new Error("El password es incorrecto");
       }
 
+      // validar que el usuario este activo
+      if (existeUsuario.estado !== "ACTIVO") {
+        throw new Error("El usuario no esta activo");
+      }
+
       // Crear y firmar el JWT
       return {
         token: crearToken(existeUsuario, process.env.JWT_SECRET, "24h"),
@@ -292,8 +297,8 @@ const resolvers = {
         estudiante: ctx.usuario.id,
         proyecto: input.proyecto,
       });
-      if (inscripcion) {
-        throw new Error("Ya estas inscrito en este proyecto");
+      if (inscripcion.estado===false) {
+        throw new Error(`Ya tienes una solicitud de incripcion a este proyecto, (estado: Pendiente)`);
       }
       
 
