@@ -47,10 +47,8 @@ const resolvers = {
 
     // Proyectos
 
-    obtenerProyecto: async (_, { nombreProyecto }) => {
-      return Proyecto.find(
-        (proyect) => proyect.nombreProyecto == nombreProyecto
-      );
+    obtenerProyecto: async (_, { id }) => {
+      return await Proyecto.findById(id);
     },
     
     obtenerProyectos: async (_, {}, ctx) => {
