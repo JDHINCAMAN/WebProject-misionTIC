@@ -72,7 +72,7 @@ const MostrarProyecto = ({ handleClose, user }) => {
           <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
             <div className="flex justify-center items-center">
               <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Actualizar Usuario
+                Actualizar Estado
               </h3>
             </div>
             <div className="flex justify-center items-center">
