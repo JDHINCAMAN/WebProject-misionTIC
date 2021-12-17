@@ -23,7 +23,6 @@ mutation CrearInscripcion($input: InscripcionInput!) {
     fechaIngreso
     fechaEgreso
   }
-}
 `;
 
 const OBTENER_USUARIO = gql`
@@ -38,22 +37,17 @@ const OBTENER_USUARIO = gql`
   }
 `;
 
-
 toast.configure();
 
 const ConfirmarInscripcion = ({ handleClose, proyecto }) => {
-
-
-  const { data, loading, error} = useQuery(OBTENER_USUARIO);
+  const { data } = useQuery(OBTENER_USUARIO);
   const router = useRouter();
   const [crearInscripcion] = useMutation(NUEVA_INSCRIPCION);
   const [modal, setModal] = React.useState(false);
 
   // Routin
 
-
   // if (loading) return "Cargando...";
-
 
   // validacion del formulario
   const formik = useFormik({
@@ -66,8 +60,7 @@ const ConfirmarInscripcion = ({ handleClose, proyecto }) => {
     //   estudiante: Yup.string().required("Usted debe ser un estudiante"),
     // }),
     onSubmit: async (valores) => {
-
-      const estudiante = data.obtenerUsuario.id
+      const estudiante = data.obtenerUsuario.id;
 
       try {
         const { data } = await crearInscripcion({
@@ -93,15 +86,18 @@ const ConfirmarInscripcion = ({ handleClose, proyecto }) => {
           router.push("/");
         }, 3000);
       } catch (error) {
-        toast.error(error.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.error(
+          "Solo los estudiantes estan autorizados para inscribirse a un proyecto",
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
       }
     },
   });
