@@ -27,15 +27,18 @@ const Proyectos = () => {
 
   const { data, loading, error } = useQuery(OBTENER_PROYECTOS);
 
-  if (loading) return "Cargando...";
-
-  const functionClick = e => {
-    setShow(true)
+  const functionClick = (e) => {
+    setShow(true);
     const proyect = data.obtenerProyectos.filter(
-      proyect => proyect.id === e.target.id
+      (proyect) => proyect.id === e.target.id
     );
-    setProyecto(proyect)
-  }
+    setProyecto(proyect);
+  };
+
+  if (loading) return "Cargando...";
+  data.obtenerProyectos.map((proyect) =>(
+    console.log(proyect)
+  ))
 
   return (
     <>
@@ -59,16 +62,18 @@ const Proyectos = () => {
               id={proyect.id}
               type="submit"
               className="bg-black my-3 px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900"
-              onClick={e => functionClick(e)
-              }
+              onClick={(e) => functionClick(e)}
             >
               Más Información
             </button>
           </div>
         ))}
-         {showModal && (
-              <MostrarProyecto handleClose={() => setShow(false)} proyect={proyecto}/>
-            )}
+        {showModal && (
+          <MostrarProyecto
+            handleClose={() => setShow(false)}
+            proyect={proyecto}
+          />
+        )}
       </div>
     </>
   );
