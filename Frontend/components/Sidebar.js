@@ -236,6 +236,8 @@ const Sidebar = ({ setSeccion }) => {
                       <a
                         href="#"
                         className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
+                        name="inscripcionesPendientes"
+                        onClick={() => setSeccion("inscripcionesPendientes")}
                       >
                         Pendientes
                       </a>
@@ -244,6 +246,8 @@ const Sidebar = ({ setSeccion }) => {
                       <a
                         href="#"
                         className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
+                        name="inscripcioneRechazadas"
+                        onClick={() => setSeccion("inscripcionesRechazadas")}
                       >
                         Rechazadas
                       </a>
@@ -252,6 +256,8 @@ const Sidebar = ({ setSeccion }) => {
                       <a
                         href="#"
                         className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
+                        name="inscripcionesAprobadas"
+                        onClick={() => setSeccion("inscripcionesAprobadas")}
                       >
                         Aprobadas
                       </a>

@@ -8,6 +8,9 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import Avances from "../components/Avances";
+import InscripcionesPendientes from "../components/InscripcionesPendientes";
+import InscripcionesRechazadas from "../components/InscripcionesRechazadas";
+import InscripcionesAprobadas from "../components/InscripcionesAprobadas";
 
 const OBTENER_USUARIO = gql`
   query ObtenerUsuario {
@@ -27,7 +30,7 @@ export default function Home() {
 
   // validar la seccion de usuarios
 
-  const { data, loading, error } = useQuery(OBTENER_USUARIO,{
+  const { data, loading, error } = useQuery(OBTENER_USUARIO, {
     fetchPolicy: "no-cache",
   });
 
@@ -40,18 +43,23 @@ export default function Home() {
 
   return (
     <div>
-        <Layout setSeccion={setSeccion}>
-          <h1 className="text-3xl text-grey-800 font-light">
-            {seccion.toUpperCase()}
-          </h1>
-          <main className="p-8">
-            {seccion === "usuarios" && <Usuarios />}
-            {seccion === "proyectos" && <Proyectos usuario={data.obtenerUsuario}/>}
-            {seccion === "inscripciones" && <Inscripciones />}
-            {seccion === "configuracion" && <Configuracion />}
-            {seccion === "avances" && <Avances />}
-          </main>
-        </Layout>
+      <Layout setSeccion={setSeccion}>
+        <h1 className="text-3xl text-grey-800 font-light">
+          {seccion.toUpperCase()}
+        </h1>
+        <main className="p-8">
+          {seccion === "usuarios" && <Usuarios />}
+          {seccion === "proyectos" && (
+            <Proyectos usuario={data.obtenerUsuario} />
+          )}
+          {seccion === "inscripciones" && <Inscripciones />}
+          {seccion === "configuracion" && <Configuracion />}
+          {seccion === "avances" && <Avances />}
+          {seccion === "inscripcionesPendientes" && <InscripcionesPendientes />}
+          {seccion === "inscripcionesRechazadas" && <InscripcionesRechazadas />}
+          {seccion === "inscripcionesAprobadas" && <InscripcionesAprobadas />}
+        </main>
+      </Layout>
     </div>
   );
 }
