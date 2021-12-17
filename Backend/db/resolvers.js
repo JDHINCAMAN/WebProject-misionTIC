@@ -78,7 +78,6 @@ const resolvers = {
 
 
     detallesProyecto: async (_, { id }, ctx) => {
-      console.log(id);
 
       const stringId = id.toString();
 
@@ -89,7 +88,6 @@ const resolvers = {
         throw new Error("No eres el lider de este proyecto");
       }
 
-      console.log(typeof proyecto);
 
       proyecto.avances = await Avance.find({ proyecto: id });
       proyecto.inscripciones = await Inscripcion.find({ proyecto: id });
@@ -135,11 +133,9 @@ const resolvers = {
       if (ctx.usuario.rol !== "LIDER") {
         throw new Error("No estas autorizado");
       }
-      console.log(input);
 
       // validar que el proyecto no exista
       const existeProyecto = await Proyecto.findOne({ nombreProyecto: input.nombreProyecto });
-      console.log(existeProyecto);
       if (existeProyecto) {
         throw new Error("El proyecto ya existe");
       }
