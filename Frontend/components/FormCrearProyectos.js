@@ -23,7 +23,7 @@ const FormCrearProyectos = ({ handleClose }) => {
   // estate para mostrar modal
   const [show, setShow] = useState(false);
 
-  const [crearProyecto] = useMutation(NUEVO_PROYECTO);
+  const [crearProyecto] = useMutation(NUEVO_PROYECTO, {fetchPolicy: "no-cache"});
 
   // Routin
   const router = useRouter();
