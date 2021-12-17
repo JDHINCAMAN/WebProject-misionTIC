@@ -45,6 +45,13 @@ const resolvers = {
       return usuarios;
     },
 
+    obtenerUsuariosInscritos: async (_, { proyecto }, ctx) => {
+    // obtener los usuarios inscritos
+      const usuarios = await Inscripcion.find({ proyecto });
+
+      return usuarios;
+    },
+
     // Proyectos
 
     obtenerProyecto: async (_, { id }) => {
@@ -228,6 +235,11 @@ const resolvers = {
         throw new Error("El password es incorrecto");
       }
 
+      // validar que el usuario este activo
+      if (existeUsuario.estado !== "AUTORIZADO") {
+        throw new Error("El usuario no esta Autorizado");
+      }
+
       // Crear y firmar el JWT
       return {
         token: crearToken(existeUsuario, process.env.JWT_SECRET, "24h"),
@@ -286,6 +298,16 @@ const resolvers = {
       if (ctx.usuario.estado !== "AUTORIZADO") {
         throw new Error("No estas autorizado para hacer la inscripcion");
       }
+
+      // validad que el estudiante no este incrito en este proyecto
+      const inscripcion = await Inscripcion.findOne({
+        estudiante: ctx.usuario.id,
+        proyecto: input.proyecto,
+      });
+      if (inscripcion.estado===false) {
+        throw new Error(`Ya tienes una solicitud de incripcion a este proyecto, (estado: Pendiente)`);
+      }
+      
 
       // guardar en base de datos
       try {

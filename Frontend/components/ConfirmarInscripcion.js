@@ -6,16 +6,16 @@ import { useMutation, gql, useQuery } from "@apollo/client";
 import { toast } from "react-toastify";
 
 const NUEVA_INSCRIPCION = gql`
-  mutation crearInscripcion($input: InscripcionInput) {
-    crearInscripcion(input: $input) {
-      id
-      proyecto
-      estudiante
-      estado
-      fechaIngreso
-      fechaEgreso
-    }
+mutation CrearInscripcion($input: InscripcionInput!) {
+  crearInscripcion(input: $input) {
+    id
+    proyecto
+    estudiante
+    estado
+    fechaIngreso
+    fechaEgreso
   }
+}
 `;
 
 const OBTENER_USUARIO = gql`
@@ -30,35 +30,15 @@ const OBTENER_USUARIO = gql`
   }
 `;
 
-const OBTENER_PROYECTO = gql`
-  query ObtenerProyecto {
-    obtenerProyecto {
-      id
-      nombreProyecto
-      objetivoGeneral
-      objetivosEspecificos
-      presupuesto
-      fechaInicio
-      fechaFin
-      estadoProyecto
-      faseProyecto
-      lider
-    }
-  }
-`;
 
 toast.configure();
 
-const ConfirmarInscripcion = ({ handleClose }) => {
+const ConfirmarInscripcion = ({ handleClose, proyecto }) => {
   const [crearInscripcion] = useMutation(NUEVA_INSCRIPCION);
   const [modal, setModal] = React.useState(false);
 
-  const { data } = useQuery(OBTENER_PROYECTO);
+  const { data, loading, error} = useQuery(OBTENER_USUARIO);
 
-  const { dataU } = useQuery(OBTENER_USUARIO);
-
-  console.log(data);
-  console.log(dataU);
 
   // Routin
   const router = useRouter();
@@ -69,21 +49,20 @@ const ConfirmarInscripcion = ({ handleClose }) => {
       proyecto: "",
       estudiante: "",
     },
-    validationSchema: Yup.object({
-      proyecto: Yup.string().required("El Proyecto es obligatorio"),
-      estudiante: Yup.string().required("Usted debe ser un estudiante"),
-    }),
+    // validationSchema: Yup.object({
+    //   proyecto: Yup.string().required("El Proyecto es obligatorio"),
+    //   estudiante: Yup.string().required("Usted debe ser un estudiante"),
+    // }),
     onSubmit: async (valores) => {
-      const { proyecto, estudiante } = valores;
-      console.log(proyecto);
-      console.log(estudiante);
+
+      const estudiante = data.obtenerUsuario.id
 
       try {
         const { data } = await crearInscripcion({
           variables: {
             input: {
-              proyecto: obtenerProyecto.id,
-              estudiante: obtenerUsuario.id,
+              proyecto: proyecto.id,
+              estudiante: estudiante,
             },
           },
         });
@@ -136,9 +115,6 @@ const ConfirmarInscripcion = ({ handleClose }) => {
                 <button
                   type="submit"
                   className="mb-2 md:mb-0 bg-yellow-300 border border-yellow-300 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-black rounded-full hover:shadow-lg hover:bg-yellow-400"
-                  value={formik.values.si}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
                 >
                   Si
                 </button>

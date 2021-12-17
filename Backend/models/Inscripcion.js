@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const InscripcionSchema = mongoose.Schema({
   estado: {
     type: Boolean,
+    default: false,
     required: true,
   },
 

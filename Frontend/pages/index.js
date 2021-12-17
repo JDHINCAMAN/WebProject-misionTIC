@@ -46,7 +46,7 @@ export default function Home() {
           </h1>
           <main className="p-8">
             {seccion === "usuarios" && <Usuarios />}
-            {seccion === "proyectos" && <Proyectos />}
+            {seccion === "proyectos" && <Proyectos usuario={data.obtenerUsuario}/>}
             {seccion === "inscripciones" && <Inscripciones />}
             {seccion === "configuracion" && <Configuracion />}
             {seccion === "avances" && <Avances />}
