@@ -6,22 +6,23 @@ import { useMutation, gql, useQuery } from "@apollo/client";
 import { toast } from "react-toastify";
 
 const NUEVA_INSCRIPCION = gql`
-mutation CrearInscripcion($input: InscripcionInput!) {
-  crearInscripcion(input: $input) {
-    id
-    proyecto {
+  mutation CrearInscripcion($input: InscripcionInput!) {
+    crearInscripcion(input: $input) {
       id
-      nombreProyecto
+      proyecto {
+        id
+        nombreProyecto
+      }
+      estudiante {
+        id
+        nombre
+        apellido
+        email
+      }
+      estado
+      fechaIngreso
+      fechaEgreso
     }
-    estudiante{
-      id
-      nombre
-      apellido
-      email
-    }
-    estado
-    fechaIngreso
-    fechaEgreso
   }
 `;
 
