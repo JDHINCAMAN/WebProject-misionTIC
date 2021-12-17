@@ -87,18 +87,15 @@ const ConfirmarInscripcion = ({ handleClose, proyecto }) => {
           router.push("/");
         }, 3000);
       } catch (error) {
-        toast.error(
-          "Solo los estudiantes estan autorizados para inscribirse a un proyecto",
-          {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
+        toast.error(error.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     },
   });
