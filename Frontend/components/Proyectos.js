@@ -27,8 +27,6 @@ const Proyectos = ({ usuario }) => {
 
   const { data, loading, error } = useQuery(OBTENER_PROYECTOS);
 
-  if (loading) return "Cargando...";
-
   const functionClick = (e) => {
     setShow(true);
     const proyect = data.obtenerProyectos.filter(
@@ -36,6 +34,11 @@ const Proyectos = ({ usuario }) => {
     );
     setProyecto(proyect);
   };
+
+  if (loading) return "Cargando...";
+  data.obtenerProyectos.map((proyect) =>(
+    console.log(proyect)
+  ))
 
   return (
     <>
@@ -55,7 +58,7 @@ const Proyectos = ({ usuario }) => {
           <div className="flex flex-col gap-x-5 bg-gray-300 mx-3 my-3 hover:bg-gray-100 w-4/5 h-auto items-center px-5 rounded-xl">
             <h1 className="mt-3">{proyect.nombreProyecto}</h1>
             <div className="px-1 pt-2">
-              <hr className="border border-gray-400 w-4/5" />
+              <hr className="border border-gray-400 w-40" />
             </div>
             <h2>{proyect.objetivoGeneral}</h2>
             <button
