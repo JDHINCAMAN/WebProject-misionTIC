@@ -34,14 +34,18 @@ const OBTENER_USUARIO = gql`
 toast.configure();
 
 const ConfirmarInscripcion = ({ handleClose, proyecto }) => {
+
+
+  const { data, loading, error} = useQuery(OBTENER_USUARIO);
+  const router = useRouter();
   const [crearInscripcion] = useMutation(NUEVA_INSCRIPCION);
   const [modal, setModal] = React.useState(false);
 
-  const { data, loading, error} = useQuery(OBTENER_USUARIO);
-
-
   // Routin
-  const router = useRouter();
+
+
+  // if (loading) return "Cargando...";
+
 
   // validacion del formulario
   const formik = useFormik({

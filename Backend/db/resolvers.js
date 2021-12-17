@@ -117,7 +117,7 @@ const resolvers = {
       });
       const inscripciones = await Inscripcion.find({
         proyecto: { $in: proyectos },
-      });
+      }).populate('estudiante').populate('proyecto');
       return inscripciones;
     },
 
@@ -134,6 +134,12 @@ const resolvers = {
       // validar que el usuario logeado sea lider
       if (ctx.usuario.rol !== "LIDER") {
         throw new Error("No estas autorizado");
+      }
+
+      // validar que el proyecto no exista
+      const existeProyecto = await Proyecto.findOne({ nombre: input.nombre });
+      if (existeProyecto) {
+        throw new Error("El proyecto ya existe");
       }
       try {
         // Guardarlo en la base de datos
@@ -304,7 +310,7 @@ const resolvers = {
         estudiante: ctx.usuario.id,
         proyecto: input.proyecto,
       });
-      if (inscripcion.estado===false) {
+      if (inscripcion && inscripcion.estado===false) {
         throw new Error(`Ya tienes una solicitud de incripcion a este proyecto, (estado: Pendiente)`);
       }
       
