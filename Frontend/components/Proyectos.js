@@ -20,7 +20,7 @@ const OBTENER_PROYECTOS = gql`
   }
 `;
 
-const Proyectos = () => {
+const Proyectos = ({ usuario }) => {
   const [modal, setModal] = React.useState(false);
   const [showModal, setShow] = React.useState(false);
   const [proyecto, setProyecto] = useState([]);
@@ -29,23 +29,26 @@ const Proyectos = () => {
 
   if (loading) return "Cargando...";
 
-  const functionClick = e => {
-    setShow(true)
+  const functionClick = (e) => {
+    setShow(true);
     const proyect = data.obtenerProyectos.filter(
-      proyect => proyect.id === e.target.id
+      (proyect) => proyect.id === e.target.id
     );
-    setProyecto(proyect)
-  }
+    setProyecto(proyect);
+  };
 
   return (
     <>
-      <button
-        type="submit"
-        className="flex self-end py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
-        onClick={() => setModal(true)}
-      >
-        crear proyecto
-      </button>
+      {usuario.rol === "LIDER" && (
+        <button
+          type="submit"
+          className="flex self-end py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
+          onClick={() => setModal(true)}
+        >
+          crear proyecto
+        </button>
+      )}
+
       {modal && <FormCrearProyectos handleClose={() => setModal(false)} />}
       <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 py-5">
         {data.obtenerProyectos.map((proyect) => (
@@ -59,16 +62,18 @@ const Proyectos = () => {
               id={proyect.id}
               type="submit"
               className="bg-black my-3 px-5 py-2 w-4/5 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900"
-              onClick={e => functionClick(e)
-              }
+              onClick={(e) => functionClick(e)}
             >
               Más Información
             </button>
           </div>
         ))}
-         {showModal && (
-              <MostrarProyecto handleClose={() => setShow(false)} proyect={proyecto}/>
-            )}
+        {showModal && (
+          <MostrarProyecto
+            handleClose={() => setShow(false)}
+            proyect={proyecto}
+          />
+        )}
       </div>
     </>
   );
