@@ -4,40 +4,48 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const EDITAR_ESTADO_USUARIO = gql`
-  mutation actualizarUsuarioEstado($id: ID!, $estado: EstadoUsuario!) {
-    actualizarUsuarioEstado(id: $id, estado: $estado) {
+const CREAR_AVANCE = gql`
+  mutation crearAvance($input: AvanceInput!, $proyecto: ID!) {
+    crearAvance(proyecto: $proyecto, input: $input) {
       id
-      estado
+      fechaAvance
+      descripcion
+      observaciones
+      creadoPor
     }
   }
 `;
 
 toast.configure();
-const MostrarProyecto = ({ handleClose, user }) => {
-  const usuario = user[0];
-
-  const [actualizarUsuarioEstado] = useMutation(EDITAR_ESTADO_USUARIO);
+const MostrarProyecto = ({ handleClose, proyecto }) => {
+  const [crearAvance] = useMutation(CREAR_AVANCE);
 
   // validacion del formulario
   const formik = useFormik({
     initialValues: {
-      estado: "",
+      descripcion: "",
+      observaciones: "",
     },
     validationSchema: Yup.object({
-      estado: Yup.string().required("El estado es obligatorio"),
+      descripcion: Yup.string().required("la descripcion es obligatoria"),
+      observaciones: Yup.string().required(
+        "las observaciones son obligatorias"
+      ),
     }),
     onSubmit: async (valores) => {
-      const { estado } = valores;
+      const { descripcion, observaciones } = valores;
 
       try {
-        const { data } = await actualizarUsuarioEstado({
+        const { data } = await crearAvance({
           variables: {
-            id: usuario.id,
-            estado: estado,
+            proyecto: proyecto.id,
+            input: {
+              descripcion,
+              observaciones,
+            },
           },
         });
-        toast.success("estado actualizado Correctamente", {
+        toast.success("Se agregó avance", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -57,7 +65,7 @@ const MostrarProyecto = ({ handleClose, user }) => {
           progress: undefined,
         });
       }
-      handleClose()
+      handleClose();
     },
   });
 
@@ -72,35 +80,58 @@ const MostrarProyecto = ({ handleClose, user }) => {
           <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
             <div className="flex justify-center items-center">
               <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Actualizar 
+                Agregar Avance
               </h3>
             </div>
             <div className="flex justify-center items-center">
               <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                {usuario.nombre}
+                {proyecto.nombreProyecto}
               </p>
             </div>
             <form className="mt-8 space-y-6" onSubmit={formik.handleSubmit}>
-              <div className="flex justify-center items-center">
-                <label htmlFor="estado">
-                  ESTADO
+              <div className="flex flex-col justify-center items-center">
+                <label htmlFor="descripcion">
+                  Descripción
                   <input
-                    name="estado"
-                    id="estado"
+                    name="descripcion"
+                    id="descripcion"
                     type="text"
                     // className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm"
                     className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${
-                      formik.errors.estado ? "border-red-500" : ""
+                      formik.errors.descripcion ? "border-red-500" : ""
                     } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
                     placeholder="PENDIENTE"
-                    value={formik.values.estado}
+                    value={formik.values.descripcion}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
                   <span>
-                    {formik.errors.estado ? (
+                    {formik.errors.descripcion ? (
                       <div className="text-red-500 text-xs italic">
-                        {formik.errors.estado}
+                        {formik.errors.descripcion}
+                      </div>
+                    ) : null}
+                  </span>
+                </label>
+                <label htmlFor="observaciones">
+                  Observaciones
+                  <input
+                    name="observaciones"
+                    id="observaciones"
+                    type="text"
+                    // className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm"
+                    className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${
+                      formik.errors.observaciones ? "border-red-500" : ""
+                    } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
+                    placeholder="PENDIENTE"
+                    value={formik.values.observaciones}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  <span>
+                    {formik.errors.observaciones ? (
+                      <div className="text-red-500 text-xs italic">
+                        {formik.errors.observaciones}
                       </div>
                     ) : null}
                   </span>
@@ -112,7 +143,7 @@ const MostrarProyecto = ({ handleClose, user }) => {
                   type="submit"
                   className="group relative w-full flex justify-center mr-2 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
                 >
-                  Actualizar
+                  Agregar
                 </button>
                 <button
                   type="button"
