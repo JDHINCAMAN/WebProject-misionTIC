@@ -49,7 +49,6 @@ export default function Home() {
             {seccion === "proyectos" && <Proyectos usuario={data.obtenerUsuario}/>}
             {seccion === "inscripciones" && <Inscripciones />}
             {seccion === "configuracion" && <Configuracion />}
-            {seccion === "avances" && <Avances />}
           </main>
         </Layout>
     </div>
