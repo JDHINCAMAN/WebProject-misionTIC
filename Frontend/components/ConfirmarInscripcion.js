@@ -9,8 +9,16 @@ const NUEVA_INSCRIPCION = gql`
 mutation CrearInscripcion($input: InscripcionInput!) {
   crearInscripcion(input: $input) {
     id
-    proyecto
-    estudiante
+    proyecto {
+      id
+      nombreProyecto
+    }
+    estudiante{
+      id
+      nombre
+      apellido
+      email
+    }
     estado
     fechaIngreso
     fechaEgreso
