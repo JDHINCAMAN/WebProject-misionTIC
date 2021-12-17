@@ -45,6 +45,13 @@ const resolvers = {
       return usuarios;
     },
 
+    obtenerUsuariosInscritos: async (_, { proyecto }, ctx) => {
+    // obtener los usuarios inscritos
+      const usuarios = await Inscripcion.find({ proyecto });
+
+      return usuarios;
+    },
+
     // Proyectos
 
     obtenerProyecto: async (_, { id }) => {

@@ -136,6 +136,7 @@ const typeDefs = gql`
     obtenerUsuario: Usuario
     obtenerUsuarios: [Usuario]
     obtenerUsuariosPorRol(rol: String!): [Usuario]
+    obtenerUsuariosInscritos(proyecto: ID!): [Usuario]
 
     #Proyectos
     obtenerProyecto(nombreProyecto: String!): Proyecto
