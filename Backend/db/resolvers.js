@@ -135,9 +135,11 @@ const resolvers = {
       if (ctx.usuario.rol !== "LIDER") {
         throw new Error("No estas autorizado");
       }
+      console.log(input);
 
       // validar que el proyecto no exista
-      const existeProyecto = await Proyecto.findOne({ nombre: input.nombre });
+      const existeProyecto = await Proyecto.findOne({ nombreProyecto: input.nombreProyecto });
+      console.log(existeProyecto);
       if (existeProyecto) {
         throw new Error("El proyecto ya existe");
       }
