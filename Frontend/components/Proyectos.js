@@ -55,7 +55,8 @@ const Proyectos = ({ usuario }) => {
       {modal && <FormCrearProyectos handleClose={() => setModal(false)} />}
       <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 py-5">
         {data.obtenerProyectos.map((proyect) => (
-          <div className="flex flex-col gap-x-5 bg-gray-300 mx-3 my-3 hover:bg-gray-100 w-4/5 h-auto items-center px-5 rounded-xl">
+          <div className={`flex flex-col gap-x-5 bg-gray-300 mx-3 my-3 hover:bg-gray-100 w-4/5 h-auto items-center px-5 rounded-xl border-l-8 ${proyect.estadoProyecto ? 'border-l-green-400':'border-l-red-400'}`}>
+
             <h1 className="mt-3">{proyect.nombreProyecto}</h1>
             <div className="px-1 pt-2">
               <hr className="border border-gray-400 w-40" />
