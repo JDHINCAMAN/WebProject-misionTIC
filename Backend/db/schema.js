@@ -38,8 +38,8 @@ const typeDefs = gql`
 
   type Inscripcion {
     id: ID
-    proyecto: ID
-    estudiante: ID
+    proyecto: Proyecto
+    estudiante: Usuario
     estado: Boolean
     fechaIngreso: String
     fechaEgreso: String

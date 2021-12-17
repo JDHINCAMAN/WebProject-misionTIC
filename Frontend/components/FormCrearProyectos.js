@@ -5,8 +5,6 @@ import { Field, FieldArray, Formik, Form, useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation, gql } from "@apollo/client";
 import { toast } from "react-toastify";
-import FriendList from "./FriendList";
-import { array } from "yup/lib/locale";
 
 const NUEVO_PROYECTO = gql`
 mutation CrearProyecto($input: ProyectoInput!) {
@@ -25,7 +23,7 @@ const FormCrearProyectos = ({ handleClose }) => {
   // estate para mostrar modal
   const [show, setShow] = useState(false);
 
-  const [crearProyecto] = useMutation(NUEVO_PROYECTO);
+  const [crearProyecto] = useMutation(NUEVO_PROYECTO, {fetchPolicy: "no-cache"});
 
   // Routin
   const router = useRouter();
