@@ -3,6 +3,8 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import MostrarProyecto from "./MostrarProyecto";
 import FormCrearProyectos from "./FormCrearProyectos";
 import { toast } from "react-toastify";
+import StepperProgress from "./StepperProgress";
+import NavProyectos from "./NavProyectos";
 
 const OBTENER_PROYECTOS = gql`
   query ObtenerProyectos {
@@ -43,7 +45,9 @@ const Proyectos = ({ usuario }) => {
   const [showModal, setShow] = React.useState(false);
   const [proyecto, setProyecto] = useState([]);
 
-  const { data, loading, error } = useQuery(OBTENER_PROYECTOS);
+  const { data, loading, error } = useQuery(OBTENER_PROYECTOS, {
+    fetchPolicy: "network-only",
+  });
 
   const [actualizarProyectoEstado] = useMutation(ACTUALIZAR_ESTADO_PROYECTO);
 
@@ -52,6 +56,7 @@ const Proyectos = ({ usuario }) => {
     console.log(typeof e.target.value);
     const input = {
       estadoProyecto: e.target.value === "true" ? false : true,
+      faseProyecto: e.target.value === "true" ? "TERMINADO" : "INICIADO",
     };
     try {
       await actualizarProyectoEstado({
@@ -97,6 +102,10 @@ const Proyectos = ({ usuario }) => {
           crear proyecto
         </button>
       )}
+
+      <NavProyectos>
+        
+      </NavProyectos>
 
       {modal && <FormCrearProyectos handleClose={() => setModal(false)} />}
       <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 py-5">
@@ -170,6 +179,9 @@ const Proyectos = ({ usuario }) => {
               >
                 Detalles
               </button>
+            </div>
+            <div className="my-3 flex w-full justify-center">
+              <StepperProgress faseProyecto={proyect.faseProyecto} />
             </div>
           </div>
         ))}

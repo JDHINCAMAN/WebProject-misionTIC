@@ -18,12 +18,42 @@ mutation CrearProyecto($input: ProyectoInput!) {
 }
 `;
 
+const OBTENER_PROYECTOS = gql`
+  query ObtenerProyectos {
+    obtenerProyectos {
+      id
+      nombreProyecto
+      objetivoGeneral
+      objetivosEspecificos
+      presupuesto
+      fechaInicio
+      fechaFin
+      estadoProyecto
+      faseProyecto
+      lider
+    }
+  }
+`;
+
 toast.configure();
 const FormCrearProyectos = ({ handleClose }) => {
   // estate para mostrar modal
-  const [show, setShow] = useState(false);
 
-  const [crearProyecto] = useMutation(NUEVO_PROYECTO, {fetchPolicy: "no-cache"});
+  const [crearProyecto] = useMutation(NUEVO_PROYECTO, {
+    update(cache, { data: { CrearProyecto } }) {
+      const { obtenerProyectos } = cache.readQuery({
+        query: OBTENER_PROYECTOS,
+      });
+
+      // reescribir el cache
+      cache.writeQuery({
+        query: OBTENER_PROYECTOS,
+        data: {
+          obtenerProyectos: [CrearProyecto, ...obtenerProyectos],
+        },
+      });
+    }
+  });
 
   // Routin
   const router = useRouter();
