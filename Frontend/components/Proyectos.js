@@ -4,6 +4,7 @@ import MostrarProyecto from "./MostrarProyecto";
 import FormCrearProyectos from "./FormCrearProyectos";
 import { toast } from "react-toastify";
 import StepperProgress from "./StepperProgress";
+import NavProyectos from "./NavProyectos";
 
 const OBTENER_PROYECTOS = gql`
   query ObtenerProyectos {
@@ -101,6 +102,10 @@ const Proyectos = ({ usuario }) => {
           crear proyecto
         </button>
       )}
+
+      <NavProyectos>
+        
+      </NavProyectos>
 
       {modal && <FormCrearProyectos handleClose={() => setModal(false)} />}
       <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 py-5">
