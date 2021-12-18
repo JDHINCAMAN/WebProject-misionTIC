@@ -107,7 +107,7 @@ const Proyectos = ({ usuario }) => {
       <NavProyectos></NavProyectos>
 
       {modal && <FormCrearProyectos handleClose={() => setModal(false)} />}
-      <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 py-5">
+      <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 py-5">
         {data.obtenerProyectos.map((proyect) => (
           <div
             className={`flex flex-col gap-x-5 bg-gray-300 mx-3 my-3 hover:bg-gray-100 w-4/5 h-auto items-center px-5 rounded-xl border-l-8 ${
