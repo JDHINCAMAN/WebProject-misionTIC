@@ -101,18 +101,19 @@ const Inscripciones = () => {
             <table class="min-w-full leading-normal">
               <thead>
                 <tr>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 font-semibold text-gray-600 uppercase tracking-wider">
                     Estudiante
                   </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 font-semibold text-gray-600 uppercase tracking-wider">
                     Proyecto
                   </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 font-semibold text-gray-600 uppercase tracking-wider">
                     Fecha Ingreso
                   </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Estado
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 font-semibold text-gray-600 uppercase tracking-wider">
+                    Editar
                   </th>
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 font-semibold text-gray-600 uppercase tracking-wider"></th>
                 </tr>
               </thead>
               <tbody>
@@ -184,8 +185,20 @@ const Inscripciones = () => {
                           } w-20 h-9 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900`}
                           onClick={handleActualizarEstado}
                         >
-                          {inscripcion.estado ? "Aprobar" : "Rechazar"}
+                          {inscripcion.estado ? "Rechazar" : "Aprobar"}
                         </button>
+                      </td>
+                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <p>
+                          Estado Actual:{" "}
+                          <span
+                            className={`px-2  inline-flex text- leading-5 font-semibold rounded-full  ${
+                              inscripcion.estado ? "bg-green-400" : "bg-red-400"
+                            } text-white`}
+                          >
+                            {inscripcion.estado ? "Aprobado" : "Rechazado"}
+                          </span>
+                        </p>
                       </td>
                     </tr>
                   </>
