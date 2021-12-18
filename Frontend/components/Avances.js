@@ -19,7 +19,7 @@ const Avances = ({ handleClose, proyect }) => {
 
   const { data, loading, error } = useQuery(OBTENER_AVANCES, {
     variables: { proyecto: proyect.id,
-      fetchPolicy: "no-cache"},
+      fetchPolicy: "network-only"},
   });
   console.log(data);
 
