@@ -112,11 +112,12 @@ const Proyectos = ({ usuario }) => {
       <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 py-5">
         {filter === "todos" &&
           data.obtenerProyectos.map((proyect) => (
-            <Proyecto 
-            proyect={proyect}
-            functionClick={(e) => functionClick(e)}
-            usuario={usuario}
-            handleActualizarEstado={handleActualizarEstado}
+            <Proyecto
+              key={proyect.id}
+              proyect={proyect}
+              functionClick={(e) => functionClick(e)}
+              usuario={usuario}
+              handleActualizarEstado={handleActualizarEstado}
             />
           ))}
 
@@ -124,10 +125,11 @@ const Proyectos = ({ usuario }) => {
           data.obtenerProyectos
             .filter((proyect) => proyect.lider === usuario.id)
             .map((proyect) => (
-              <Proyecto 
-              proyect={proyect}
-              functionClick={functionClick}
-              usuario={usuario}
+              <Proyecto
+                key={proyect.id}
+                proyect={proyect}
+                functionClick={functionClick}
+                usuario={usuario}
               />
             ))}
         {showModal && (
