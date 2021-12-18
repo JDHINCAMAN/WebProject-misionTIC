@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import Avances from "../components/Avances";
+//import React, { useState } from "react";
 
 const OBTENER_USUARIO = gql`
   query ObtenerUsuario {
