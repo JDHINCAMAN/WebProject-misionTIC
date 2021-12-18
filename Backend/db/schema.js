@@ -101,12 +101,12 @@ const typeDefs = gql`
   }
 
   input UsuarioInput {
-    identificacion: String!
-    rol: RolUsuario!
-    nombre: String!
-    apellido: String!
-    email: String!
-    password: String!
+    identificacion: String
+    rol: RolUsuario
+    nombre: String
+    apellido: String
+    email: String
+    password: String
   }
 
   enum RolUsuario {
@@ -127,7 +127,7 @@ const typeDefs = gql`
   }
 
   input AvanceInput {
-    descripcion: String!
+    descripcion: String
     observaciones: String
   }
 

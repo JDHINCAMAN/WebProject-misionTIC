@@ -29,7 +29,7 @@ export default function Home() {
   // validar la seccion de usuarios
 
   const { data, loading, error } = useQuery(OBTENER_USUARIO, {
-    fetchPolicy: "no-cache",
+    fetchPolicy: "network-only",
   });
 
   if (loading) return "Cargando...";
@@ -51,7 +51,7 @@ export default function Home() {
             <Proyectos usuario={data.obtenerUsuario} />
           )}
           {seccion === "inscripciones" && <Inscripciones />}
-          {seccion === "configuracion" && <Configuracion />}
+          {seccion === "configuracion" && <Configuracion usuario={data.obtenerUsuario}/>}
           {seccion === "avances" && <Avances />}
         </main>
       </Layout>

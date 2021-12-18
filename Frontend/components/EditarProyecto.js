@@ -1,64 +1,30 @@
 import React, { useState } from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { Field, FieldArray, Formik, Form, useFormik } from "formik";
-import * as Yup from "yup";
 import { useMutation, gql } from "@apollo/client";
 import { toast } from "react-toastify";
+import * as Yup from "yup";
+import { Field, FieldArray, Formik, Form, useFormik } from "formik";
+import { useRouter } from "next/router";
 
-const NUEVO_PROYECTO = gql`
-mutation CrearProyecto($input: ProyectoInput!) {
-  CrearProyecto(input: $input) {
-    id
-    nombreProyecto
-    objetivoGeneral
-    objetivosEspecificos
-    presupuesto
-  }
-}
-`;
-
-const OBTENER_PROYECTOS = gql`
-  query ObtenerProyectos {
-    obtenerProyectos {
+const ACTUALIZAR_PROYECTO = gql`
+  mutation actualizarProyectoLider($id: ID!, $input: ProyectoInput!) {
+    actualizarProyectoLider(id: $id, input: $input) {
       id
       nombreProyecto
       objetivoGeneral
       objetivosEspecificos
       presupuesto
-      fechaInicio
-      fechaFin
-      estadoProyecto
-      faseProyecto
-      lider
     }
   }
 `;
 
 toast.configure();
-const FormCrearProyectos = ({ handleClose }) => {
-  // estate para mostrar modal
-
-  const [crearProyecto] = useMutation(NUEVO_PROYECTO, {
-    update(cache, { data: { CrearProyecto } }) {
-      const { obtenerProyectos } = cache.readQuery({
-        query: OBTENER_PROYECTOS,
-      });
-
-      // reescribir el cache
-      cache.writeQuery({
-        query: OBTENER_PROYECTOS,
-        data: {
-          obtenerProyectos: [CrearProyecto, ...obtenerProyectos],
-        },
-      });
-    }
+const EditarProyecto = ({ handleClose, proyecto }) => {
+  const [actualizarProyectoLider] = useMutation(ACTUALIZAR_PROYECTO, {
+    fetchPolicy: "network-only",
   });
 
-  // Routin
   const router = useRouter();
 
-  // validacion del formulario
   return (
     <>
       <div
@@ -70,15 +36,15 @@ const FormCrearProyectos = ({ handleClose }) => {
           <div className="flex flex-col justify-center">
             <div className="text-center p-5 flex-auto justify-center">
               <h2 className="text-xl font-bold py-4 ">
-                Crear un Nuevo Proyecto
+                Actualizar Proyecto
               </h2>
             </div>
             <Formik
               initialValues={{
-                nombreProyecto: "",
-                objetivoGeneral: "",
-                objetivosEspecificos: [],
-                presupuesto: "",
+                nombreProyecto: proyecto.nombreProyecto,
+                objetivoGeneral: proyecto.objetivoGeneral,
+                objetivosEspecificos: proyecto.objetivosEspecificos,
+                presupuesto: proyecto.presupuesto,
               }}
               validationSchema={Yup.object({
                 nombreProyecto: Yup.string().required(
@@ -102,8 +68,9 @@ const FormCrearProyectos = ({ handleClose }) => {
                   presupuesto,
                 } = values;
                 try {
-                  const { data } = await crearProyecto({
+                  const { data } = await actualizarProyectoLider({
                     variables: {
+                      id: proyecto.id,
                       input: {
                         nombreProyecto,
                         objetivoGeneral,
@@ -112,7 +79,7 @@ const FormCrearProyectos = ({ handleClose }) => {
                       },
                     },
                   });
-                  toast.success("Proyecto Creado Correctamente", {
+                  toast.success("Proyecto Actualizado Correctamente", {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -220,7 +187,7 @@ const FormCrearProyectos = ({ handleClose }) => {
                         type="submit"
                         class="group relative w-1/3 flex justify-center ml-2  py-2 px-6 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
                       >
-                        Crear Proyecto
+                        Actualizar Proyecto
                       </button>
                       <button
                         type="button"
@@ -241,4 +208,4 @@ const FormCrearProyectos = ({ handleClose }) => {
   );
 };
 
-export default FormCrearProyectos;
+export default EditarProyecto;

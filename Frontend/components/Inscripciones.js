@@ -193,7 +193,7 @@ const Inscripciones = () => {
                           Estado Actual:{" "}
                           <span
                             className={`px-2  inline-flex text- leading-5 font-semibold rounded-full  ${
-                              inscripcion.estado ? "bg-green-400" : "bg-red-400"
+                              inscripcion.estado ? "bg-green-600" : "bg-red-600"
                             } text-white`}
                           >
                             {inscripcion.estado ? "Aprobado" : "Rechazado"}

@@ -4,54 +4,29 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const CREAR_AVANCE = gql`
-  mutation crearAvance($input: AvanceInput!, $proyecto: ID!) {
-    crearAvance(proyecto: $proyecto, input: $input) {
+const ACTUALIZAR_AVANCE = gql`
+  mutation actualizarAvance($id: ID!, $input: AvanceInput!) {
+    actualizarAvance(id: $id, input: $input) {
       id
-      fechaAvance
       descripcion
       observaciones
-      creadoPor
-    }
-  }
-`;
-
-const OBTENER_AVANCES = gql`
-  query obtenerAvancesProyecto($proyecto: ID!) {
-    obtenerAvancesProyecto(proyecto: $proyecto) {
-      id
-      fechaAvance
-      descripcion
-      observaciones
-      creadoPor
     }
   }
 `;
 
 toast.configure();
 const MostrarProyecto = ({ handleClose, proyecto, avance, usuario }) => {
-
-  const [crearAvance] = useMutation(CREAR_AVANCE, {
-    update(cache, { data: { crearAvance } }) {
-      const { obtenerAvancesProyecto } = cache.readQuery({
-        query: OBTENER_AVANCES,
-      });
-
-      // reescribir el cache
-      cache.writeQuery({
-        query: OBTENER_AVANCES,
-        data: {
-          obtenerAvancesProyecto: [crearAvance, ...obtenerAvancesProyecto],
-        },
-      });
-    }
+  avance = avance[0];
+  console.log(usuario)
+  const [actualizarAvance] = useMutation(ACTUALIZAR_AVANCE, {
+    fetchPolicy: "network-only",
   });
 
   // validacion del formulario
   const formik = useFormik({
     initialValues: {
-      descripcion: "",
-      observaciones: "",
+      descripcion: avance.descripcion,
+      observaciones: avance.observaciones,
     },
     validationSchema: Yup.object({
      
@@ -60,16 +35,16 @@ const MostrarProyecto = ({ handleClose, proyecto, avance, usuario }) => {
       const { descripcion, observaciones } = valores;
 
       try {
-        const { data } = await crearAvance({
+        const { data } = await actualizarAvance({
           variables: {
-            proyecto: proyecto.id,
+            id: avance.id,
             input: {
               descripcion,
               observaciones,
             },
           },
         });
-        toast.success("Se agregó avance", {
+        toast.success("Se actualizó avance", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -104,7 +79,7 @@ const MostrarProyecto = ({ handleClose, proyecto, avance, usuario }) => {
           <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
             <div className="flex justify-center items-center">
               <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Agregar Avance
+                Actualizar Avance
               </h3>
             </div>
             <div className="flex justify-center items-center">
@@ -125,7 +100,7 @@ const MostrarProyecto = ({ handleClose, proyecto, avance, usuario }) => {
                       className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${
                         formik.errors.descripcion ? "border-red-500" : ""
                       } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
-                      placeholder=""
+                      placeholder="PENDIENTE"
                       value={formik.values.descripcion}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -150,7 +125,7 @@ const MostrarProyecto = ({ handleClose, proyecto, avance, usuario }) => {
                       className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${
                         formik.errors.observaciones ? "border-red-500" : ""
                       } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
-                      placeholder=""
+                      placeholder="PENDIENTE"
                       value={formik.values.observaciones}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -171,7 +146,7 @@ const MostrarProyecto = ({ handleClose, proyecto, avance, usuario }) => {
                   type="submit"
                   className="group relative w-full flex justify-center mr-2 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
                 >
-                  Agregar
+                  Aceptar
                 </button>
                 <button
                   type="button"

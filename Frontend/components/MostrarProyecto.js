@@ -22,7 +22,7 @@ const OBTENER_PROYECTOS = gql`
 `;
 
 toast.configure();
-const MostrarProyecto = ({ handleClose, proyect }) => {
+const MostrarProyecto = ({ handleClose, proyect, usuario }) => {
   const proyecto = proyect[0]
   // estate para mostrar modal
   const [modal, setModal] = React.useState(false);
@@ -131,7 +131,7 @@ const MostrarProyecto = ({ handleClose, proyect }) => {
                   <ConfirmarInscripcion handleClose={() => setModal(false)} proyecto={proyecto}/>
                 )}
                  {showModal && (
-                  <Avances handleClose={() => setShow(false)} proyect={proyecto}/>
+                  <Avances handleClose={() => setShow(false)} proyect={proyecto} usuario={usuario}/>
                 )}
               </div>
             </div>
