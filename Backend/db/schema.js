@@ -127,7 +127,7 @@ const typeDefs = gql`
   }
 
   input AvanceInput {
-    descripcion: String!
+    descripcion: String
     observaciones: String
   }
 

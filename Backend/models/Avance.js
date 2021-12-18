@@ -15,11 +15,9 @@ const AvnaceSchema = mongoose.Schema({
     
     descripcion: {
         type: String,
-        required: true
     },
     observaciones: {
         type: String,
-        required: true
     },
     creadoPor: {
         type: mongoose.Schema.Types.ObjectId,

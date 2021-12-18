@@ -402,13 +402,6 @@ const resolvers = {
     },
 
     actualizarAvance: async (_, { id, input }, ctx) => {
-      // validar que el usuario logeado sea estudiante
-      if (ctx.usuario.rol !== "LIDER") {
-        throw new Error(
-          "No estas autorizado para agregar observaciones"
-        );
-      }
-
       // actualizar el avance
       const nuevoAvance = await Avance.findByIdAndUpdate(id, input, {
         new: true,

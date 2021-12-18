@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import AgregarAvance from "./AgregarAvance";
+import EditarAvance from "./EditarAvance";
 
 const OBTENER_AVANCES = gql`
   query obtenerAvancesProyecto($proyecto: ID!) {
@@ -14,14 +15,24 @@ const OBTENER_AVANCES = gql`
   }
 `;
 
-const Avances = ({ handleClose, proyect }) => {
+const Avances = ({ handleClose, proyect, usuario }) => {
   const [modal, setModal] = React.useState(false);
+  const [show, setShow] = React.useState(false);
+  const [avance, setAvance] = useState([]);
 
   const { data, loading, error } = useQuery(OBTENER_AVANCES, {
     variables: { proyecto: proyect.id,
       fetchPolicy: "network-only"},
   });
   console.log(data);
+
+  const functionClick = (e) => {
+    setShow(true);
+    const avance = data.obtenerAvancesProyecto.filter(
+      (avance) => avance.id === e.target.id
+    );
+    setAvance(avance);
+  };
 
   if (loading) return "Cargando...";
 
@@ -137,7 +148,13 @@ const Avances = ({ handleClose, proyect }) => {
               {modal && (
                 <AgregarAvance
                   handleClose={() => setModal(false)}
-                  proyecto={proyect}
+                  proyecto={proyect} usuario={usuario}
+                />
+              )}
+                {show && (
+                <EditarAvance
+                  handleClose={() => setShow(false)}
+                  proyecto={proyect} avance={avance} usuario={usuario}
                 />
               )}
             </div>
