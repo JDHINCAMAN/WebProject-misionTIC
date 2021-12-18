@@ -1,13 +1,13 @@
 FROM node:carbon-alpine
 
-WORKDIR /app_backend
+WORKDIR /app_frontend
 
 COPY package*.json ./
 
 RUN npm install
 
 COPY . .
-EXPOSE 3001
 
-CMD ["node", "./index.js"]
+EXPOSE 3002
 
+CMD ["node", "./_app.js"]
