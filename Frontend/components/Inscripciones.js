@@ -29,10 +29,7 @@ const OBTENER_INSCRIPCIONES = gql`
 `;
 
 const ACTUALIZAR_ESTADO_INSCRIPCION = gql`
-  mutation actualizarInscripcionEstadoId(
-    $actualizarInscripcionEstadoId: ID!
-    $estado: Boolean!
-  ) {
+  mutation Mutation($actualizarInscripcionEstadoId: ID!, $estado: Boolean!) {
     actualizarInscripcionEstado(
       id: $actualizarInscripcionEstadoId
       estado: $estado
@@ -40,9 +37,18 @@ const ACTUALIZAR_ESTADO_INSCRIPCION = gql`
       id
       proyecto {
         id
+        nombreProyecto
+        objetivoGeneral
+        objetivosEspecificos
+        presupuesto
+        fechaInicio
       }
       estudiante {
         id
+        nombre
+        apellido
+        identificacion
+        email
       }
       estado
       fechaIngreso
@@ -55,26 +61,25 @@ const Inscripciones = () => {
   // state pra el mensaje
   // consulta de apollo
   const { data, loading, error } = useQuery(OBTENER_INSCRIPCIONES);
-  const [actualizarInscripcionEstadoId] = useMutation(
+  const [actualizarInscripcionEstado] = useMutation(
     ACTUALIZAR_ESTADO_INSCRIPCION
   );
 
   const handleActualizarEstado = async (e) => {
     e.preventDefault();
-    console.log(typeof e.target.value);
+    console.log(typeof e.target.id);
     const input = {
       estado: e.target.value === "true" ? false : true,
     };
     try {
-      await actualizarInscripcionEstadoId({
+      await actualizarInscripcionEstado({
         variables: {
           actualizarInscripcionEstadoId: e.target.id,
-          input,
+          estado: input.estado,
         },
       });
       toast.success("Estado actualizado correctamente");
     } catch (error) {
-      console.log(error);
       toast.error(error.message, {
         position: "top-right",
         autoClose: 5000,
@@ -86,10 +91,6 @@ const Inscripciones = () => {
       });
     }
   };
-
-  console.log(data);
-  console.log(loading);
-  console.log(error);
 
   if (loading) return "Cargando...";
 
