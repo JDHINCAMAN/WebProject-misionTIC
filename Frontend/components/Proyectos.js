@@ -109,7 +109,7 @@ const Proyectos = ({ usuario }) => {
       </NavProyectos>
 
       {modal && <FormCrearProyectos handleClose={() => setModal(false)} />}
-      <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 py-5">
+      <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 py-5">
         {filter === "todos" &&
           data.obtenerProyectos.map((proyect) => (
             <Proyecto
