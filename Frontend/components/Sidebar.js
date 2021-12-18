@@ -42,7 +42,7 @@ const Sidebar = ({ setSeccion }) => {
   const { nombre, apellido, email, rol } = data.obtenerUsuario;
 
   return (
-    <aside className="w-64 bg-gray-100 rounded-md">
+    <aside className="w-64 bg-black rounded-md">
       <div className="px-6 pt-8">
         <div className="flex items-center justify-between">
           <a

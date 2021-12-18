@@ -112,7 +112,7 @@ const Proyectos = ({ usuario }) => {
         {data.obtenerProyectos.map((proyect) => (
           <div
             className={`flex flex-col gap-x-5 bg-gray-300 mx-3 my-3 hover:bg-gray-100 w-4/5 h-auto items-center px-5 rounded-xl border-l-8 ${
-              proyect.estadoProyecto ? "border-l-green-400" : "border-l-red-400"
+              proyect.estadoProyecto ? "border-l-green-600" : "border-l-red-600"
             } relative`}
           >
             <button className="flex absolute z-10 right-2.5 top-2.5 ">
@@ -147,7 +147,7 @@ const Proyectos = ({ usuario }) => {
                 Estado Actual:{" "}
                 <span
                   className={`px-2  inline-flex text- leading-5 font-semibold rounded-full  ${
-                    proyect.estadoProyecto ? "bg-green-400" : "bg-red-400"
+                    proyect.estadoProyecto ? "bg-green-600" : "bg-red-600"
                   } text-white`}
                 >
                   {proyect.estadoProyecto ? "Activo" : "Inactivo"}
@@ -163,7 +163,7 @@ const Proyectos = ({ usuario }) => {
                   value={proyect.estadoProyecto}
                   // className="bg-black w-20 h-9 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900"
                   className={`${
-                    proyect.estadoProyecto ? "bg-red-400" : "bg-green-400"
+                    proyect.estadoProyecto ? "bg-red-600" : "bg-green-600"
                   } w-20 h-9 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900`}
                   onClick={handleActualizarEstado}
                 >

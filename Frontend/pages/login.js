@@ -95,7 +95,7 @@ const Login = () => {
   });
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-400">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-black">
     <Head>
       <title>WebProject</title>
       <link rel="icon" href="/media/logo_small_icon_only.png" />

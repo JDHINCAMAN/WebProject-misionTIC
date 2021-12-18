@@ -27,7 +27,7 @@ const Layout = ({ children, setSeccion }) => {
         </div>
       ) : (
         <div className="bg-gray-200 min-h-screen">
-          <div className="flex xl:flex-row sm:flex-col min-h-screen">
+          <div className="flex min-h-screen">
             <Sidebar setSeccion={setSeccion}/>
             <main className="sm:w-2/3 xl:w-4/5 sm:min-h-sreen p-5">
               {children}

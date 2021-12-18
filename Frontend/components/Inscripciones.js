@@ -181,7 +181,7 @@ const Inscripciones = () => {
                           type="button"
                           value={inscripcion.estado}
                           className={`${
-                            inscripcion.estado ? "bg-red-400" : "bg-green-400"
+                            inscripcion.estado ? "bg-red-600" : "bg-green-600"
                           } w-20 h-9 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900`}
                           onClick={handleActualizarEstado}
                         >
