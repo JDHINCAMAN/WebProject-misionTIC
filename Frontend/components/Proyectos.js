@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 import MostrarProyecto from "./MostrarProyecto";
 import FormCrearProyectos from "./FormCrearProyectos";
+import { toast } from "react-toastify";
+import StepperProgress from "./StepperProgress";
+import NavProyectos from "./NavProyectos";
+import Proyecto from "./Proyecto";
 
 const OBTENER_PROYECTOS = gql`
   query ObtenerProyectos {
@@ -20,55 +24,120 @@ const OBTENER_PROYECTOS = gql`
   }
 `;
 
-const Proyectos = () => {
+const ACTUALIZAR_ESTADO_PROYECTO = gql`
+  mutation ActualizarProyectoEstado(
+    $actualizarProyectoEstadoId: ID!
+    $input: ActualizarProyectoInput!
+  ) {
+    actualizarProyectoEstado(id: $actualizarProyectoEstadoId, input: $input) {
+      id
+      nombreProyecto
+      objetivoGeneral
+      objetivosEspecificos
+      presupuesto
+      estadoProyecto
+      lider
+    }
+  }
+`;
+
+const Proyectos = ({ usuario }) => {
   const [modal, setModal] = React.useState(false);
   const [showModal, setShow] = React.useState(false);
   const [proyecto, setProyecto] = useState([]);
 
-  const { data, loading, error } = useQuery(OBTENER_PROYECTOS);
+  const { data, loading, error } = useQuery(OBTENER_PROYECTOS, {
+    fetchPolicy: "network-only",
+  });
+
+  const [actualizarProyectoEstado] = useMutation(ACTUALIZAR_ESTADO_PROYECTO);
+
+  const handleActualizarEstado = async (e) => {
+    e.preventDefault();
+    console.log(typeof e.target.value);
+    const input = {
+      estadoProyecto: e.target.value === "true" ? false : true,
+      faseProyecto: e.target.value === "true" ? "TERMINADO" : "INICIADO",
+    };
+    try {
+      await actualizarProyectoEstado({
+        variables: {
+          actualizarProyectoEstadoId: e.target.id,
+          input,
+        },
+      });
+      toast.success("Estado actualizado correctamente");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
+  const functionClick = (e) => {
+    setShow(true);
+    const proyect = data.obtenerProyectos.filter(
+      (proyect) => proyect.id === e.target.id
+    );
+    setProyecto(proyect);
+  };
 
   if (loading) return "Cargando...";
-
-  const functionClick = e => {
-    setShow(true)
-    const proyect = data.obtenerProyectos.filter(
-      proyect => proyect.id === e.target.id
-    );
-    setProyecto(proyect)
-  }
+  data.obtenerProyectos.map((proyect) => console.log(proyect));
 
   return (
     <>
-      <button
-        type="submit"
-        className="flex self-end py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
-        onClick={() => setModal(true)}
-      >
-        crear proyecto
-      </button>
+      {usuario.rol === "LIDER" && (
+        <button
+          type="submit"
+          className="flex self-end py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
+          onClick={() => setModal(true)}
+        >
+          crear proyecto
+        </button>
+      )}
+
+      <NavProyectos>
+        
+      </NavProyectos>
+
       {modal && <FormCrearProyectos handleClose={() => setModal(false)} />}
       <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 py-5">
-        {data.obtenerProyectos.map((proyect) => (
-          <div className="flex flex-col gap-x-5 bg-gray-300 mx-3 my-3 hover:bg-gray-100 w-4/5 h-auto items-center px-5 rounded-xl">
-            <h1 className="mt-3">{proyect.nombreProyecto}</h1>
-            <div className="px-1 pt-2">
-              <hr className="border border-gray-400 w-4/5" />
-            </div>
-            <h2>{proyect.objetivoGeneral}</h2>
-            <button
-              id={proyect.id}
-              type="submit"
-              className="bg-black my-3 px-5 py-2 w-4/5 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900"
-              onClick={e => functionClick(e)
-              }
-            >
-              Más Información
-            </button>
-          </div>
-        ))}
-         {showModal && (
-              <MostrarProyecto handleClose={() => setShow(false)} proyect={proyecto}/>
-            )}
+        {filter === "todos" &&
+          data.obtenerProyectos.map((proyect) => (
+            <Proyecto
+              key={proyect.id}
+              proyect={proyect}
+              functionClick={(e) => functionClick(e)}
+              usuario={usuario}
+              handleActualizarEstado={handleActualizarEstado}
+            />
+          ))}
+
+        {filter === "mis proyectos" &&
+          data.obtenerProyectos
+            .filter((proyect) => proyect.lider === usuario.id)
+            .map((proyect) => (
+              <Proyecto
+                key={proyect.id}
+                proyect={proyect}
+                functionClick={functionClick}
+                usuario={usuario}
+              />
+            ))}
+        {showModal && (
+          <MostrarProyecto
+            handleClose={() => setShow(false)}
+            proyect={proyecto}
+          />
+        )}
       </div>
     </>
   );

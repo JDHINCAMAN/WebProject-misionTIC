@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { toast } from "react-toastify";
 import ConfirmarInscripcion from "./ConfirmarInscripcion";
+import Avances from "./Avances";
+import { useRouter } from "next/router";
 
 const OBTENER_PROYECTOS = gql`
   query ObtenerProyectos {
@@ -25,7 +27,7 @@ const MostrarProyecto = ({ handleClose, proyect }) => {
   // estate para mostrar modal
   const [modal, setModal] = React.useState(false);
   const [showModal, setShow] = React.useState(false);
-
+  const router = useRouter();
 
   return (
     <>
@@ -34,7 +36,7 @@ const MostrarProyecto = ({ handleClose, proyect }) => {
         className="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
         id="modal-id"
       >
-        <div className="absolute bg-black opacity-80 inset-0 z-0"></div>
+        <div className="absolute bg-black opacity-10 inset-0 z-0"></div>
         <div className="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
         <div className="">
               <div class="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -105,12 +107,18 @@ const MostrarProyecto = ({ handleClose, proyect }) => {
                   </dl>
                 </div>
               </div>
-              <div className="flex justify-center items-center">
+              <div className="flex justify-center items-center mt-3">
                 <button
                   className="group relative w-full flex justify-center mr-2 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
                   onClick={() => setModal(true)}
                 >
                   Inscribirse
+                </button>
+                <button
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-gray-200 hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
+                  onClick={() => setShow(true)}
+                >
+                  Avances
                 </button>
                 <button
                   type="button"
@@ -121,6 +129,9 @@ const MostrarProyecto = ({ handleClose, proyect }) => {
                 </button>
                 {modal && (
                   <ConfirmarInscripcion handleClose={() => setModal(false)} proyecto={proyecto}/>
+                )}
+                 {showModal && (
+                  <Avances handleClose={() => setShow(false)} proyect={proyecto}/>
                 )}
               </div>
             </div>

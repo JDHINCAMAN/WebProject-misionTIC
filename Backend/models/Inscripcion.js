@@ -4,7 +4,7 @@ const InscripcionSchema = mongoose.Schema({
   estado: {
     type: Boolean,
     default: false,
-    required: true,
+    // required: true,
   },
 
   proyecto: {
@@ -14,7 +14,7 @@ const InscripcionSchema = mongoose.Schema({
   },
   estudiante: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Usuarios",
+    ref: "Usuario",
     required: true,
   },
 

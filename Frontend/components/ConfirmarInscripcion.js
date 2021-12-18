@@ -6,16 +6,24 @@ import { useMutation, gql, useQuery } from "@apollo/client";
 import { toast } from "react-toastify";
 
 const NUEVA_INSCRIPCION = gql`
-mutation CrearInscripcion($input: InscripcionInput!) {
-  crearInscripcion(input: $input) {
-    id
-    proyecto
-    estudiante
-    estado
-    fechaIngreso
-    fechaEgreso
+  mutation CrearInscripcion($input: InscripcionInput!) {
+    crearInscripcion(input: $input) {
+      id
+      proyecto {
+        id
+        nombreProyecto
+      }
+      estudiante {
+        id
+        nombre
+        apellido
+        email
+      }
+      estado
+      fechaIngreso
+      fechaEgreso
+    }
   }
-}
 `;
 
 const OBTENER_USUARIO = gql`
@@ -30,18 +38,17 @@ const OBTENER_USUARIO = gql`
   }
 `;
 
-
 toast.configure();
 
 const ConfirmarInscripcion = ({ handleClose, proyecto }) => {
+  const { data } = useQuery(OBTENER_USUARIO);
+  const router = useRouter();
   const [crearInscripcion] = useMutation(NUEVA_INSCRIPCION);
   const [modal, setModal] = React.useState(false);
 
-  const { data, loading, error} = useQuery(OBTENER_USUARIO);
-
-
   // Routin
-  const router = useRouter();
+
+  // if (loading) return "Cargando...";
 
   // validacion del formulario
   const formik = useFormik({
@@ -54,8 +61,7 @@ const ConfirmarInscripcion = ({ handleClose, proyecto }) => {
     //   estudiante: Yup.string().required("Usted debe ser un estudiante"),
     // }),
     onSubmit: async (valores) => {
-
-      const estudiante = data.obtenerUsuario.id
+      const estudiante = data.obtenerUsuario.id;
 
       try {
         const { data } = await crearInscripcion({

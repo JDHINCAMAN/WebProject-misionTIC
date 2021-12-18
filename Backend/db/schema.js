@@ -38,8 +38,8 @@ const typeDefs = gql`
 
   type Inscripcion {
     id: ID
-    proyecto: ID
-    estudiante: ID
+    proyecto: Proyecto
+    estudiante: Usuario
     estado: Boolean
     fechaIngreso: String
     fechaEgreso: String
@@ -136,6 +136,7 @@ const typeDefs = gql`
     obtenerUsuario: Usuario
     obtenerUsuarios: [Usuario]
     obtenerUsuariosPorRol(rol: String!): [Usuario]
+    obtenerUsuariosInscritos(proyecto: ID!): [Usuario]
 
     #Proyectos
     obtenerProyecto(nombreProyecto: String!): Proyecto

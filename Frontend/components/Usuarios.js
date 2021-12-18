@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
+import EditarUsuario from "./EditarUsuario";
 
 const OBTENER_USUARIOS = gql`
-  query    {
+  query {
     obtenerUsuarios {
       id
       nombre
@@ -37,17 +38,23 @@ const people = [
   },
 ];
 const Usuarios = () => {
+  const [modal, setModal] = React.useState(false);
+  const [usuario, setUsuario] = useState([]);
   // consulta de apollo
   const { data, loading, error } = useQuery(OBTENER_USUARIOS);
 
-
   if (loading) return "Cargando...";
+
+  const functionClick = (e) => {
+    setModal(true);
+    const person = data.obtenerUsuarios.filter(
+      person => person.id === e.target.id
+    );
+    setUsuario(person)
+  };
 
   return (
     <>
-      <h1 className="text-3xl text-grey-800 font-light">
-        USUARIOS
-      </h1>
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -115,12 +122,17 @@ const Usuarios = () => {
                         {person.rol}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a
-                          href="#"
-                          className="text-indigo-600 hover:text-indigo-900"
+                        <button
+                          id={person.id}
+                          type="submit"
+                          className="bg-black my-3 px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900"
+                          onClick={(e) => functionClick(e)}
                         >
                           Editar
-                        </a>
+                        </button>
+                        {modal && (
+                          <EditarUsuario handleClose={() => setModal(false)} user={usuario}/>
+                        )}
                       </td>
                     </tr>
                   ))}

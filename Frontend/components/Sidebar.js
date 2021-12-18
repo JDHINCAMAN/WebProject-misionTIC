@@ -42,7 +42,7 @@ const Sidebar = ({ setSeccion }) => {
   const { nombre, apellido, email, rol } = data.obtenerUsuario;
 
   return (
-    <aside className="w-64 bg-gray-100 rounded-md">
+    <aside className="w-64 bg-black rounded-md">
       <div className="px-6 pt-8">
         <div className="flex items-center justify-between">
           <a
@@ -211,52 +211,6 @@ const Sidebar = ({ setSeccion }) => {
                       Inscripciones
                     </a>
                   </div>
-                  <button
-                    className="absolute right-0 flex items-center p-1"
-                    tabIndex="-1"
-                  >
-                    <svg
-                      className="w-5 h-5 stroke-current"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                        d="M15.25 10.75L12 14.25L8.75 10.75"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
-                <div className="pt-2 pl-4">
-                  <ul className="flex flex-col pl-2 text-gray-500 border-l border-gray-700">
-                    <li>
-                      <a
-                        href="#"
-                        className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
-                      >
-                        Pendientes
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
-                      >
-                        Rechazadas
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="inline-block w-full px-4 py-2 text-xs rounded hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
-                      >
-                        Aprobadas
-                      </a>
-                    </li>
-                  </ul>
                 </div>
               </li>
             ))}
@@ -294,44 +248,7 @@ const Sidebar = ({ setSeccion }) => {
               </a>
             </li>
           )}
-          <li className="relative text-gray-500 hover:text-white focus-within:text-white">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
-              <svg
-                className="w-5 h-5 stroke-current"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  d="M5.75 19.2502H6.25C6.80229 19.2502 7.25 18.8025 7.25 18.2502V15.75C7.25 15.1977 6.80229 14.75 6.25 14.75H5.75C5.19772 14.75 4.75 15.1977 4.75 15.75V18.2502C4.75 18.8025 5.19772 19.2502 5.75 19.2502Z"
-                ></path>
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  d="M11.75 19.2502H12.25C12.8023 19.2502 13.25 18.8025 13.25 18.2502V12.75C13.25 12.1977 12.8023 11.75 12.25 11.75H11.75C11.1977 11.75 10.75 12.1977 10.75 12.75V18.2502C10.75 18.8025 11.1977 19.2502 11.75 19.2502Z"
-                ></path>
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  d="M17.75 19.2502H18.25C18.8023 19.2502 19.25 18.8025 19.25 18.2502V5.75C19.25 5.19772 18.8023 4.75 18.25 4.75H17.75C17.1977 4.75 16.75 5.19772 16.75 5.75V18.2502C16.75 18.8025 17.1977 19.2502 17.75 19.2502Z"
-                ></path>
-              </svg>
-            </div>
-            <a
-              href="#"
-              className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
-              onClick={() => setSeccion("avances")}
-            >
-              Avances
-            </a>
-          </li>
+
           <li className="relative text-gray-500 hover:text-white focus-within:text-white">
             <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
               <svg

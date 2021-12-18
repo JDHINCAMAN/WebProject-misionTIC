@@ -27,7 +27,7 @@ export default function Home() {
 
   // validar la seccion de usuarios
 
-  const { data, loading, error } = useQuery(OBTENER_USUARIO,{
+  const { data, loading, error } = useQuery(OBTENER_USUARIO, {
     fetchPolicy: "no-cache",
   });
 
@@ -40,18 +40,20 @@ export default function Home() {
 
   return (
     <div>
-        <Layout setSeccion={setSeccion}>
-          <h1 className="text-3xl text-grey-800 font-light">
-            {seccion.toUpperCase()}
-          </h1>
-          <main className="p-8">
-            {seccion === "usuarios" && <Usuarios />}
-            {seccion === "proyectos" && <Proyectos />}
-            {seccion === "inscripciones" && <Inscripciones />}
-            {seccion === "configuracion" && <Configuracion />}
-            {seccion === "avances" && <Avances />}
-          </main>
-        </Layout>
+      <Layout setSeccion={setSeccion}>
+        <h1 className="text-3xl text-grey-800 font-light">
+          {seccion.toUpperCase()}
+        </h1>
+        <main className="p-8">
+          {seccion === "usuarios" && <Usuarios />}
+          {seccion === "proyectos" && (
+            <Proyectos usuario={data.obtenerUsuario} />
+          )}
+          {seccion === "inscripciones" && <Inscripciones />}
+          {seccion === "configuracion" && <Configuracion />}
+          {seccion === "avances" && <Avances />}
+        </main>
+      </Layout>
     </div>
   );
 }

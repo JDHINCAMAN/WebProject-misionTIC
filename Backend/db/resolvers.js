@@ -45,6 +45,13 @@ const resolvers = {
       return usuarios;
     },
 
+    obtenerUsuariosInscritos: async (_, { proyecto }, ctx) => {
+    // obtener los usuarios inscritos
+      const usuarios = await Inscripcion.find({ proyecto });
+
+      return usuarios;
+    },
+
     // Proyectos
 
     obtenerProyecto: async (_, { id }) => {
@@ -71,7 +78,6 @@ const resolvers = {
 
 
     detallesProyecto: async (_, { id }, ctx) => {
-      console.log(id);
 
       const stringId = id.toString();
 
@@ -82,7 +88,6 @@ const resolvers = {
         throw new Error("No eres el lider de este proyecto");
       }
 
-      console.log(typeof proyecto);
 
       proyecto.avances = await Avance.find({ proyecto: id });
       proyecto.inscripciones = await Inscripcion.find({ proyecto: id });
@@ -110,7 +115,7 @@ const resolvers = {
       });
       const inscripciones = await Inscripcion.find({
         proyecto: { $in: proyectos },
-      });
+      }).populate('estudiante').populate('proyecto');
       return inscripciones;
     },
 
@@ -127,6 +132,12 @@ const resolvers = {
       // validar que el usuario logeado sea lider
       if (ctx.usuario.rol !== "LIDER") {
         throw new Error("No estas autorizado");
+      }
+
+      // validar que el proyecto no exista
+      const existeProyecto = await Proyecto.findOne({ nombreProyecto: input.nombreProyecto });
+      if (existeProyecto) {
+        throw new Error("El proyecto ya existe");
       }
       try {
         // Guardarlo en la base de datos
@@ -228,6 +239,11 @@ const resolvers = {
         throw new Error("El password es incorrecto");
       }
 
+      // validar que el usuario este activo
+      if (existeUsuario.estado !== "AUTORIZADO") {
+        throw new Error("El usuario no esta Autorizado");
+      }
+
       // Crear y firmar el JWT
       return {
         token: crearToken(existeUsuario, process.env.JWT_SECRET, "24h"),
@@ -292,8 +308,8 @@ const resolvers = {
         estudiante: ctx.usuario.id,
         proyecto: input.proyecto,
       });
-      if (inscripcion) {
-        throw new Error("Ya estas inscrito en este proyecto");
+      if (inscripcion && inscripcion.estado===false) {
+        throw new Error(`Ya tienes una solicitud de incripcion a este proyecto, (estado: Pendiente)`);
       }
       
 
