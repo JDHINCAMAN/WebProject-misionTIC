@@ -56,7 +56,6 @@ const Proyectos = ({ usuario }) => {
 
   const handleActualizarEstado = async (e) => {
     e.preventDefault();
-    console.log(typeof e.target.value);
     const input = {
       estadoProyecto: e.target.value === "true" ? false : true,
       faseProyecto: e.target.value === "true" ? "TERMINADO" : "INICIADO",
@@ -92,7 +91,6 @@ const Proyectos = ({ usuario }) => {
   };
 
   if (loading) return "Cargando...";
-  data.obtenerProyectos.map((proyect) => console.log(proyect));
 
   return (
     <>
