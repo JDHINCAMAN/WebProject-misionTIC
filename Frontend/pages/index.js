@@ -8,9 +8,6 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import Avances from "../components/Avances";
-import InscripcionesPendientes from "../components/InscripcionesPendientes";
-import InscripcionesRechazadas from "../components/InscripcionesRechazadas";
-import InscripcionesAprobadas from "../components/InscripcionesAprobadas";
 
 const OBTENER_USUARIO = gql`
   query ObtenerUsuario {
@@ -55,9 +52,6 @@ export default function Home() {
           {seccion === "inscripciones" && <Inscripciones />}
           {seccion === "configuracion" && <Configuracion />}
           {seccion === "avances" && <Avances />}
-          {seccion === "inscripcionesPendientes" && <InscripcionesPendientes />}
-          {seccion === "inscripcionesRechazadas" && <InscripcionesRechazadas />}
-          {seccion === "inscripcionesAprobadas" && <InscripcionesAprobadas />}
         </main>
       </Layout>
     </div>

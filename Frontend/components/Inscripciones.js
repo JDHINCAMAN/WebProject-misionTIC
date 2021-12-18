@@ -1,5 +1,6 @@
 import React from "react";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import { toast } from "react-toastify";
 
 const OBTENER_INSCRIPCIONES = gql`
   query ObtenerInscripcionesLider {
@@ -27,10 +28,65 @@ const OBTENER_INSCRIPCIONES = gql`
   }
 `;
 
+const ACTUALIZAR_ESTADO_INSCRIPCION = gql`
+  mutation actualizarInscripcionEstadoId(
+    $actualizarInscripcionEstadoId: ID!
+    $estado: Boolean!
+  ) {
+    actualizarInscripcionEstado(
+      id: $actualizarInscripcionEstadoId
+      estado: $estado
+    ) {
+      id
+      proyecto {
+        id
+      }
+      estudiante {
+        id
+      }
+      estado
+      fechaIngreso
+      fechaEgreso
+    }
+  }
+`;
+
 const Inscripciones = () => {
   // state pra el mensaje
   // consulta de apollo
   const { data, loading, error } = useQuery(OBTENER_INSCRIPCIONES);
+  const [actualizarInscripcionEstadoId] = useMutation(
+    ACTUALIZAR_ESTADO_INSCRIPCION
+  );
+
+  const handleActualizarEstado = async (e) => {
+    e.preventDefault();
+    console.log(typeof e.target.value);
+    const input = {
+      estado: e.target.value === "true" ? false : true,
+    };
+    try {
+      await actualizarInscripcionEstadoId({
+        variables: {
+          actualizarInscripcionEstadoId: e.target.id,
+          input,
+        },
+      });
+      toast.success("Estado actualizado correctamente");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
   console.log(data);
   console.log(loading);
   console.log(error);
@@ -56,9 +112,6 @@ const Inscripciones = () => {
                   </th>
                   <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     Estado
-                  </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 hover:bg-yellow-500 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Acciones
                   </th>
                 </tr>
               </thead>
@@ -104,17 +157,35 @@ const Inscripciones = () => {
                         </p>
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          {inscripcion.estado === false ? "Inactivo" : "Activo"}
-                        </p>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a
-                          href="#"
-                          className="text-indigo-600 hover:text-indigo-900"
+                        <button className="flex absolute z-10 right-2.5 top-2.5 ">
+                          <svg
+                            className="ml-8 h-6 w-6 text-gray-500 hover:text-gray-700"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-pencil-square"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                            <path
+                              fill-rule="evenodd"
+                              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                            />
+                          </svg>
+                        </button>
+
+                        <button
+                          id={inscripcion.id}
+                          type="button"
+                          value={inscripcion.estado}
+                          className={`${
+                            inscripcion.estado ? "bg-red-400" : "bg-green-400"
+                          } w-20 h-9 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-gray-900`}
+                          onClick={handleActualizarEstado}
                         >
-                          Gestionar
-                        </a>
+                          {inscripcion.estado ? "Aprobar" : "Rechazar"}
+                        </button>
                       </td>
                     </tr>
                   </>
