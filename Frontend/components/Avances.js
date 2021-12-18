@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import AgregarAvance from "./AgregarAvance";
+import EditarAvance from "./EditarAvance";
 
 const OBTENER_AVANCES = gql`
   query obtenerAvancesProyecto($proyecto: ID!) {
@@ -14,13 +15,25 @@ const OBTENER_AVANCES = gql`
   }
 `;
 
-const Avances = ({ handleClose, proyect }) => {
+const Avances = ({ handleClose, proyect, usuario }) => {
   const [modal, setModal] = React.useState(false);
+  const [show, setShow] = React.useState(false);
+  const [avance, setAvance] = useState([]);
 
   const { data, loading, error } = useQuery(OBTENER_AVANCES, {
-    variables: { proyecto: proyect.id },
+    variables: { proyecto: proyect.id,
+      fetchPolicy: "network-only"},
   });
+  
   console.log(data);
+
+  const functionClick = (e) => {
+    setShow(true);
+    const avance = data.obtenerAvancesProyecto.filter(
+      (avance) => avance.id === e.target.id
+    );
+    setAvance(avance);
+  };
 
   if (loading) return "Cargando...";
 
@@ -120,12 +133,14 @@ const Avances = ({ handleClose, proyect }) => {
               </div>
             </div>
             <div className="flex justify-end items-end mt-3">
+            {usuario.rol === "ESTUDIANTE" && (
               <button
                 className="group relative w-auto flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-gray-200 hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
                 onClick={() => setModal(true)}
               >
                 Agregar Avance
               </button>
+            )}
               <button
                 type="button"
                 className="group relative w-auto flex justify-center ml-2 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
@@ -133,10 +148,17 @@ const Avances = ({ handleClose, proyect }) => {
               >
                 Cancelar
               </button>
+              
               {modal && (
                 <AgregarAvance
                   handleClose={() => setModal(false)}
-                  proyecto={proyect}
+                  proyecto={proyect} usuario={usuario}
+                />
+              )}
+                {show && (
+                <EditarAvance
+                  handleClose={() => setShow(false)}
+                  proyecto={proyect} avance={avance} usuario={usuario}
                 />
               )}
             </div>

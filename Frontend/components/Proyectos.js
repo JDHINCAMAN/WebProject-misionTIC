@@ -46,6 +46,8 @@ const Proyectos = ({ usuario }) => {
   const [showModal, setShow] = React.useState(false);
   const [proyecto, setProyecto] = useState([]);
 
+  const [filter, setFilter] = useState("todos");
+
   const { data, loading, error } = useQuery(OBTENER_PROYECTOS, {
     fetchPolicy: "network-only",
   });
@@ -54,7 +56,6 @@ const Proyectos = ({ usuario }) => {
 
   const handleActualizarEstado = async (e) => {
     e.preventDefault();
-    console.log(typeof e.target.value);
     const input = {
       estadoProyecto: e.target.value === "true" ? false : true,
       faseProyecto: e.target.value === "true" ? "TERMINADO" : "INICIADO",
@@ -90,7 +91,6 @@ const Proyectos = ({ usuario }) => {
   };
 
   if (loading) return "Cargando...";
-  data.obtenerProyectos.map((proyect) => console.log(proyect));
 
   return (
     <>
@@ -104,12 +104,12 @@ const Proyectos = ({ usuario }) => {
         </button>
       )}
 
-      <NavProyectos>
+      <NavProyectos filter={filter} setFilter={setFilter}>
         
       </NavProyectos>
 
       {modal && <FormCrearProyectos handleClose={() => setModal(false)} />}
-      <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 py-5">
+      <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 py-5">
         {filter === "todos" &&
           data.obtenerProyectos.map((proyect) => (
             <Proyecto
@@ -136,6 +136,7 @@ const Proyectos = ({ usuario }) => {
           <MostrarProyecto
             handleClose={() => setShow(false)}
             proyect={proyecto}
+            usuario={usuario}
           />
         )}
       </div>
