@@ -17,6 +17,7 @@ const ACTUALIZAR_AVANCE = gql`
 toast.configure();
 const MostrarProyecto = ({ handleClose, proyecto, avance, usuario }) => {
   avance = avance[0];
+  console.log(usuario)
   const [actualizarAvance] = useMutation(ACTUALIZAR_AVANCE, {
     fetchPolicy: "network-only",
   });

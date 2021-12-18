@@ -46,7 +46,7 @@ const resolvers = {
     },
 
     obtenerUsuariosInscritos: async (_, { proyecto }, ctx) => {
-    // obtener los usuarios inscritos
+      // obtener los usuarios inscritos
       const usuarios = await Inscripcion.find({ proyecto });
 
       return usuarios;
@@ -57,11 +57,15 @@ const resolvers = {
     obtenerProyecto: async (_, { id }) => {
       return await Proyecto.findById(id);
     },
-    
+
     obtenerProyectos: async (_, {}, ctx) => {
       // validar que el usuario logeado sea administrador
       if (ctx.usuario.estado !== "AUTORIZADO") {
-        throw new Error("No estas autorizado para usar esta secccion, el estado de su cuenta es '" + ctx.usuario.estado+"'");
+        throw new Error(
+          "No estas autorizado para usar esta secccion, el estado de su cuenta es '" +
+            ctx.usuario.estado +
+            "'"
+        );
       }
       // obtener los proyectos
       const proyectos = await Proyecto.find({});
@@ -76,9 +80,7 @@ const resolvers = {
       return proyectos;
     },
 
-
     detallesProyecto: async (_, { id }, ctx) => {
-
       const stringId = id.toString();
 
       // obtener los proyectos del usuario logeado
@@ -88,11 +90,9 @@ const resolvers = {
         throw new Error("No eres el lider de este proyecto");
       }
 
-
       proyecto.avances = await Avance.find({ proyecto: id });
       proyecto.inscripciones = await Inscripcion.find({ proyecto: id });
       // mostrar informacion del lider
-
 
       return proyecto;
     },
@@ -115,7 +115,9 @@ const resolvers = {
       });
       const inscripciones = await Inscripcion.find({
         proyecto: { $in: proyectos },
-      }).populate('estudiante').populate('proyecto');
+      })
+        .populate("estudiante")
+        .populate("proyecto");
       return inscripciones;
     },
 
@@ -135,7 +137,9 @@ const resolvers = {
       }
 
       // validar que el proyecto no exista
-      const existeProyecto = await Proyecto.findOne({ nombreProyecto: input.nombreProyecto });
+      const existeProyecto = await Proyecto.findOne({
+        nombreProyecto: input.nombreProyecto,
+      });
       if (existeProyecto) {
         throw new Error("El proyecto ya existe");
       }
@@ -278,6 +282,11 @@ const resolvers = {
         throw new Error("El proyecto no existe");
       }
 
+      //verificar estado del proyecto
+      if (proyecto.estado !== "ACTIVO") {
+        throw new Error("El proyecto no está activo");
+      }
+      
       //verificar que el proyectto lo lidere el usuario logeado
       if (proyecto.lider.toString() !== ctx.usuario.id.toString()) {
         throw new Error("No estas autorizado para editar este proyecto");
@@ -308,10 +317,11 @@ const resolvers = {
         estudiante: ctx.usuario.id,
         proyecto: input.proyecto,
       });
-      if (inscripcion && inscripcion.estado===false) {
-        throw new Error(`Ya tienes una solicitud de incripcion a este proyecto, (estado: Pendiente)`);
+      if (inscripcion && inscripcion.estado === false) {
+        throw new Error(
+          `Ya tienes una solicitud de incripcion a este proyecto, (estado: Pendiente)`
+        );
       }
-      
 
       // guardar en base de datos
       try {
@@ -359,7 +369,7 @@ const resolvers = {
     },
 
     //Avances
-    crearAvance: async (_, { input, proyecto}, ctx) => {
+    crearAvance: async (_, { input, proyecto }, ctx) => {
       // validar que el usuario logeado sea estudiante
       if (ctx.usuario.rol !== "ESTUDIANTE") {
         throw new Error(
@@ -391,8 +401,8 @@ const resolvers = {
       // guardar en base de datos
       try {
         const newAvance = new Avance(input);
-        newAvance.creadoPor = ctx.usuario.id
-        newAvance.proyecto = proyecto
+        newAvance.creadoPor = ctx.usuario.id;
+        newAvance.proyecto = proyecto;
 
         newAvance.save();
         return newAvance;

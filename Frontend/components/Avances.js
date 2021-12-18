@@ -24,6 +24,7 @@ const Avances = ({ handleClose, proyect, usuario }) => {
     variables: { proyecto: proyect.id,
       fetchPolicy: "network-only"},
   });
+  
   console.log(data);
 
   const functionClick = (e) => {

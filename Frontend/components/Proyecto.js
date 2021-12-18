@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import EditarProyecto from "./EditarProyecto";
 import StepperProgress from "./StepperProgress";
 
 const Proyecto = ({
@@ -7,6 +8,9 @@ const Proyecto = ({
   usuario,
   handleActualizarEstado,
 }) => {
+
+  const [modal, setModal] = React.useState(false);
+
   return (
     <div>
       <div
@@ -14,7 +18,8 @@ const Proyecto = ({
           proyect.estadoProyecto ? "border-l-green-400" : "border-l-red-400"
         } relative`}
       >
-        <button className="flex absolute z-10 right-2.5 top-2.5 ">
+        {usuario.rol === "LIDER" && (
+        <button className="flex absolute z-10 right-2.5 top-2.5 " onClick={() => setModal(true)}>
           <svg
             class="ml-8 h-6 w-6 text-gray-500 hover:text-gray-700"
             viewBox="0 0 24 24"
@@ -31,6 +36,7 @@ const Proyecto = ({
             <line x1="16" y1="5" x2="19" y2="8" />
           </svg>
         </button>
+        )}
 
         <div className="flex items-center mt-3">
           <h1 className="">{proyect.nombreProyecto}</h1>
@@ -82,6 +88,7 @@ const Proyecto = ({
         <div className="my-3 flex w-full justify-center">
           <StepperProgress faseProyecto={proyect.faseProyecto} />
         </div>
+        {modal && <EditarProyecto handleClose={() => setModal(false)} proyecto={proyect}/>}
       </div>
     </div>
   );

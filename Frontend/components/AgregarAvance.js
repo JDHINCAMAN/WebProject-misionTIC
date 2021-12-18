@@ -16,10 +16,35 @@ const CREAR_AVANCE = gql`
   }
 `;
 
+const OBTENER_AVANCES = gql`
+  query obtenerAvancesProyecto($proyecto: ID!) {
+    obtenerAvancesProyecto(proyecto: $proyecto) {
+      id
+      fechaAvance
+      descripcion
+      observaciones
+      creadoPor
+    }
+  }
+`;
+
 toast.configure();
 const MostrarProyecto = ({ handleClose, proyecto, avance, usuario }) => {
+
   const [crearAvance] = useMutation(CREAR_AVANCE, {
-    fetchPolicy: "network-only",
+    update(cache, { data: { crearAvance } }) {
+      const { obtenerAvancesProyecto } = cache.readQuery({
+        query: OBTENER_AVANCES,
+      });
+
+      // reescribir el cache
+      cache.writeQuery({
+        query: OBTENER_AVANCES,
+        data: {
+          obtenerAvancesProyecto: [crearAvance, ...obtenerAvancesProyecto],
+        },
+      });
+    }
   });
 
   // validacion del formulario
