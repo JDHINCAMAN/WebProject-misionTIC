@@ -150,7 +150,7 @@ const MostrarProyecto = ({ handleClose, proyecto, avance, usuario }) => {
                       className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 ${
                         formik.errors.observaciones ? "border-red-500" : ""
                       } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 focus:z-10 sm:text-sm`}
-                      placeholder="PENDIENTE"
+                      placeholder=""
                       value={formik.values.observaciones}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
