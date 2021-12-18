@@ -18,7 +18,8 @@ const Avances = ({ handleClose, proyect }) => {
   const [modal, setModal] = React.useState(false);
 
   const { data, loading, error } = useQuery(OBTENER_AVANCES, {
-    variables: { proyecto: proyect.id },
+    variables: { proyecto: proyect.id,
+      fetchPolicy: "no-cache"},
   });
   console.log(data);
 

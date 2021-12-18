@@ -18,7 +18,7 @@ const CREAR_AVANCE = gql`
 
 toast.configure();
 const MostrarProyecto = ({ handleClose, proyecto }) => {
-  const [crearAvance] = useMutation(CREAR_AVANCE);
+  const [crearAvance] = useMutation(CREAR_AVANCE, {fetchPolicy: "no-cache"})
 
   // validacion del formulario
   const formik = useFormik({
