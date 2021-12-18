@@ -136,6 +136,7 @@ const FormCrearProyectos = ({ handleClose }) => {
                     progress: undefined,
                   });
                 }
+                handleClose()
               }}
               render={({ values, errors }) => (
                 <Form className="flex flex-col">
