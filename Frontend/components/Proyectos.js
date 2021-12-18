@@ -5,6 +5,7 @@ import FormCrearProyectos from "./FormCrearProyectos";
 import { toast } from "react-toastify";
 import StepperProgress from "./StepperProgress";
 import NavProyectos from "./NavProyectos";
+import Proyecto from "./Proyecto";
 
 const OBTENER_PROYECTOS = gql`
   query ObtenerProyectos {
@@ -45,6 +46,8 @@ const Proyectos = ({ usuario }) => {
   const [showModal, setShow] = React.useState(false);
   const [proyecto, setProyecto] = useState([]);
 
+  const [filter, setFilter] = useState("todos");
+
   const { data, loading, error } = useQuery(OBTENER_PROYECTOS, {
     fetchPolicy: "network-only",
   });
@@ -53,7 +56,6 @@ const Proyectos = ({ usuario }) => {
 
   const handleActualizarEstado = async (e) => {
     e.preventDefault();
-    console.log(typeof e.target.value);
     const input = {
       estadoProyecto: e.target.value === "true" ? false : true,
       faseProyecto: e.target.value === "true" ? "TERMINADO" : "INICIADO",
@@ -89,7 +91,6 @@ const Proyectos = ({ usuario }) => {
   };
 
   if (loading) return "Cargando...";
-  data.obtenerProyectos.map((proyect) => console.log(proyect));
 
   return (
     <>
