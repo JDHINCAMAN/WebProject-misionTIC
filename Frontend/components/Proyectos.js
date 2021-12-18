@@ -46,6 +46,8 @@ const Proyectos = ({ usuario }) => {
   const [showModal, setShow] = React.useState(false);
   const [proyecto, setProyecto] = useState([]);
 
+  const [filter, setFilter] = useState("todos");
+
   const { data, loading, error } = useQuery(OBTENER_PROYECTOS, {
     fetchPolicy: "network-only",
   });
@@ -104,7 +106,7 @@ const Proyectos = ({ usuario }) => {
         </button>
       )}
 
-      <NavProyectos>
+      <NavProyectos filter={filter} setFilter={setFilter}>
         
       </NavProyectos>
 
